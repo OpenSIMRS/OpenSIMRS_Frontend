@@ -97,7 +97,7 @@ Modul Dashboard & Laporan adalah sistem informasi eksekutif yang menyajikan data
 
 ## 4. Skema Data
 
-### 4.1 Konfigurasi Dashboard (tbl_dashboard_config)
+### 4.1 Konfigurasi Dashboard (dashboard_config)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -110,15 +110,15 @@ Modul Dashboard & Laporan adalah sistem informasi eksekutif yang menyajikan data
 | refresh_interval | INT | Ya | Interval refresh (detik) |
 | role_access | JSON | Ya | Role yang dapat mengakses |
 | is_active | BOOLEAN | Ya | Status aktif |
-| created_by | UUID | Ya | FK ke tbl_user |
+| created_by | UUID | Ya | FK ke user |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 4.2 Widget Dashboard (tbl_dashboard_widget)
+### 4.2 Widget Dashboard (dashboard_widget)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| dashboard_id | UUID | Ya | FK ke tbl_dashboard_config |
+| dashboard_id | UUID | Ya | FK ke dashboard_config |
 | kode | VARCHAR(20) | Ya | Kode widget |
 | nama | VARCHAR(100) | Ya | Nama widget |
 | jenis | ENUM | Ya | 'NUMBER','CHART','TABLE','MAP','GAUGE' |
@@ -131,7 +131,7 @@ Modul Dashboard & Laporan adalah sistem informasi eksekutif yang menyajikan data
 | is_active | BOOLEAN | Ya | Status aktif |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 4.3 Template Laporan (tbl_laporan_template)
+### 4.3 Template Laporan (laporan_template)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -149,28 +149,28 @@ Modul Dashboard & Laporan adalah sistem informasi eksekutif yang menyajikan data
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 4.4 Riwayat Generate Laporan (tbl_laporan_history)
+### 4.4 Riwayat Generate Laporan (laporan_history)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| template_id | UUID | Ya | FK ke tbl_laporan_template |
+| template_id | UUID | Ya | FK ke laporan_template |
 | parameter_value | JSON | Ya | Nilai parameter yang digunakan |
 | tanggal_generate | DATETIME | Ya | Waktu generate |
-| user_id | UUID | Ya | FK ke tbl_user |
+| user_id | UUID | Ya | FK ke user |
 | file_path | VARCHAR(255) | Tidak | Path file hasil |
 | status | ENUM | Ya | 'PENDING','PROSES','SELESAI','GAGAL' |
 | error_message | TEXT | Tidak | Pesan error jika gagal |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 4.5 Data Agregat Harian (tbl_agregat_harian)
+### 4.5 Data Agregat Harian (agregat_harian)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | tanggal | DATE | Ya | Tanggal |
 | metrik | VARCHAR(50) | Ya | Nama metrik |
-| unit_id | UUID | Tidak | FK ke tbl_unit |
+| unit_id | UUID | Tidak | FK ke unit |
 | nilai | DECIMAL(15,2) | Ya | Nilai metrik |
 | keterangan | JSON | Tidak | Detail tambahan |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |

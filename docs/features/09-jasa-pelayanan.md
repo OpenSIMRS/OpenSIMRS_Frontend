@@ -85,30 +85,30 @@ Modul Jasa Pelayanan adalah sistem informasi yang mengelola perhitungan dan dist
 
 ## 4. Skema Data
 
-### 4.1 Pelaksana Tindakan (tbl_pelaksana_tindakan)
+### 4.1 Pelaksana Tindakan (pelaksana_tindakan)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| billing_detail_id | UUID | Ya | FK ke tbl_billing_detail |
-| tindakan_id | UUID | Ya | FK ke tbl_master_tindakan |
-| pegawai_id | UUID | Ya | FK ke tbl_pegawai |
+| billing_detail_id | UUID | Ya | FK ke billing_detail |
+| tindakan_id | UUID | Ya | FK ke master_tindakan |
+| pegawai_id | UUID | Ya | FK ke pegawai |
 | peran | ENUM | Ya | 'OPERATOR','ASISTEN_1','ASISTEN_2','ANESTESI','PERAWAT','LAINNYA' |
 | persentase | DECIMAL(5,2) | Ya | Persentase jasa |
 | nilai_jasa | DECIMAL(15,2) | Ya | Nilai jasa yang diterima |
 | status | ENUM | Ya | 'PENDING','CALCULATED','PAID' |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
-| created_by | UUID | Ya | FK ke tbl_user |
+| created_by | UUID | Ya | FK ke user |
 
-### 4.2 Formula Jasa (tbl_formula_jasa)
+### 4.2 Formula Jasa (formula_jasa)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | kode | VARCHAR(20) | Ya | Kode formula |
 | nama | VARCHAR(100) | Ya | Nama formula |
-| kategori_tindakan_id | UUID | Ya | FK ke tbl_kategori_tindakan |
+| kategori_tindakan_id | UUID | Ya | FK ke kategori_tindakan |
 | komponen_jasa_medis | DECIMAL(5,2) | Ya | Persentase jasa medis dari tarif |
 | komponen_jasa_sarana | DECIMAL(5,2) | Ya | Persentase jasa sarana |
 | komponen_jasa_rs | DECIMAL(5,2) | Ya | Persentase untuk RS |
@@ -118,23 +118,23 @@ Modul Jasa Pelayanan adalah sistem informasi yang mengelola perhitungan dan dist
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 4.3 Distribusi Formula per Peran (tbl_distribusi_formula)
+### 4.3 Distribusi Formula per Peran (distribusi_formula)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| formula_id | UUID | Ya | FK ke tbl_formula_jasa |
+| formula_id | UUID | Ya | FK ke formula_jasa |
 | peran | ENUM | Ya | 'OPERATOR','ASISTEN_1','ASISTEN_2','ANESTESI','PERAWAT' |
 | persentase | DECIMAL(5,2) | Ya | Persentase dari komponen jasa medis |
 | is_active | BOOLEAN | Ya | Status aktif |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 4.4 Akumulasi Jasa (tbl_akumulasi_jasa)
+### 4.4 Akumulasi Jasa (akumulasi_jasa)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| pegawai_id | UUID | Ya | FK ke tbl_pegawai |
+| pegawai_id | UUID | Ya | FK ke pegawai |
 | periode_tahun | INT | Ya | Tahun periode |
 | periode_bulan | INT | Ya | Bulan periode |
 | total_jasa_medis | DECIMAL(15,2) | Ya | Total jasa medis |
@@ -145,39 +145,39 @@ Modul Jasa Pelayanan adalah sistem informasi yang mengelola perhitungan dan dist
 | potongan_lainnya | DECIMAL(15,2) | Tidak | Potongan lainnya |
 | netto | DECIMAL(15,2) | Ya | Jumlah bersih |
 | status | ENUM | Ya | 'DRAFT','APPROVED','PAID' |
-| approved_by | UUID | Tidak | FK ke tbl_user |
+| approved_by | UUID | Tidak | FK ke user |
 | approved_at | DATETIME | Tidak | Waktu approval |
 | paid_at | DATETIME | Tidak | Waktu pembayaran |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 4.5 Detail Akumulasi (tbl_akumulasi_jasa_detail)
+### 4.5 Detail Akumulasi (akumulasi_jasa_detail)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| akumulasi_id | UUID | Ya | FK ke tbl_akumulasi_jasa |
-| pelaksana_id | UUID | Ya | FK ke tbl_pelaksana_tindakan |
+| akumulasi_id | UUID | Ya | FK ke akumulasi_jasa |
+| pelaksana_id | UUID | Ya | FK ke pelaksana_tindakan |
 | tanggal | DATE | Ya | Tanggal tindakan |
-| billing_id | UUID | Ya | FK ke tbl_billing |
+| billing_id | UUID | Ya | FK ke billing |
 | pasien_nama | VARCHAR(100) | Ya | Nama pasien |
 | tindakan_nama | VARCHAR(150) | Ya | Nama tindakan |
 | peran | VARCHAR(50) | Ya | Peran dalam tindakan |
 | nilai_jasa | DECIMAL(15,2) | Ya | Nilai jasa |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 4.6 Template Peran Tindakan (tbl_template_peran)
+### 4.6 Template Peran Tindakan (template_peran)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| tindakan_id | UUID | Ya | FK ke tbl_master_tindakan |
+| tindakan_id | UUID | Ya | FK ke master_tindakan |
 | peran | ENUM | Ya | 'OPERATOR','ASISTEN_1','ASISTEN_2','ANESTESI','PERAWAT' |
 | is_required | BOOLEAN | Ya | Wajib diisi |
-| default_pegawai_id | UUID | Tidak | FK ke tbl_pegawai (default) |
+| default_pegawai_id | UUID | Tidak | FK ke pegawai (default) |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 4.7 Periode Jasa (tbl_periode_jasa)
+### 4.7 Periode Jasa (periode_jasa)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -187,7 +187,7 @@ Modul Jasa Pelayanan adalah sistem informasi yang mengelola perhitungan dan dist
 | tanggal_mulai | DATE | Ya | Tanggal awal periode |
 | tanggal_akhir | DATE | Ya | Tanggal akhir periode |
 | status | ENUM | Ya | 'OPEN','CALCULATING','CLOSED','PAID' |
-| closed_by | UUID | Tidak | FK ke tbl_user |
+| closed_by | UUID | Tidak | FK ke user |
 | closed_at | DATETIME | Tidak | Waktu closing |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 

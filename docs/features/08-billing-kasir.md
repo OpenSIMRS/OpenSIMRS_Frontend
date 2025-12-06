@@ -83,16 +83,16 @@ Modul Billing/Kasir adalah sistem informasi yang mengelola seluruh proses penagi
 
 ## 4. Skema Data
 
-### 4.1 Billing (tbl_billing)
+### 4.1 Billing (billing)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | no_billing | VARCHAR(20) | Ya | Nomor billing |
-| kunjungan_id | UUID | Ya | FK ke tbl_kunjungan |
-| rawat_inap_id | UUID | Tidak | FK ke tbl_rawat_inap |
-| pasien_id | UUID | Ya | FK ke tbl_master_pasien |
-| penjamin_id | UUID | Ya | FK ke tbl_penjamin |
+| kunjungan_id | UUID | Ya | FK ke kunjungan |
+| rawat_inap_id | UUID | Tidak | FK ke rawat_inap |
+| pasien_id | UUID | Ya | FK ke master_pasien |
+| penjamin_id | UUID | Ya | FK ke penjamin |
 | jenis_billing | ENUM | Ya | 'RAWAT_JALAN','RAWAT_INAP','IGD' |
 | tanggal_billing | DATE | Ya | Tanggal billing dibuat |
 | total_tagihan | DECIMAL(15,2) | Ya | Total tagihan kotor |
@@ -104,89 +104,89 @@ Modul Billing/Kasir adalah sistem informasi yang mengelola seluruh proses penagi
 | sisa_tagihan | DECIMAL(15,2) | Ya | Sisa tagihan |
 | status | ENUM | Ya | 'OPEN','CLOSED','PENDING','CANCEL' |
 | closed_at | DATETIME | Tidak | Waktu closing |
-| closed_by | UUID | Tidak | FK ke tbl_user |
+| closed_by | UUID | Tidak | FK ke user |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
-| created_by | UUID | Ya | FK ke tbl_user |
+| created_by | UUID | Ya | FK ke user |
 
-### 4.2 Detail Billing (tbl_billing_detail)
+### 4.2 Detail Billing (billing_detail)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| billing_id | UUID | Ya | FK ke tbl_billing |
+| billing_id | UUID | Ya | FK ke billing |
 | tanggal | DATE | Ya | Tanggal transaksi |
-| unit_id | UUID | Ya | FK ke tbl_unit |
+| unit_id | UUID | Ya | FK ke unit |
 | kategori | ENUM | Ya | 'REGISTRASI','KONSULTASI','TINDAKAN','LAB','RADIOLOGI','OBAT','KAMAR','MAKAN','LAIN' |
 | referensi_tipe | VARCHAR(50) | Ya | Tipe referensi (resep, order_lab, dll) |
 | referensi_id | UUID | Ya | ID referensi |
 | item_id | UUID | Ya | FK ke master item (tindakan/obat/dll) |
 | nama_item | VARCHAR(150) | Ya | Nama item |
-| tarif_id | UUID | Ya | FK ke tbl_tarif |
+| tarif_id | UUID | Ya | FK ke tarif |
 | harga_satuan | DECIMAL(15,2) | Ya | Harga per unit |
 | jumlah | INT | Ya | Jumlah/quantity |
 | subtotal | DECIMAL(15,2) | Ya | Subtotal |
 | diskon_persen | DECIMAL(5,2) | Tidak | Persentase diskon |
 | diskon_nominal | DECIMAL(15,2) | Tidak | Nominal diskon |
 | total | DECIMAL(15,2) | Ya | Total setelah diskon |
-| kelas_id | UUID | Tidak | FK ke tbl_kelas (untuk rawat inap) |
-| dokter_id | UUID | Tidak | FK ke tbl_pegawai (dokter pelaksana) |
+| kelas_id | UUID | Tidak | FK ke kelas (untuk rawat inap) |
+| dokter_id | UUID | Tidak | FK ke pegawai (dokter pelaksana) |
 | pelaksana | JSON | Tidak | Daftar pelaksana untuk JP |
 | status | ENUM | Ya | 'PENDING','BILLED','CANCEL','RETUR' |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 4.3 Pembayaran (tbl_pembayaran)
+### 4.3 Pembayaran (pembayaran)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | no_kwitansi | VARCHAR(20) | Ya | Nomor kwitansi |
-| billing_id | UUID | Ya | FK ke tbl_billing |
+| billing_id | UUID | Ya | FK ke billing |
 | tanggal_bayar | DATETIME | Ya | Tanggal dan waktu bayar |
 | jumlah_bayar | DECIMAL(15,2) | Ya | Jumlah pembayaran |
 | metode_bayar | ENUM | Ya | 'TUNAI','KARTU_DEBIT','KARTU_KREDIT','TRANSFER','QRIS','DEPOSIT' |
 | referensi_bayar | VARCHAR(50) | Tidak | No. kartu/referensi bank |
 | nama_bank | VARCHAR(50) | Tidak | Nama bank (jika non-tunai) |
 | keterangan | TEXT | Tidak | Keterangan |
-| kasir_id | UUID | Ya | FK ke tbl_user |
-| shift_id | UUID | Ya | FK ke tbl_shift |
+| kasir_id | UUID | Ya | FK ke user |
+| shift_id | UUID | Ya | FK ke shift |
 | status | ENUM | Ya | 'SUCCESS','PENDING','VOID' |
-| void_by | UUID | Tidak | FK ke tbl_user |
+| void_by | UUID | Tidak | FK ke user |
 | void_at | DATETIME | Tidak | Waktu void |
 | void_reason | TEXT | Tidak | Alasan void |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 4.4 Deposit (tbl_deposit)
+### 4.4 Deposit (deposit)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | no_deposit | VARCHAR(20) | Ya | Nomor deposit |
-| pasien_id | UUID | Ya | FK ke tbl_master_pasien |
-| kunjungan_id | UUID | Tidak | FK ke tbl_kunjungan |
-| rawat_inap_id | UUID | Tidak | FK ke tbl_rawat_inap |
+| pasien_id | UUID | Ya | FK ke master_pasien |
+| kunjungan_id | UUID | Tidak | FK ke kunjungan |
+| rawat_inap_id | UUID | Tidak | FK ke rawat_inap |
 | tanggal | DATETIME | Ya | Tanggal deposit |
 | jumlah | DECIMAL(15,2) | Ya | Jumlah deposit |
 | metode_bayar | ENUM | Ya | 'TUNAI','KARTU_DEBIT','KARTU_KREDIT','TRANSFER' |
 | referensi_bayar | VARCHAR(50) | Tidak | Referensi pembayaran |
 | keterangan | TEXT | Tidak | Keterangan |
-| kasir_id | UUID | Ya | FK ke tbl_user |
+| kasir_id | UUID | Ya | FK ke user |
 | status | ENUM | Ya | 'AKTIF','TERPAKAI','REFUND' |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 4.5 Penggunaan Deposit (tbl_deposit_usage)
+### 4.5 Penggunaan Deposit (deposit_usage)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| deposit_id | UUID | Ya | FK ke tbl_deposit |
-| billing_id | UUID | Ya | FK ke tbl_billing |
-| pembayaran_id | UUID | Ya | FK ke tbl_pembayaran |
+| deposit_id | UUID | Ya | FK ke deposit |
+| billing_id | UUID | Ya | FK ke billing |
+| pembayaran_id | UUID | Ya | FK ke pembayaran |
 | jumlah | DECIMAL(15,2) | Ya | Jumlah yang digunakan |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 4.6 Master Tarif (tbl_tarif)
+### 4.6 Master Tarif (tarif)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -195,8 +195,8 @@ Modul Billing/Kasir adalah sistem informasi yang mengelola seluruh proses penagi
 | nama | VARCHAR(150) | Ya | Nama item tarif |
 | kategori | ENUM | Ya | 'REGISTRASI','KONSULTASI','TINDAKAN','LAB','RADIOLOGI','OBAT','KAMAR','MAKAN','LAIN' |
 | item_id | UUID | Tidak | FK ke master item terkait |
-| kelas_id | UUID | Tidak | FK ke tbl_kelas |
-| penjamin_id | UUID | Tidak | FK ke tbl_penjamin |
+| kelas_id | UUID | Tidak | FK ke kelas |
+| penjamin_id | UUID | Tidak | FK ke penjamin |
 | tarif | DECIMAL(15,2) | Ya | Nilai tarif |
 | komponen_jasa | DECIMAL(15,2) | Tidak | Komponen jasa medis |
 | komponen_sarana | DECIMAL(15,2) | Tidak | Komponen sarana |
@@ -207,7 +207,7 @@ Modul Billing/Kasir adalah sistem informasi yang mengelola seluruh proses penagi
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 4.7 Penjamin (tbl_penjamin)
+### 4.7 Penjamin (penjamin)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -229,13 +229,13 @@ Modul Billing/Kasir adalah sistem informasi yang mengelola seluruh proses penagi
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 4.8 Shift Kasir (tbl_shift)
+### 4.8 Shift Kasir (shift)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| kasir_id | UUID | Ya | FK ke tbl_user |
-| loket_id | UUID | Ya | FK ke tbl_loket |
+| kasir_id | UUID | Ya | FK ke user |
+| loket_id | UUID | Ya | FK ke loket |
 | tanggal | DATE | Ya | Tanggal shift |
 | waktu_mulai | DATETIME | Ya | Waktu mulai shift |
 | waktu_selesai | DATETIME | Tidak | Waktu selesai shift |

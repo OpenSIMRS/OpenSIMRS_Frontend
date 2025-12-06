@@ -88,19 +88,19 @@ Modul Radiologi (RIS - Radiology Information System) adalah sistem informasi yan
 
 ## 4. Skema Data
 
-### 4.1 Order Radiologi (tbl_order_radiologi)
+### 4.1 Order Radiologi (order_radiologi)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | no_order | VARCHAR(20) | Ya | Nomor order (auto-generated) |
-| kunjungan_id | UUID | Ya | FK ke tbl_kunjungan |
-| pasien_id | UUID | Ya | FK ke tbl_master_pasien |
+| kunjungan_id | UUID | Ya | FK ke kunjungan |
+| pasien_id | UUID | Ya | FK ke master_pasien |
 | tanggal_order | DATETIME | Ya | Tanggal dan waktu order |
-| dokter_id | UUID | Ya | FK ke tbl_pegawai (Dokter pengirim) |
-| ruangan_asal_id | UUID | Ya | FK ke tbl_ruangan |
-| pemeriksaan_id | UUID | Ya | FK ke tbl_master_pemeriksaan_radiologi |
-| modalitas_id | UUID | Ya | FK ke tbl_modalitas |
+| dokter_id | UUID | Ya | FK ke pegawai (Dokter pengirim) |
+| ruangan_asal_id | UUID | Ya | FK ke ruangan |
+| pemeriksaan_id | UUID | Ya | FK ke master_pemeriksaan_radiologi |
+| modalitas_id | UUID | Ya | FK ke modalitas |
 | prioritas | ENUM | Ya | 'CITO','ELEKTIF' |
 | diagnosa_klinis | TEXT | Ya | Diagnosa/indikasi klinis |
 | bagian_tubuh | VARCHAR(100) | Ya | Area yang diperiksa |
@@ -110,34 +110,34 @@ Modul Radiologi (RIS - Radiology Information System) adalah sistem informasi yan
 | status_order | ENUM | Ya | 'PENDING','DIJADWALKAN','PROSES','SELESAI','BATAL' |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
-| created_by | UUID | Ya | FK ke tbl_user |
+| created_by | UUID | Ya | FK ke user |
 
-### 4.2 Jadwal Radiologi (tbl_jadwal_radiologi)
+### 4.2 Jadwal Radiologi (jadwal_radiologi)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| order_radiologi_id | UUID | Ya | FK ke tbl_order_radiologi |
+| order_radiologi_id | UUID | Ya | FK ke order_radiologi |
 | tanggal_jadwal | DATE | Ya | Tanggal pemeriksaan |
 | waktu_mulai | TIME | Ya | Waktu mulai |
 | waktu_selesai | TIME | Ya | Estimasi waktu selesai |
-| ruang_pemeriksaan_id | UUID | Ya | FK ke tbl_ruang_radiologi |
-| modalitas_id | UUID | Ya | FK ke tbl_modalitas |
+| ruang_pemeriksaan_id | UUID | Ya | FK ke ruang_radiologi |
+| modalitas_id | UUID | Ya | FK ke modalitas |
 | status | ENUM | Ya | 'BOOKING','HADIR','TIDAK_HADIR','SELESAI','RESCHEDULE' |
 | catatan_persiapan | TEXT | Tidak | Instruksi persiapan pasien |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 4.3 Pelaksanaan Radiologi (tbl_pelaksanaan_radiologi)
+### 4.3 Pelaksanaan Radiologi (pelaksanaan_radiologi)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| order_radiologi_id | UUID | Ya | FK ke tbl_order_radiologi |
-| jadwal_id | UUID | Tidak | FK ke tbl_jadwal_radiologi |
+| order_radiologi_id | UUID | Ya | FK ke order_radiologi |
+| jadwal_id | UUID | Tidak | FK ke jadwal_radiologi |
 | waktu_mulai | DATETIME | Ya | Waktu mulai pemeriksaan |
 | waktu_selesai | DATETIME | Ya | Waktu selesai pemeriksaan |
-| radiografer_id | UUID | Ya | FK ke tbl_pegawai (Radiografer) |
+| radiografer_id | UUID | Ya | FK ke pegawai (Radiografer) |
 | dosis_radiasi | DECIMAL(10,2) | Tidak | Dosis radiasi (mGy) |
 | kontras_jenis | VARCHAR(100) | Tidak | Jenis kontras yang digunakan |
 | kontras_volume | DECIMAL(10,2) | Tidak | Volume kontras (ml) |
@@ -148,14 +148,14 @@ Modul Radiologi (RIS - Radiology Information System) adalah sistem informasi yan
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 4.4 Expertise Radiologi (tbl_expertise)
+### 4.4 Expertise Radiologi (expertise)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| order_radiologi_id | UUID | Ya | FK ke tbl_order_radiologi |
-| pelaksanaan_id | UUID | Ya | FK ke tbl_pelaksanaan_radiologi |
-| radiolog_id | UUID | Ya | FK ke tbl_pegawai (Dokter Radiolog) |
+| order_radiologi_id | UUID | Ya | FK ke order_radiologi |
+| pelaksanaan_id | UUID | Ya | FK ke pelaksanaan_radiologi |
+| radiolog_id | UUID | Ya | FK ke pegawai (Dokter Radiolog) |
 | tanggal_baca | DATETIME | Ya | Tanggal pembacaan |
 | temuan | TEXT | Ya | Deskripsi temuan |
 | kesan | TEXT | Ya | Kesan/kesimpulan |
@@ -166,24 +166,24 @@ Modul Radiologi (RIS - Radiology Information System) adalah sistem informasi yan
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 4.5 Master Pemeriksaan Radiologi (tbl_master_pemeriksaan_radiologi)
+### 4.5 Master Pemeriksaan Radiologi (master_pemeriksaan_radiologi)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | kode | VARCHAR(20) | Ya | Kode pemeriksaan |
 | nama | VARCHAR(100) | Ya | Nama pemeriksaan |
-| modalitas_id | UUID | Ya | FK ke tbl_modalitas |
+| modalitas_id | UUID | Ya | FK ke modalitas |
 | kategori | VARCHAR(50) | Ya | Kategori pemeriksaan |
 | durasi_estimasi | INT | Ya | Durasi estimasi (menit) |
 | persiapan | TEXT | Tidak | Instruksi persiapan |
 | kontraindikasi | TEXT | Tidak | Kontraindikasi |
-| tarif_id | UUID | Ya | FK ke tbl_master_tarif |
+| tarif_id | UUID | Ya | FK ke master_tarif |
 | is_active | BOOLEAN | Ya | Status aktif |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 4.6 Master Modalitas (tbl_modalitas)
+### 4.6 Master Modalitas (modalitas)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -191,12 +191,12 @@ Modul Radiologi (RIS - Radiology Information System) adalah sistem informasi yan
 | kode | VARCHAR(10) | Ya | Kode modalitas (CR, CT, MR, US, dll) |
 | nama | VARCHAR(50) | Ya | Nama modalitas |
 | deskripsi | TEXT | Tidak | Deskripsi |
-| ruang_id | UUID | Ya | FK ke tbl_ruang_radiologi |
+| ruang_id | UUID | Ya | FK ke ruang_radiologi |
 | ae_title | VARCHAR(50) | Tidak | DICOM AE Title |
 | is_active | BOOLEAN | Ya | Status aktif |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 4.7 Ruang Radiologi (tbl_ruang_radiologi)
+### 4.7 Ruang Radiologi (ruang_radiologi)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -204,17 +204,17 @@ Modul Radiologi (RIS - Radiology Information System) adalah sistem informasi yan
 | kode | VARCHAR(10) | Ya | Kode ruang |
 | nama | VARCHAR(50) | Ya | Nama ruang |
 | lokasi | VARCHAR(100) | Tidak | Lokasi/lantai |
-| modalitas_id | UUID | Tidak | FK ke tbl_modalitas (jika dedicated) |
+| modalitas_id | UUID | Tidak | FK ke modalitas (jika dedicated) |
 | kapasitas_harian | INT | Tidak | Kapasitas pemeriksaan per hari |
 | is_active | BOOLEAN | Ya | Status aktif |
 
-### 4.8 Screening Kontras (tbl_screening_kontras)
+### 4.8 Screening Kontras (screening_kontras)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| order_radiologi_id | UUID | Ya | FK ke tbl_order_radiologi |
-| pasien_id | UUID | Ya | FK ke tbl_master_pasien |
+| order_radiologi_id | UUID | Ya | FK ke order_radiologi |
+| pasien_id | UUID | Ya | FK ke master_pasien |
 | tanggal_screening | DATETIME | Ya | Tanggal screening |
 | riwayat_alergi_kontras | BOOLEAN | Ya | Pernah alergi kontras |
 | detail_alergi | TEXT | Tidak | Detail reaksi alergi |
@@ -229,7 +229,7 @@ Modul Radiologi (RIS - Radiology Information System) adalah sistem informasi yan
 | penyakit_tiroid | BOOLEAN | Ya | Riwayat penyakit tiroid |
 | keputusan | ENUM | Ya | 'LAYAK','TIDAK_LAYAK','LAYAK_DENGAN_KONDISI' |
 | catatan | TEXT | Tidak | Catatan |
-| petugas_id | UUID | Ya | FK ke tbl_pegawai |
+| petugas_id | UUID | Ya | FK ke pegawai |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
 ---

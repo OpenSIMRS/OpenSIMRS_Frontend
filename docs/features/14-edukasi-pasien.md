@@ -42,22 +42,22 @@ Modul Edukasi Pasien adalah sistem untuk mendokumentasikan pemberian informasi d
 
 ## 3. Skema Data
 
-### 3.1 Edukasi Pasien (tbl_edukasi_pasien)
+### 3.1 Edukasi Pasien (edukasi_pasien)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| kunjungan_id | UUID | Ya | FK ke tbl_kunjungan |
-| pasien_id | UUID | Ya | FK ke tbl_master_pasien |
+| kunjungan_id | UUID | Ya | FK ke kunjungan |
+| pasien_id | UUID | Ya | FK ke master_pasien |
 | tanggal_edukasi | DATETIME | Ya | Tanggal dan waktu edukasi |
 | penerima_edukasi | ENUM | Ya | 'PASIEN','KELUARGA','PASIEN_DAN_KELUARGA' |
 | nama_penerima | VARCHAR(100) | Ya | Nama penerima (jika bukan pasien) |
 | hubungan_pasien | VARCHAR(50) | Tidak | Hubungan dengan pasien |
-| educator_id | UUID | Ya | FK ke tbl_pegawai (pemberi edukasi) |
+| educator_id | UUID | Ya | FK ke pegawai (pemberi edukasi) |
 | profesi_educator | VARCHAR(50) | Ya | Profesi (Dokter, Perawat, Ahli Gizi, dll) |
 | kategori_edukasi | ENUM | Ya | 'PENYAKIT','PENGOBATAN','TINDAKAN','NUTRISI', dll |
 | topik_edukasi | TEXT | Ya | Topik yang diedukasi |
-| materi_id | UUID | Tidak | FK ke tbl_materi_edukasi |
+| materi_id | UUID | Tidak | FK ke materi_edukasi |
 | materi_custom | TEXT | Tidak | Materi custom jika tidak ada di master |
 | metode_edukasi | JSON | Ya | Metode yang digunakan (array) |
 | media_digunakan | JSON | Tidak | Media yang digunakan (array) |
@@ -73,7 +73,7 @@ Modul Edukasi Pasien adalah sistem untuk mendokumentasikan pemberian informasi d
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 3.2 Master Materi Edukasi (tbl_materi_edukasi)
+### 3.2 Master Materi Edukasi (materi_edukasi)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -81,8 +81,8 @@ Modul Edukasi Pasien adalah sistem untuk mendokumentasikan pemberian informasi d
 | kode | VARCHAR(20) | Ya | Kode materi |
 | judul | VARCHAR(200) | Ya | Judul materi |
 | kategori | ENUM | Ya | Kategori edukasi |
-| diagnosa_id | UUID | Tidak | FK ke tbl_icd10 (jika terkait diagnosa) |
-| tindakan_id | UUID | Tidak | FK ke tbl_master_tindakan (jika terkait tindakan) |
+| diagnosa_id | UUID | Tidak | FK ke icd10 (jika terkait diagnosa) |
+| tindakan_id | UUID | Tidak | FK ke master_tindakan (jika terkait tindakan) |
 | ringkasan | TEXT | Ya | Ringkasan materi |
 | konten_lengkap | TEXT | Ya | Konten lengkap materi |
 | poin_penting | JSON | Ya | Poin-poin penting (array) |
@@ -94,31 +94,31 @@ Modul Edukasi Pasien adalah sistem untuk mendokumentasikan pemberian informasi d
 | versi | VARCHAR(10) | Ya | Versi materi |
 | tanggal_berlaku | DATE | Ya | Tanggal mulai berlaku |
 | tanggal_review | DATE | Tidak | Tanggal harus direview |
-| created_by | UUID | Ya | FK ke tbl_user |
-| approved_by | UUID | Tidak | FK ke tbl_user |
+| created_by | UUID | Ya | FK ke user |
+| approved_by | UUID | Tidak | FK ke user |
 | is_active | BOOLEAN | Ya | Status aktif |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 3.3 Checklist Edukasi per Kondisi (tbl_checklist_edukasi)
+### 3.3 Checklist Edukasi per Kondisi (checklist_edukasi)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| diagnosa_id | UUID | Tidak | FK ke tbl_icd10 |
-| tindakan_id | UUID | Tidak | FK ke tbl_master_tindakan |
+| diagnosa_id | UUID | Tidak | FK ke icd10 |
+| tindakan_id | UUID | Tidak | FK ke master_tindakan |
 | kondisi | VARCHAR(100) | Tidak | Kondisi khusus (post op, DM, dll) |
 | item_edukasi | JSON | Ya | Daftar item yang harus diedukasi |
 | is_mandatory | BOOLEAN | Ya | Wajib semua item terchecklist |
 | is_active | BOOLEAN | Ya | Status aktif |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 3.4 Edukasi yang Diberikan - Detail (tbl_edukasi_detail)
+### 3.4 Edukasi yang Diberikan - Detail (edukasi_detail)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| edukasi_id | UUID | Ya | FK ke tbl_edukasi_pasien |
+| edukasi_id | UUID | Ya | FK ke edukasi_pasien |
 | checklist_item | VARCHAR(200) | Ya | Item yang diedukasi |
 | is_diberikan | BOOLEAN | Ya | Sudah diberikan |
 | is_dipahami | BOOLEAN | Tidak | Pasien memahami |

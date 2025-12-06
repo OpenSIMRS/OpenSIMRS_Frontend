@@ -78,14 +78,14 @@ Modul Gudang/Logistik adalah sistem informasi yang mengelola seluruh rantai paso
 
 ## 4. Skema Data
 
-### 4.1 Master Barang (tbl_master_barang)
+### 4.1 Master Barang (master_barang)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | kode | VARCHAR(20) | Ya | Kode barang |
 | nama | VARCHAR(150) | Ya | Nama barang |
-| kategori_id | UUID | Ya | FK ke tbl_kategori_barang |
+| kategori_id | UUID | Ya | FK ke kategori_barang |
 | jenis | ENUM | Ya | 'OBAT','ALKES','BHP','UMUM','GIZI','LINEN' |
 | satuan_kecil | VARCHAR(20) | Ya | Satuan terkecil |
 | satuan_sedang | VARCHAR(20) | Tidak | Satuan sedang |
@@ -99,8 +99,8 @@ Modul Gudang/Logistik adalah sistem informasi yang mengelola seluruh rantai paso
 | stok_maksimal | INT | Tidak | Stok maksimal |
 | lead_time | INT | Tidak | Lead time pengadaan (hari) |
 | is_consignment | BOOLEAN | Ya | Barang konsinyasi |
-| produsen_id | UUID | Tidak | FK ke tbl_produsen |
-| supplier_default_id | UUID | Tidak | FK ke tbl_supplier |
+| produsen_id | UUID | Tidak | FK ke produsen |
+| supplier_default_id | UUID | Tidak | FK ke supplier |
 | golongan | ENUM | Tidak | Untuk obat: 'BEBAS','KERAS','NARKOTIKA', dll |
 | is_high_alert | BOOLEAN | Tidak | Untuk obat high alert |
 | lokasi_penyimpanan | VARCHAR(50) | Tidak | Lokasi di gudang |
@@ -109,7 +109,7 @@ Modul Gudang/Logistik adalah sistem informasi yang mengelola seluruh rantai paso
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 4.2 Supplier (tbl_supplier)
+### 4.2 Supplier (supplier)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -135,15 +135,15 @@ Modul Gudang/Logistik adalah sistem informasi yang mengelola seluruh rantai paso
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 4.3 Purchase Order (tbl_purchase_order)
+### 4.3 Purchase Order (purchase_order)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | no_po | VARCHAR(20) | Ya | Nomor PO |
 | tanggal_po | DATE | Ya | Tanggal PO |
-| supplier_id | UUID | Ya | FK ke tbl_supplier |
-| gudang_id | UUID | Ya | FK ke tbl_gudang |
+| supplier_id | UUID | Ya | FK ke supplier |
+| gudang_id | UUID | Ya | FK ke gudang |
 | jenis_po | ENUM | Ya | 'REGULER','CITO','KONSINYASI' |
 | keterangan | TEXT | Tidak | Keterangan |
 | total | DECIMAL(15,2) | Ya | Total nilai PO |
@@ -152,19 +152,19 @@ Modul Gudang/Logistik adalah sistem informasi yang mengelola seluruh rantai paso
 | grand_total | DECIMAL(15,2) | Ya | Grand total |
 | tanggal_kirim | DATE | Tidak | Estimasi tanggal kirim |
 | status | ENUM | Ya | 'DRAFT','PENDING','APPROVED','PARTIAL','COMPLETE','CANCEL' |
-| approved_by | UUID | Tidak | FK ke tbl_user |
+| approved_by | UUID | Tidak | FK ke user |
 | approved_at | DATETIME | Tidak | Waktu approval |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
-| created_by | UUID | Ya | FK ke tbl_user |
+| created_by | UUID | Ya | FK ke user |
 
-### 4.4 Detail Purchase Order (tbl_po_detail)
+### 4.4 Detail Purchase Order (po_detail)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| po_id | UUID | Ya | FK ke tbl_purchase_order |
-| barang_id | UUID | Ya | FK ke tbl_master_barang |
+| po_id | UUID | Ya | FK ke purchase_order |
+| barang_id | UUID | Ya | FK ke master_barang |
 | satuan | VARCHAR(20) | Ya | Satuan pemesanan |
 | jumlah_pesan | INT | Ya | Jumlah yang dipesan |
 | jumlah_terima | INT | Tidak | Jumlah yang sudah diterima |
@@ -175,16 +175,16 @@ Modul Gudang/Logistik adalah sistem informasi yang mengelola seluruh rantai paso
 | status | ENUM | Ya | 'PENDING','PARTIAL','COMPLETE','CANCEL' |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 4.5 Penerimaan Barang (tbl_penerimaan)
+### 4.5 Penerimaan Barang (penerimaan)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | no_terima | VARCHAR(20) | Ya | Nomor penerimaan |
 | tanggal_terima | DATE | Ya | Tanggal terima |
-| po_id | UUID | Tidak | FK ke tbl_purchase_order |
-| supplier_id | UUID | Ya | FK ke tbl_supplier |
-| gudang_id | UUID | Ya | FK ke tbl_gudang |
+| po_id | UUID | Tidak | FK ke purchase_order |
+| supplier_id | UUID | Ya | FK ke supplier |
+| gudang_id | UUID | Ya | FK ke gudang |
 | no_faktur | VARCHAR(50) | Ya | Nomor faktur supplier |
 | tanggal_faktur | DATE | Ya | Tanggal faktur |
 | no_surat_jalan | VARCHAR(50) | Tidak | Nomor surat jalan |
@@ -193,19 +193,19 @@ Modul Gudang/Logistik adalah sistem informasi yang mengelola seluruh rantai paso
 | grand_total | DECIMAL(15,2) | Ya | Grand total |
 | jatuh_tempo | DATE | Tidak | Tanggal jatuh tempo |
 | status | ENUM | Ya | 'DRAFT','VERIFIED','POSTED','CANCEL' |
-| verified_by | UUID | Tidak | FK ke tbl_user |
+| verified_by | UUID | Tidak | FK ke user |
 | verified_at | DATETIME | Tidak | Waktu verifikasi |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
-| created_by | UUID | Ya | FK ke tbl_user |
+| created_by | UUID | Ya | FK ke user |
 
-### 4.6 Detail Penerimaan (tbl_penerimaan_detail)
+### 4.6 Detail Penerimaan (penerimaan_detail)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| penerimaan_id | UUID | Ya | FK ke tbl_penerimaan |
-| po_detail_id | UUID | Tidak | FK ke tbl_po_detail |
-| barang_id | UUID | Ya | FK ke tbl_master_barang |
+| penerimaan_id | UUID | Ya | FK ke penerimaan |
+| po_detail_id | UUID | Tidak | FK ke po_detail |
+| barang_id | UUID | Ya | FK ke master_barang |
 | batch_number | VARCHAR(50) | Ya | Nomor batch |
 | expired_date | DATE | Ya | Tanggal kadaluarsa |
 | satuan | VARCHAR(20) | Ya | Satuan |
@@ -216,13 +216,13 @@ Modul Gudang/Logistik adalah sistem informasi yang mengelola seluruh rantai paso
 | catatan | TEXT | Tidak | Catatan |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 4.7 Stok Gudang (tbl_stok)
+### 4.7 Stok Gudang (stok)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| barang_id | UUID | Ya | FK ke tbl_master_barang |
-| gudang_id | UUID | Ya | FK ke tbl_gudang |
+| barang_id | UUID | Ya | FK ke master_barang |
+| gudang_id | UUID | Ya | FK ke gudang |
 | batch_number | VARCHAR(50) | Ya | Nomor batch |
 | expired_date | DATE | Ya | Tanggal kadaluarsa |
 | jumlah | INT | Ya | Jumlah stok |
@@ -231,14 +231,14 @@ Modul Gudang/Logistik adalah sistem informasi yang mengelola seluruh rantai paso
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 4.8 Mutasi Stok (tbl_mutasi_stok)
+### 4.8 Mutasi Stok (mutasi_stok)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | tanggal | DATETIME | Ya | Tanggal mutasi |
-| barang_id | UUID | Ya | FK ke tbl_master_barang |
-| gudang_id | UUID | Ya | FK ke tbl_gudang |
+| barang_id | UUID | Ya | FK ke master_barang |
+| gudang_id | UUID | Ya | FK ke gudang |
 | batch_number | VARCHAR(50) | Ya | Nomor batch |
 | jenis_mutasi | ENUM | Ya | 'MASUK','KELUAR','ADJUSTMENT','RETUR','RUSAK' |
 | jumlah | INT | Ya | Jumlah mutasi |
@@ -246,69 +246,69 @@ Modul Gudang/Logistik adalah sistem informasi yang mengelola seluruh rantai paso
 | referensi_tipe | VARCHAR(50) | Tidak | Tipe dokumen referensi |
 | referensi_id | UUID | Tidak | ID dokumen referensi |
 | keterangan | TEXT | Tidak | Keterangan |
-| created_by | UUID | Ya | FK ke tbl_user |
+| created_by | UUID | Ya | FK ke user |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 4.9 Permintaan Internal (tbl_permintaan_internal)
+### 4.9 Permintaan Internal (permintaan_internal)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | no_permintaan | VARCHAR(20) | Ya | Nomor permintaan |
 | tanggal | DATE | Ya | Tanggal permintaan |
-| unit_peminta_id | UUID | Ya | FK ke tbl_unit |
-| gudang_tujuan_id | UUID | Ya | FK ke tbl_gudang (depo tujuan) |
-| gudang_pengirim_id | UUID | Ya | FK ke tbl_gudang |
+| unit_peminta_id | UUID | Ya | FK ke unit |
+| gudang_tujuan_id | UUID | Ya | FK ke gudang (depo tujuan) |
+| gudang_pengirim_id | UUID | Ya | FK ke gudang |
 | jenis | ENUM | Ya | 'RUTIN','CITO' |
 | keterangan | TEXT | Tidak | Keterangan |
 | status | ENUM | Ya | 'DRAFT','PENDING','APPROVED','REJECTED','PROSES','SELESAI' |
-| approved_by | UUID | Tidak | FK ke tbl_user |
+| approved_by | UUID | Tidak | FK ke user |
 | approved_at | DATETIME | Tidak | Waktu approval |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
-| created_by | UUID | Ya | FK ke tbl_user |
+| created_by | UUID | Ya | FK ke user |
 
-### 4.10 Distribusi Internal (tbl_distribusi)
+### 4.10 Distribusi Internal (distribusi)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | no_distribusi | VARCHAR(20) | Ya | Nomor distribusi |
 | tanggal | DATE | Ya | Tanggal distribusi |
-| permintaan_id | UUID | Tidak | FK ke tbl_permintaan_internal |
-| gudang_pengirim_id | UUID | Ya | FK ke tbl_gudang |
-| gudang_penerima_id | UUID | Ya | FK ke tbl_gudang |
+| permintaan_id | UUID | Tidak | FK ke permintaan_internal |
+| gudang_pengirim_id | UUID | Ya | FK ke gudang |
+| gudang_penerima_id | UUID | Ya | FK ke gudang |
 | keterangan | TEXT | Tidak | Keterangan |
 | status | ENUM | Ya | 'DRAFT','DIKIRIM','DITERIMA','PARTIAL' |
-| dikirim_by | UUID | Tidak | FK ke tbl_user |
+| dikirim_by | UUID | Tidak | FK ke user |
 | dikirim_at | DATETIME | Tidak | Waktu kirim |
-| diterima_by | UUID | Tidak | FK ke tbl_user |
+| diterima_by | UUID | Tidak | FK ke user |
 | diterima_at | DATETIME | Tidak | Waktu terima |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
-| created_by | UUID | Ya | FK ke tbl_user |
+| created_by | UUID | Ya | FK ke user |
 
-### 4.11 Stock Opname (tbl_stock_opname)
+### 4.11 Stock Opname (stock_opname)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | no_opname | VARCHAR(20) | Ya | Nomor stock opname |
 | tanggal | DATE | Ya | Tanggal opname |
-| gudang_id | UUID | Ya | FK ke tbl_gudang |
+| gudang_id | UUID | Ya | FK ke gudang |
 | jenis | ENUM | Ya | 'PENUH','PARSIAL','SAMPLING' |
 | status | ENUM | Ya | 'DRAFT','PROSES','SELESAI','APPROVED' |
 | catatan | TEXT | Tidak | Catatan |
-| approved_by | UUID | Tidak | FK ke tbl_user |
+| approved_by | UUID | Tidak | FK ke user |
 | approved_at | DATETIME | Tidak | Waktu approval |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
-| created_by | UUID | Ya | FK ke tbl_user |
+| created_by | UUID | Ya | FK ke user |
 
-### 4.12 Detail Stock Opname (tbl_stock_opname_detail)
+### 4.12 Detail Stock Opname (stock_opname_detail)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| opname_id | UUID | Ya | FK ke tbl_stock_opname |
-| barang_id | UUID | Ya | FK ke tbl_master_barang |
+| opname_id | UUID | Ya | FK ke stock_opname |
+| barang_id | UUID | Ya | FK ke master_barang |
 | batch_number | VARCHAR(50) | Ya | Nomor batch |
 | stok_sistem | INT | Ya | Stok menurut sistem |
 | stok_fisik | INT | Ya | Stok hasil hitung fisik |

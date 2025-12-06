@@ -75,62 +75,62 @@ Modul Laboratorium (LIS - Laboratory Information System) adalah sistem informasi
 
 ## 3. Skema Data
 
-### 3.1 Order Laboratorium (tbl_order_lab)
+### 3.1 Order Laboratorium (order_lab)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | no_order | VARCHAR(20) | Ya | Nomor order (auto-generated) |
-| kunjungan_id | UUID | Ya | FK ke tbl_kunjungan |
-| pasien_id | UUID | Ya | FK ke tbl_master_pasien |
+| kunjungan_id | UUID | Ya | FK ke kunjungan |
+| pasien_id | UUID | Ya | FK ke master_pasien |
 | tanggal_order | DATETIME | Ya | Tanggal dan waktu order |
-| dokter_id | UUID | Ya | FK ke tbl_pegawai (Dokter pengirim) |
-| ruangan_asal_id | UUID | Ya | FK ke tbl_ruangan (Poli/IGD/Ruang Ranap) |
+| dokter_id | UUID | Ya | FK ke pegawai (Dokter pengirim) |
+| ruangan_asal_id | UUID | Ya | FK ke ruangan (Poli/IGD/Ruang Ranap) |
 | prioritas | ENUM | Ya | 'CITO','BIASA' |
 | diagnosa_klinis | TEXT | Ya | Diagnosa/indikasi klinis |
 | catatan | TEXT | Tidak | Catatan tambahan |
 | status_order | ENUM | Ya | 'PENDING','DITERIMA','SAMPLING','PROSES','SELESAI','BATAL' |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
-| created_by | UUID | Ya | FK ke tbl_user |
+| created_by | UUID | Ya | FK ke user |
 
-### 3.2 Detail Order Laboratorium (tbl_order_lab_detail)
+### 3.2 Detail Order Laboratorium (order_lab_detail)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| order_lab_id | UUID | Ya | FK ke tbl_order_lab |
-| pemeriksaan_id | UUID | Ya | FK ke tbl_master_pemeriksaan_lab |
+| order_lab_id | UUID | Ya | FK ke order_lab |
+| pemeriksaan_id | UUID | Ya | FK ke master_pemeriksaan_lab |
 | status | ENUM | Ya | 'PENDING','PROSES','SELESAI','BATAL' |
 | catatan | TEXT | Tidak | Catatan per pemeriksaan |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 3.3 Sampel Laboratorium (tbl_sampel)
+### 3.3 Sampel Laboratorium (sampel)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | no_sampel | VARCHAR(20) | Ya | Nomor sampel/barcode |
-| order_lab_id | UUID | Ya | FK ke tbl_order_lab |
-| jenis_sampel_id | UUID | Ya | FK ke tbl_jenis_sampel |
-| wadah_id | UUID | Ya | FK ke tbl_wadah_sampel |
+| order_lab_id | UUID | Ya | FK ke order_lab |
+| jenis_sampel_id | UUID | Ya | FK ke jenis_sampel |
+| wadah_id | UUID | Ya | FK ke wadah_sampel |
 | volume | DECIMAL(10,2) | Tidak | Volume sampel (ml) |
 | waktu_sampling | DATETIME | Ya | Waktu pengambilan sampel |
-| phlebotomist_id | UUID | Ya | FK ke tbl_pegawai |
+| phlebotomist_id | UUID | Ya | FK ke pegawai |
 | kondisi_sampel | ENUM | Ya | 'BAIK','LIPEMIK','IKTERIK','HEMOLISIS','CLOT' |
 | status_sampel | ENUM | Ya | 'DIAMBIL','DITERIMA','PROSES','SELESAI','REJECT' |
 | alasan_reject | TEXT | Tidak | Alasan jika di-reject |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 3.4 Hasil Laboratorium (tbl_hasil_lab)
+### 3.4 Hasil Laboratorium (hasil_lab)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| order_lab_detail_id | UUID | Ya | FK ke tbl_order_lab_detail |
-| sampel_id | UUID | Ya | FK ke tbl_sampel |
-| pemeriksaan_id | UUID | Ya | FK ke tbl_master_pemeriksaan_lab |
+| order_lab_detail_id | UUID | Ya | FK ke order_lab_detail |
+| sampel_id | UUID | Ya | FK ke sampel |
+| pemeriksaan_id | UUID | Ya | FK ke master_pemeriksaan_lab |
 | hasil | VARCHAR(100) | Ya | Nilai hasil |
 | satuan | VARCHAR(20) | Ya | Satuan hasil |
 | nilai_normal_min | DECIMAL(10,2) | Tidak | Nilai normal minimum |
@@ -140,27 +140,27 @@ Modul Laboratorium (LIS - Laboratory Information System) adalah sistem informasi
 | is_critical | BOOLEAN | Ya | Apakah nilai kritis |
 | metode | VARCHAR(100) | Tidak | Metode pemeriksaan |
 | alat | VARCHAR(100) | Tidak | Nama alat/analyzer |
-| analis_id | UUID | Ya | FK ke tbl_pegawai (Analis) |
+| analis_id | UUID | Ya | FK ke pegawai (Analis) |
 | waktu_periksa | DATETIME | Ya | Waktu pemeriksaan |
 | status_validasi | ENUM | Ya | 'BELUM','VALIDASI_TEKNIS','VALIDASI_KLINIS' |
-| validator_teknis_id | UUID | Tidak | FK ke tbl_pegawai |
+| validator_teknis_id | UUID | Tidak | FK ke pegawai |
 | waktu_validasi_teknis | DATETIME | Tidak | Waktu validasi teknis |
-| validator_klinis_id | UUID | Tidak | FK ke tbl_pegawai (Dokter PK) |
+| validator_klinis_id | UUID | Tidak | FK ke pegawai (Dokter PK) |
 | waktu_validasi_klinis | DATETIME | Tidak | Waktu validasi klinis |
 | catatan | TEXT | Tidak | Catatan/interpretasi |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 3.5 Master Pemeriksaan Lab (tbl_master_pemeriksaan_lab)
+### 3.5 Master Pemeriksaan Lab (master_pemeriksaan_lab)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | kode | VARCHAR(20) | Ya | Kode pemeriksaan |
 | nama | VARCHAR(100) | Ya | Nama pemeriksaan |
-| kategori_id | UUID | Ya | FK ke tbl_kategori_lab |
-| jenis_sampel_id | UUID | Ya | FK ke tbl_jenis_sampel |
-| wadah_id | UUID | Ya | FK ke tbl_wadah_sampel |
+| kategori_id | UUID | Ya | FK ke kategori_lab |
+| jenis_sampel_id | UUID | Ya | FK ke jenis_sampel |
+| wadah_id | UUID | Ya | FK ke wadah_sampel |
 | volume_minimal | DECIMAL(10,2) | Tidak | Volume minimal sampel (ml) |
 | metode | VARCHAR(100) | Tidak | Metode pemeriksaan |
 | satuan | VARCHAR(20) | Ya | Satuan hasil |
@@ -173,12 +173,12 @@ Modul Laboratorium (LIS - Laboratory Information System) adalah sistem informasi
 | nilai_kritis_low | DECIMAL(10,2) | Tidak | Nilai kritis rendah |
 | nilai_kritis_high | DECIMAL(10,2) | Tidak | Nilai kritis tinggi |
 | waktu_tat | INT | Tidak | Turnaround Time (menit) |
-| tarif_id | UUID | Ya | FK ke tbl_master_tarif |
+| tarif_id | UUID | Ya | FK ke master_tarif |
 | is_active | BOOLEAN | Ya | Status aktif |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 3.6 Master Jenis Sampel (tbl_jenis_sampel)
+### 3.6 Master Jenis Sampel (jenis_sampel)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -190,7 +190,7 @@ Modul Laboratorium (LIS - Laboratory Information System) adalah sistem informasi
 
 Contoh data: Darah EDTA, Darah Serum, Darah Citrat, Urine, Feses, Sputum, Swab, dll.
 
-### 3.7 Master Wadah Sampel (tbl_wadah_sampel)
+### 3.7 Master Wadah Sampel (wadah_sampel)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -203,7 +203,7 @@ Contoh data: Darah EDTA, Darah Serum, Darah Citrat, Urine, Feses, Sputum, Swab, 
 
 Contoh data: Tabung EDTA (ungu), Tabung Serum (merah), Tabung Citrat (biru), Pot Urine, dll.
 
-### 3.8 Kategori Pemeriksaan Lab (tbl_kategori_lab)
+### 3.8 Kategori Pemeriksaan Lab (kategori_lab)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|

@@ -81,7 +81,7 @@ Modul Pendaftaran dan Admisi adalah gerbang utama untuk semua pasien yang akan m
 
 ## 3. Skema Data
 
-### 3.1 Master Pasien (tbl_master_pasien)
+### 3.1 Master Pasien (master_pasien)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -96,77 +96,74 @@ Modul Pendaftaran dan Admisi adalah gerbang utama untuk semua pasien yang akan m
 | alamat | TEXT | Ya | Alamat lengkap |
 | rt | VARCHAR(3) | Tidak | RT |
 | rw | VARCHAR(3) | Tidak | RW |
-| kelurahan_id | UUID | Ya | FK ke tbl_kelurahan |
-| kecamatan_id | UUID | Ya | FK ke tbl_kecamatan |
-| kabupaten_id | UUID | Ya | FK ke tbl_kabupaten |
-| provinsi_id | UUID | Ya | FK ke tbl_provinsi |
+| kode_wilayah | VARCHAR(13) | Ya | Kode wilayah BPS (Provinsi+Kab+Kec+Kel) |
 | kode_pos | VARCHAR(5) | Tidak | Kode pos |
 | no_telepon | VARCHAR(15) | Tidak | Nomor telepon |
 | no_hp | VARCHAR(15) | Ya | Nomor HP |
 | email | VARCHAR(100) | Tidak | Email |
-| agama_id | UUID | Ya | FK ke tbl_agama |
-| pendidikan_id | UUID | Tidak | FK ke tbl_pendidikan |
-| pekerjaan_id | UUID | Tidak | FK ke tbl_pekerjaan |
-| status_perkawinan | ENUM | Ya | Belum Kawin/Kawin/Cerai Hidup/Cerai Mati |
+| agama_id | UUID | Ya | FK ke master_lookup (category=AGAMA) |
+| pendidikan_id | UUID | Tidak | FK ke master_lookup (category=PENDIDIKAN) |
+| pekerjaan_id | UUID | Tidak | FK ke master_lookup (category=PEKERJAAN) |
+| status_perkawinan_id | UUID | Ya | FK ke master_lookup (category=STATUS_PERKAWINAN) |
 | nama_ayah | VARCHAR(100) | Tidak | Nama ayah kandung |
 | nama_ibu | VARCHAR(100) | Ya | Nama ibu kandung |
 | nama_pasangan | VARCHAR(100) | Tidak | Nama suami/istri |
 | foto | VARCHAR(255) | Tidak | Path foto pasien |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
-| created_by | UUID | Ya | FK ke tbl_user |
-| updated_by | UUID | Ya | FK ke tbl_user |
+| created_by | UUID | Ya | FK ke user |
+| updated_by | UUID | Ya | FK ke user |
 
-### 3.2 Kunjungan (tbl_kunjungan)
+### 3.2 Kunjungan (kunjungan)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | no_registrasi | VARCHAR(20) | Ya | Nomor registrasi kunjungan |
-| pasien_id | UUID | Ya | FK ke tbl_master_pasien |
+| pasien_id | UUID | Ya | FK ke master_pasien |
 | tanggal_kunjungan | DATE | Ya | Tanggal kunjungan |
 | waktu_kunjungan | TIME | Ya | Waktu kunjungan |
 | jenis_kunjungan | ENUM | Ya | 'RAJAL','IGD','RANAP' |
-| ruangan_id | UUID | Ya | FK ke tbl_ruangan (Poli/IGD/Ruang Ranap) |
-| dokter_id | UUID | Ya | FK ke tbl_pegawai (DPJP) |
-| penjamin_id | UUID | Ya | FK ke tbl_penjamin |
+| ruangan_id | UUID | Ya | FK ke ruangan (Poli/IGD/Ruang Ranap) |
+| dokter_id | UUID | Ya | FK ke pegawai (DPJP) |
+| penjamin_id | UUID | Ya | FK ke penjamin |
 | no_penjamin | VARCHAR(50) | Tidak | Nomor kartu penjamin (BPJS/Asuransi) |
 | status_kunjungan | ENUM | Ya | 'DAFTAR','DILAYANI','SELESAI','BATAL' |
 | no_antrian | INT | Ya | Nomor antrian |
 | keterangan | TEXT | Tidak | Catatan tambahan |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
-| created_by | UUID | Ya | FK ke tbl_user |
-| updated_by | UUID | Ya | FK ke tbl_user |
+| created_by | UUID | Ya | FK ke user |
+| updated_by | UUID | Ya | FK ke user |
 
-### 3.3 Rawat Inap (tbl_rawat_inap)
+### 3.3 Rawat Inap (rawat_inap)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| kunjungan_id | UUID | Ya | FK ke tbl_kunjungan |
-| pasien_id | UUID | Ya | FK ke tbl_master_pasien |
+| kunjungan_id | UUID | Ya | FK ke kunjungan |
+| pasien_id | UUID | Ya | FK ke master_pasien |
 | tanggal_masuk | DATETIME | Ya | Tanggal dan waktu masuk |
 | tanggal_keluar | DATETIME | Tidak | Tanggal dan waktu keluar |
-| kamar_id | UUID | Ya | FK ke tbl_kamar |
-| bed_id | UUID | Ya | FK ke tbl_bed |
-| kelas_id | UUID | Ya | FK ke tbl_kelas_kamar |
-| dpjp_id | UUID | Ya | FK ke tbl_pegawai (Dokter Penanggung Jawab) |
+| kamar_id | UUID | Ya | FK ke kamar |
+| bed_id | UUID | Ya | FK ke bed |
+| kelas_id | UUID | Ya | FK ke kelas_kamar |
+| dpjp_id | UUID | Ya | FK ke pegawai (Dokter Penanggung Jawab) |
 | diagnosa_masuk | TEXT | Ya | Diagnosa awal saat masuk |
 | cara_masuk | ENUM | Ya | 'POLIKLINIK','IGD','RUJUKAN','LAHIR_DI_RS' |
 | status_rawat | ENUM | Ya | 'AKTIF','PINDAH_KAMAR','PULANG','MENINGGAL','RUJUK' |
 | cara_keluar | ENUM | Tidak | 'SEMBUH','PAPS','MENINGGAL','RUJUK' |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
-| created_by | UUID | Ya | FK ke tbl_user |
-| updated_by | UUID | Ya | FK ke tbl_user |
+| created_by | UUID | Ya | FK ke user |
+| updated_by | UUID | Ya | FK ke user |
 
-### 3.4 Penanggung Jawab Pasien (tbl_penanggung_jawab)
+### 3.4 Penanggung Jawab Pasien (penanggung_jawab)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| pasien_id | UUID | Ya | FK ke tbl_master_pasien |
+| pasien_id | UUID | Ya | FK ke master_pasien |
 | nama | VARCHAR(100) | Ya | Nama penanggung jawab |
 | hubungan | VARCHAR(50) | Ya | Hubungan dengan pasien |
 | nik | VARCHAR(16) | Ya | NIK penanggung jawab |
@@ -176,12 +173,12 @@ Modul Pendaftaran dan Admisi adalah gerbang utama untuk semua pasien yang akan m
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 3.5 Triage IGD (tbl_triage)
+### 3.5 Triage IGD (triage)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| kunjungan_id | UUID | Ya | FK ke tbl_kunjungan |
+| kunjungan_id | UUID | Ya | FK ke kunjungan |
 | waktu_triage | DATETIME | Ya | Waktu dilakukan triage |
 | kategori | ENUM | Ya | 'MERAH','KUNING','HIJAU','HITAM' |
 | keluhan_utama | TEXT | Ya | Keluhan utama pasien |
@@ -193,7 +190,7 @@ Modul Pendaftaran dan Admisi adalah gerbang utama untuk semua pasien yang akan m
 | gcs_eye | INT | Tidak | GCS Eye (1-4) |
 | gcs_verbal | INT | Tidak | GCS Verbal (1-5) |
 | gcs_motor | INT | Tidak | GCS Motor (1-6) |
-| petugas_triage_id | UUID | Ya | FK ke tbl_pegawai |
+| petugas_triage_id | UUID | Ya | FK ke pegawai |
 | catatan | TEXT | Tidak | Catatan tambahan |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
@@ -216,11 +213,13 @@ Modul Pendaftaran dan Admisi adalah gerbang utama untuk semua pasien yang akan m
 **Bagian 2: Alamat**
 - Alamat Lengkap* (textarea)
 - RT/RW
-- Provinsi* (dropdown, cascading)
-- Kabupaten/Kota* (dropdown, cascading)
-- Kecamatan* (dropdown, cascading)
-- Kelurahan/Desa* (dropdown, cascading)
+- Provinsi* (input text / autocomplete dari API eksternal)
+- Kabupaten/Kota* (input text / autocomplete)
+- Kecamatan* (input text / autocomplete)
+- Kelurahan/Desa* (input text / autocomplete)
 - Kode Pos
+
+> **Catatan:** Data wilayah tidak disimpan sebagai FK, melainkan kode wilayah BPS disimpan sebagai string.
 
 **Bagian 3: Kontak**
 - Nomor HP* (dengan validasi format)
@@ -404,7 +403,7 @@ Modul Pendaftaran dan Admisi adalah gerbang utama untuk semua pasien yang akan m
 ### 8.2 Fitur Autocomplete
 
 - Pencarian pasien dengan autocomplete (min 3 karakter)
-- Alamat dengan cascading dropdown (Provinsi → Kabupaten → Kecamatan → Kelurahan)
+- Alamat dengan autocomplete dari API wilayah Indonesia (atau input text dengan kode BPS)
 - Pencarian dokter dengan filter poli
 
 ### 8.3 Permission/Role

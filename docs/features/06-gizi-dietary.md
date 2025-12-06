@@ -89,20 +89,20 @@ Modul Gizi/Dietary adalah sistem informasi yang mengelola pelayanan gizi di ruma
 
 ## 4. Skema Data
 
-### 4.1 Order Diet (tbl_order_diet)
+### 4.1 Order Diet (order_diet)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | no_order | VARCHAR(20) | Ya | Nomor order |
-| rawat_inap_id | UUID | Ya | FK ke tbl_rawat_inap |
-| pasien_id | UUID | Ya | FK ke tbl_master_pasien |
+| rawat_inap_id | UUID | Ya | FK ke rawat_inap |
+| pasien_id | UUID | Ya | FK ke master_pasien |
 | tanggal_order | DATETIME | Ya | Tanggal order |
-| dokter_id | UUID | Ya | FK ke tbl_pegawai |
-| ruangan_id | UUID | Ya | FK ke tbl_ruangan |
-| kamar_id | UUID | Ya | FK ke tbl_kamar |
-| bed_id | UUID | Ya | FK ke tbl_bed |
-| jenis_diet_id | UUID | Ya | FK ke tbl_master_diet |
+| dokter_id | UUID | Ya | FK ke pegawai |
+| ruangan_id | UUID | Ya | FK ke ruangan |
+| kamar_id | UUID | Ya | FK ke kamar |
+| bed_id | UUID | Ya | FK ke bed |
+| jenis_diet_id | UUID | Ya | FK ke master_diet |
 | bentuk_makanan | ENUM | Ya | 'BIASA','LUNAK','SARING','CAIR' |
 | kalori | INT | Tidak | Target kalori harian |
 | protein | INT | Tidak | Target protein (gram) |
@@ -115,7 +115,7 @@ Modul Gizi/Dietary adalah sistem informasi yang mengelola pelayanan gizi di ruma
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 4.2 Master Diet (tbl_master_diet)
+### 4.2 Master Diet (master_diet)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -132,14 +132,14 @@ Modul Gizi/Dietary adalah sistem informasi yang mengelola pelayanan gizi di ruma
 | is_active | BOOLEAN | Ya | Status aktif |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 4.3 Asesmen Gizi (tbl_asesmen_gizi)
+### 4.3 Asesmen Gizi (asesmen_gizi)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| kunjungan_id | UUID | Ya | FK ke tbl_kunjungan |
-| rawat_inap_id | UUID | Tidak | FK ke tbl_rawat_inap |
-| pasien_id | UUID | Ya | FK ke tbl_master_pasien |
+| kunjungan_id | UUID | Ya | FK ke kunjungan |
+| rawat_inap_id | UUID | Tidak | FK ke rawat_inap |
+| pasien_id | UUID | Ya | FK ke master_pasien |
 | tanggal_asesmen | DATETIME | Ya | Tanggal asesmen |
 | tinggi_badan | DECIMAL(5,2) | Ya | Tinggi badan (cm) |
 | berat_badan | DECIMAL(5,2) | Ya | Berat badan (kg) |
@@ -156,24 +156,24 @@ Modul Gizi/Dietary adalah sistem informasi yang mengelola pelayanan gizi di ruma
 | diagnosa_gizi | TEXT | Ya | Diagnosa gizi (PES format) |
 | intervensi | TEXT | Ya | Rencana intervensi gizi |
 | monitoring | TEXT | Tidak | Rencana monitoring |
-| ahli_gizi_id | UUID | Ya | FK ke tbl_pegawai |
+| ahli_gizi_id | UUID | Ya | FK ke pegawai |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 4.4 Menu Harian (tbl_menu_harian)
+### 4.4 Menu Harian (menu_harian)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | tanggal | DATE | Ya | Tanggal menu |
-| siklus_id | UUID | Ya | FK ke tbl_siklus_menu |
+| siklus_id | UUID | Ya | FK ke siklus_menu |
 | waktu_makan | ENUM | Ya | 'PAGI','SIANG','SORE','SNACK_PAGI','SNACK_SORE' |
-| jenis_diet_id | UUID | Ya | FK ke tbl_master_diet |
+| jenis_diet_id | UUID | Ya | FK ke master_diet |
 | bentuk_makanan | ENUM | Ya | 'BIASA','LUNAK','SARING','CAIR' |
-| menu_id | UUID | Ya | FK ke tbl_master_menu |
+| menu_id | UUID | Ya | FK ke master_menu |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 4.5 Master Menu (tbl_master_menu)
+### 4.5 Master Menu (master_menu)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -194,7 +194,7 @@ Modul Gizi/Dietary adalah sistem informasi yang mengelola pelayanan gizi di ruma
 | is_active | BOOLEAN | Ya | Status aktif |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 4.6 Produksi Makanan (tbl_produksi_makanan)
+### 4.6 Produksi Makanan (produksi_makanan)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -205,34 +205,34 @@ Modul Gizi/Dietary adalah sistem informasi yang mengelola pelayanan gizi di ruma
 | detail | JSON | Ya | Detail per jenis diet |
 | waktu_mulai_produksi | TIME | Ya | Waktu mulai |
 | waktu_selesai_produksi | TIME | Tidak | Waktu selesai |
-| petugas_id | UUID | Ya | FK ke tbl_pegawai |
+| petugas_id | UUID | Ya | FK ke pegawai |
 | catatan | TEXT | Tidak | Catatan produksi |
 | status | ENUM | Ya | 'PLANNING','PRODUKSI','SELESAI' |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 4.7 Distribusi Makanan (tbl_distribusi_makanan)
+### 4.7 Distribusi Makanan (distribusi_makanan)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| produksi_id | UUID | Ya | FK ke tbl_produksi_makanan |
-| order_diet_id | UUID | Ya | FK ke tbl_order_diet |
-| pasien_id | UUID | Ya | FK ke tbl_master_pasien |
-| ruangan_id | UUID | Ya | FK ke tbl_ruangan |
+| produksi_id | UUID | Ya | FK ke produksi_makanan |
+| order_diet_id | UUID | Ya | FK ke order_diet |
+| pasien_id | UUID | Ya | FK ke master_pasien |
+| ruangan_id | UUID | Ya | FK ke ruangan |
 | waktu_distribusi | DATETIME | Ya | Waktu distribusi |
-| petugas_distribusi_id | UUID | Ya | FK ke tbl_pegawai |
+| petugas_distribusi_id | UUID | Ya | FK ke pegawai |
 | status_terima | ENUM | Ya | 'TERIMA','TOLAK','TIDAK_ADA' |
 | alasan_tolak | TEXT | Tidak | Alasan jika ditolak |
 | catatan | TEXT | Tidak | Catatan |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 4.8 Monitoring Asupan (tbl_monitoring_asupan)
+### 4.8 Monitoring Asupan (monitoring_asupan)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| order_diet_id | UUID | Ya | FK ke tbl_order_diet |
-| pasien_id | UUID | Ya | FK ke tbl_master_pasien |
+| order_diet_id | UUID | Ya | FK ke order_diet |
+| pasien_id | UUID | Ya | FK ke master_pasien |
 | tanggal | DATE | Ya | Tanggal monitoring |
 | waktu_makan | ENUM | Ya | 'PAGI','SIANG','SORE','SNACK_PAGI','SNACK_SORE' |
 | makanan_pokok | ENUM | Ya | 'HABIS','3/4','1/2','1/4','TIDAK_MAKAN' |
@@ -243,19 +243,19 @@ Modul Gizi/Dietary adalah sistem informasi yang mengelola pelayanan gizi di ruma
 | minuman | ENUM | Ya | 'HABIS','3/4','1/2','1/4','TIDAK_MAKAN' |
 | makanan_luar | BOOLEAN | Tidak | Ada makanan dari luar |
 | catatan | TEXT | Tidak | Catatan/keluhan |
-| petugas_id | UUID | Ya | FK ke tbl_pegawai |
+| petugas_id | UUID | Ya | FK ke pegawai |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 4.9 Konseling Gizi (tbl_konseling_gizi)
+### 4.9 Konseling Gizi (konseling_gizi)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| kunjungan_id | UUID | Ya | FK ke tbl_kunjungan |
-| pasien_id | UUID | Ya | FK ke tbl_master_pasien |
+| kunjungan_id | UUID | Ya | FK ke kunjungan |
+| pasien_id | UUID | Ya | FK ke master_pasien |
 | tanggal | DATETIME | Ya | Tanggal konseling |
 | jenis | ENUM | Ya | 'AWAL','LANJUTAN' |
-| ahli_gizi_id | UUID | Ya | FK ke tbl_pegawai |
+| ahli_gizi_id | UUID | Ya | FK ke pegawai |
 | diagnosa_gizi | TEXT | Ya | Diagnosa gizi (PES) |
 | topik_edukasi | TEXT | Ya | Topik yang diedukasi |
 | materi_edukasi | TEXT | Tidak | Materi yang diberikan |

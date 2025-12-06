@@ -87,7 +87,7 @@ Modul Retur & Pembatalan adalah sistem untuk mengelola pengembalian barang dan p
 
 ## 4. Skema Data
 
-### 4.1 Retur Barang (tbl_retur_barang)
+### 4.1 Retur Barang (retur_barang)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -97,30 +97,30 @@ Modul Retur & Pembatalan adalah sistem untuk mengelola pengembalian barang dan p
 | jenis_retur | ENUM | Ya | 'DARI_PASIEN','KE_SUPPLIER','ANTAR_DEPO' |
 | sumber | VARCHAR(100) | Ya | Asal retur (pasien/depo) |
 | tujuan | VARCHAR(100) | Ya | Tujuan retur (gudang/supplier) |
-| pasien_id | UUID | Tidak | FK ke tbl_master_pasien |
-| kunjungan_id | UUID | Tidak | FK ke tbl_kunjungan |
-| resep_id | UUID | Tidak | FK ke tbl_resep |
-| supplier_id | UUID | Tidak | FK ke tbl_supplier |
-| depo_asal_id | UUID | Tidak | FK ke tbl_depo_farmasi |
-| depo_tujuan_id | UUID | Tidak | FK ke tbl_gudang |
+| pasien_id | UUID | Tidak | FK ke master_pasien |
+| kunjungan_id | UUID | Tidak | FK ke kunjungan |
+| resep_id | UUID | Tidak | FK ke resep |
+| supplier_id | UUID | Tidak | FK ke supplier |
+| depo_asal_id | UUID | Tidak | FK ke depo_farmasi |
+| depo_tujuan_id | UUID | Tidak | FK ke gudang |
 | alasan | ENUM | Ya | 'TIDAK_TERPAKAI','ALERGI','EXPIRED','RUSAK','SALAH_KIRIM','OVERSTOCK' |
 | alasan_detail | TEXT | Tidak | Detail alasan |
 | total_nilai | DECIMAL(15,2) | Ya | Total nilai retur |
 | status | ENUM | Ya | 'DRAFT','PENDING','APPROVED','REJECTED','COMPLETED' |
-| requested_by | UUID | Ya | FK ke tbl_user |
-| approved_by | UUID | Tidak | FK ke tbl_user |
+| requested_by | UUID | Ya | FK ke user |
+| approved_by | UUID | Tidak | FK ke user |
 | approved_at | DATETIME | Tidak | Waktu approval |
 | rejection_reason | TEXT | Tidak | Alasan jika ditolak |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 4.2 Detail Retur Barang (tbl_retur_barang_detail)
+### 4.2 Detail Retur Barang (retur_barang_detail)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| retur_id | UUID | Ya | FK ke tbl_retur_barang |
-| barang_id | UUID | Ya | FK ke tbl_master_obat/barang |
+| retur_id | UUID | Ya | FK ke retur_barang |
+| barang_id | UUID | Ya | FK ke master_obat/barang |
 | nama_barang | VARCHAR(100) | Ya | Nama barang (snapshot) |
 | batch_number | VARCHAR(50) | Ya | Nomor batch |
 | expired_date | DATE | Ya | Tanggal expired |
@@ -132,7 +132,7 @@ Modul Retur & Pembatalan adalah sistem untuk mengelola pengembalian barang dan p
 | catatan | TEXT | Tidak | Catatan per item |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 4.3 Pembatalan Transaksi (tbl_pembatalan)
+### 4.3 Pembatalan Transaksi (pembatalan)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -142,40 +142,40 @@ Modul Retur & Pembatalan adalah sistem untuk mengelola pengembalian barang dan p
 | jenis | ENUM | Ya | 'ORDER','TINDAKAN','RESEP','BILLING_ITEM' |
 | referensi_tipe | VARCHAR(50) | Ya | Tipe referensi |
 | referensi_id | UUID | Ya | ID referensi |
-| billing_detail_id | UUID | Tidak | FK ke tbl_billing_detail |
-| pasien_id | UUID | Ya | FK ke tbl_master_pasien |
-| kunjungan_id | UUID | Ya | FK ke tbl_kunjungan |
-| unit_id | UUID | Ya | FK ke tbl_unit |
+| billing_detail_id | UUID | Tidak | FK ke billing_detail |
+| pasien_id | UUID | Ya | FK ke master_pasien |
+| kunjungan_id | UUID | Ya | FK ke kunjungan |
+| unit_id | UUID | Ya | FK ke unit |
 | nilai_batal | DECIMAL(15,2) | Tidak | Nilai yang dibatalkan |
 | kategori_alasan | ENUM | Ya | 'SALAH_INPUT','GANTI_TERAPI','PASIEN_MENOLAK','KONDISI_BERUBAH','LAINNYA' |
 | alasan_detail | TEXT | Ya | Detail alasan pembatalan |
 | sudah_dilaksanakan | BOOLEAN | Ya | Apakah sudah dilaksanakan |
 | perlu_koreksi_billing | BOOLEAN | Ya | Perlu koreksi billing |
 | status | ENUM | Ya | 'DRAFT','PENDING','APPROVED','REJECTED','COMPLETED' |
-| requested_by | UUID | Ya | FK ke tbl_user |
-| approved_by | UUID | Tidak | FK ke tbl_user |
+| requested_by | UUID | Ya | FK ke user |
+| approved_by | UUID | Tidak | FK ke user |
 | approved_at | DATETIME | Tidak | Waktu approval |
 | rejection_reason | TEXT | Tidak | Alasan jika ditolak |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 4.4 Koreksi Billing (tbl_koreksi_billing)
+### 4.4 Koreksi Billing (koreksi_billing)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | no_koreksi | VARCHAR(20) | Ya | Nomor koreksi |
 | tanggal | DATETIME | Ya | Tanggal koreksi |
-| billing_id | UUID | Ya | FK ke tbl_billing |
-| billing_detail_id | UUID | Ya | FK ke tbl_billing_detail |
+| billing_id | UUID | Ya | FK ke billing |
+| billing_detail_id | UUID | Ya | FK ke billing_detail |
 | jenis_koreksi | ENUM | Ya | 'HAPUS','TAMBAH','UBAH_JUMLAH','UBAH_TARIF' |
 | nilai_awal | DECIMAL(15,2) | Ya | Nilai sebelum koreksi |
 | nilai_baru | DECIMAL(15,2) | Ya | Nilai setelah koreksi |
 | selisih | DECIMAL(15,2) | Ya | Selisih nilai |
 | alasan | TEXT | Ya | Alasan koreksi |
 | status | ENUM | Ya | 'DRAFT','PENDING','APPROVED','REJECTED','COMPLETED' |
-| requested_by | UUID | Ya | FK ke tbl_user |
-| approved_by | UUID | Tidak | FK ke tbl_user |
+| requested_by | UUID | Ya | FK ke user |
+| approved_by | UUID | Tidak | FK ke user |
 | approved_at | DATETIME | Tidak | Waktu approval |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 

@@ -48,14 +48,15 @@ Modul Master Data adalah sistem pengelolaan data referensi yang digunakan oleh s
 | **Master Penjamin** | Jenis penjamin (BPJS, Asuransi, dll) |
 | **Master Supplier** | Pemasok barang |
 | **Master Produsen** | Produsen obat/alkes |
-| **Master Demografi** | Agama, Pendidikan, Pekerjaan, dll |
-| **Master Wilayah** | Provinsi, Kabupaten, Kecamatan, Kelurahan |
+| **Master Lookup** | Data referensi sederhana (Agama, Pendidikan, Pekerjaan, Status Perkawinan, dll) |
+
+> **Catatan:** Data wilayah (Provinsi, Kabupaten, Kecamatan, Kelurahan) tidak disimpan di database, melainkan menggunakan kode wilayah BPS sebagai angka.
 
 ---
 
 ## 3. Skema Data Detail
 
-### 3.1 Master ICD-10 (tbl_icd10)
+### 3.1 Master ICD-10 (icd10)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -70,7 +71,7 @@ Modul Master Data adalah sistem pengelolaan data referensi yang digunakan oleh s
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 3.2 Master ICD-9 CM (tbl_icd9cm)
+### 3.2 Master ICD-9 CM (icd9cm)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -85,16 +86,16 @@ Modul Master Data adalah sistem pengelolaan data referensi yang digunakan oleh s
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 3.3 Master Tindakan (tbl_master_tindakan)
+### 3.3 Master Tindakan (master_tindakan)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | kode | VARCHAR(20) | Ya | Kode tindakan internal |
 | nama | VARCHAR(200) | Ya | Nama tindakan |
-| kategori_id | UUID | Ya | FK ke tbl_kategori_tindakan |
-| icd9cm_id | UUID | Tidak | FK ke tbl_icd9cm |
-| unit_id | UUID | Ya | FK ke tbl_unit (unit pelaksana) |
+| kategori_id | UUID | Ya | FK ke kategori_tindakan |
+| icd9cm_id | UUID | Tidak | FK ke icd9cm |
+| unit_id | UUID | Ya | FK ke unit (unit pelaksana) |
 | is_operasi | BOOLEAN | Ya | Apakah tindakan operasi |
 | is_memerlukan_consent | BOOLEAN | Ya | Memerlukan informed consent |
 | tarif_default | DECIMAL(15,2) | Ya | Tarif default |
@@ -107,14 +108,14 @@ Modul Master Data adalah sistem pengelolaan data referensi yang digunakan oleh s
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 3.4 Master Tarif per Kelas/Penjamin (tbl_tarif_detail)
+### 3.4 Master Tarif per Kelas/Penjamin (tarif_detail)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| tindakan_id | UUID | Ya | FK ke tbl_master_tindakan |
-| kelas_id | UUID | Tidak | FK ke tbl_kelas_kamar |
-| penjamin_id | UUID | Tidak | FK ke tbl_penjamin |
+| tindakan_id | UUID | Ya | FK ke master_tindakan |
+| kelas_id | UUID | Tidak | FK ke kelas_kamar |
+| penjamin_id | UUID | Tidak | FK ke penjamin |
 | tarif | DECIMAL(15,2) | Ya | Nilai tarif |
 | komponen_jasa_medis | DECIMAL(15,2) | Tidak | Jasa medis khusus |
 | komponen_sarana | DECIMAL(15,2) | Tidak | Sarana khusus |
@@ -124,7 +125,7 @@ Modul Master Data adalah sistem pengelolaan data referensi yang digunakan oleh s
 | is_active | BOOLEAN | Ya | Status aktif |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 3.5 Master Pegawai (tbl_pegawai)
+### 3.5 Master Pegawai (pegawai)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -141,8 +142,8 @@ Modul Master Data adalah sistem pengelolaan data referensi yang digunakan oleh s
 | no_telepon | VARCHAR(15) | Tidak | Nomor telepon |
 | no_hp | VARCHAR(15) | Ya | Nomor HP |
 | email | VARCHAR(100) | Tidak | Email |
-| jabatan_id | UUID | Ya | FK ke tbl_jabatan |
-| unit_id | UUID | Ya | FK ke tbl_unit |
+| jabatan_id | UUID | Ya | FK ke jabatan |
+| unit_id | UUID | Ya | FK ke unit |
 | jenis_pegawai | ENUM | Ya | 'PNS','KONTRAK','HONORER','DOKTER_TAMU' |
 | status_pegawai | ENUM | Ya | 'AKTIF','CUTI','RESIGN','PENSIUN' |
 | tanggal_masuk | DATE | Ya | Tanggal mulai bekerja |
@@ -153,12 +154,12 @@ Modul Master Data adalah sistem pengelolaan data referensi yang digunakan oleh s
 | tanggal_sip_expired | DATE | Tidak | Tanggal expired SIP |
 | spesialisasi | VARCHAR(100) | Tidak | Spesialisasi (untuk dokter) |
 | foto | VARCHAR(255) | Tidak | Path foto |
-| user_id | UUID | Tidak | FK ke tbl_user (akun SIMRS) |
+| user_id | UUID | Tidak | FK ke user (akun SIMRS) |
 | is_active | BOOLEAN | Ya | Status aktif |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 3.6 Master Unit/Ruangan (tbl_unit)
+### 3.6 Master Unit/Ruangan (unit)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -166,15 +167,15 @@ Modul Master Data adalah sistem pengelolaan data referensi yang digunakan oleh s
 | kode | VARCHAR(10) | Ya | Kode unit |
 | nama | VARCHAR(100) | Ya | Nama unit |
 | jenis | ENUM | Ya | 'POLI','IGD','RAWAT_INAP','PENUNJANG','ADMINISTRASI' |
-| parent_id | UUID | Tidak | FK ke tbl_unit (parent, untuk hierarki) |
+| parent_id | UUID | Tidak | FK ke unit (parent, untuk hierarki) |
 | lokasi | VARCHAR(100) | Tidak | Lokasi/gedung/lantai |
 | telepon | VARCHAR(20) | Tidak | Nomor telepon unit |
-| kepala_unit_id | UUID | Tidak | FK ke tbl_pegawai |
+| kepala_unit_id | UUID | Tidak | FK ke pegawai |
 | is_active | BOOLEAN | Ya | Status aktif |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 3.7 Master Kelas Kamar (tbl_kelas_kamar)
+### 3.7 Master Kelas Kamar (kelas_kamar)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -187,15 +188,15 @@ Modul Master Data adalah sistem pengelolaan data referensi yang digunakan oleh s
 | is_active | BOOLEAN | Ya | Status aktif |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 3.8 Master Kamar (tbl_kamar)
+### 3.8 Master Kamar (kamar)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | kode | VARCHAR(10) | Ya | Kode kamar |
 | nama | VARCHAR(50) | Ya | Nama kamar |
-| unit_id | UUID | Ya | FK ke tbl_unit (ruangan rawat inap) |
-| kelas_id | UUID | Ya | FK ke tbl_kelas_kamar |
+| unit_id | UUID | Ya | FK ke unit (ruangan rawat inap) |
+| kelas_id | UUID | Ya | FK ke kelas_kamar |
 | kapasitas_bed | INT | Ya | Jumlah bed dalam kamar |
 | fasilitas | TEXT | Tidak | Daftar fasilitas |
 | lokasi | VARCHAR(100) | Tidak | Lokasi detail |
@@ -203,22 +204,22 @@ Modul Master Data adalah sistem pengelolaan data referensi yang digunakan oleh s
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 3.9 Master Bed (tbl_bed)
+### 3.9 Master Bed (bed)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | kode | VARCHAR(10) | Ya | Kode bed |
 | nama | VARCHAR(20) | Ya | Nama bed (Bed A, Bed B, dll) |
-| kamar_id | UUID | Ya | FK ke tbl_kamar |
+| kamar_id | UUID | Ya | FK ke kamar |
 | status | ENUM | Ya | 'TERSEDIA','TERISI','MAINTENANCE','BOOKING' |
-| pasien_id | UUID | Tidak | FK ke tbl_master_pasien (jika terisi) |
-| rawat_inap_id | UUID | Tidak | FK ke tbl_rawat_inap (jika terisi) |
+| pasien_id | UUID | Tidak | FK ke master_pasien (jika terisi) |
+| rawat_inap_id | UUID | Tidak | FK ke rawat_inap (jika terisi) |
 | is_active | BOOLEAN | Ya | Status aktif |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 3.10 Master Jabatan (tbl_jabatan)
+### 3.10 Master Jabatan (jabatan)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -226,80 +227,46 @@ Modul Master Data adalah sistem pengelolaan data referensi yang digunakan oleh s
 | kode | VARCHAR(10) | Ya | Kode jabatan |
 | nama | VARCHAR(100) | Ya | Nama jabatan |
 | kategori | ENUM | Ya | 'STRUKTURAL','FUNGSIONAL','UMUM' |
-| parent_id | UUID | Tidak | FK ke tbl_jabatan (hierarki) |
+| parent_id | UUID | Tidak | FK ke jabatan (hierarki) |
 | level | INT | Ya | Level jabatan |
 | is_medis | BOOLEAN | Ya | Jabatan medis |
 | is_active | BOOLEAN | Ya | Status aktif |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 3.11 Master Agama (tbl_agama)
+### 3.11 Master Lookup (master_lookup)
+
+Tabel ini menggabungkan semua master data sederhana yang hanya menyimpan nilai string seperti Agama, Pendidikan, Pekerjaan, Status Perkawinan, dan lainnya.
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| kode | VARCHAR(5) | Ya | Kode agama |
-| nama | VARCHAR(50) | Ya | Nama agama |
-| is_active | BOOLEAN | Ya | Status aktif |
+| value | VARCHAR(100) | Ya | Nilai/nama item |
+| category | VARCHAR(50) | Ya | Kategori (AGAMA, PENDIDIKAN, PEKERJAAN, STATUS_PERKAWINAN, dll) |
 
-### 3.12 Master Pendidikan (tbl_pendidikan)
+**Contoh Data:**
 
-| Field | Tipe Data | Wajib | Keterangan |
-|-------|-----------|-------|------------|
-| id | UUID | Ya | Primary Key |
-| kode | VARCHAR(10) | Ya | Kode pendidikan |
-| nama | VARCHAR(50) | Ya | Nama tingkat pendidikan |
-| urutan | INT | Ya | Urutan level |
-| is_active | BOOLEAN | Ya | Status aktif |
+| id | value | category |
+|----|-------|----------|
+| uuid-1 | Islam | AGAMA |
+| uuid-2 | Kristen | AGAMA |
+| uuid-3 | SD | PENDIDIKAN |
+| uuid-4 | SMP | PENDIDIKAN |
+| uuid-5 | PNS | PEKERJAAN |
+| uuid-6 | Wiraswasta | PEKERJAAN |
+| uuid-7 | Belum Kawin | STATUS_PERKAWINAN |
+| uuid-8 | Kawin | STATUS_PERKAWINAN |
 
-### 3.13 Master Pekerjaan (tbl_pekerjaan)
+**Kategori yang Didukung:**
+- AGAMA
+- PENDIDIKAN
+- PEKERJAAN
+- STATUS_PERKAWINAN
+- GOLONGAN_DARAH
+- HUBUNGAN_KELUARGA
+- CARA_BAYAR
+- Dan lainnya sesuai kebutuhan
 
-| Field | Tipe Data | Wajib | Keterangan |
-|-------|-----------|-------|------------|
-| id | UUID | Ya | Primary Key |
-| kode | VARCHAR(10) | Ya | Kode pekerjaan |
-| nama | VARCHAR(100) | Ya | Nama pekerjaan |
-| kategori | VARCHAR(50) | Tidak | Kategori pekerjaan |
-| is_active | BOOLEAN | Ya | Status aktif |
-
-### 3.14 Master Wilayah - Provinsi (tbl_provinsi)
-
-| Field | Tipe Data | Wajib | Keterangan |
-|-------|-----------|-------|------------|
-| id | UUID | Ya | Primary Key |
-| kode | VARCHAR(2) | Ya | Kode provinsi (BPS) |
-| nama | VARCHAR(100) | Ya | Nama provinsi |
-| is_active | BOOLEAN | Ya | Status aktif |
-
-### 3.15 Master Wilayah - Kabupaten (tbl_kabupaten)
-
-| Field | Tipe Data | Wajib | Keterangan |
-|-------|-----------|-------|------------|
-| id | UUID | Ya | Primary Key |
-| kode | VARCHAR(4) | Ya | Kode kabupaten (BPS) |
-| nama | VARCHAR(100) | Ya | Nama kabupaten/kota |
-| provinsi_id | UUID | Ya | FK ke tbl_provinsi |
-| is_active | BOOLEAN | Ya | Status aktif |
-
-### 3.16 Master Wilayah - Kecamatan (tbl_kecamatan)
-
-| Field | Tipe Data | Wajib | Keterangan |
-|-------|-----------|-------|------------|
-| id | UUID | Ya | Primary Key |
-| kode | VARCHAR(7) | Ya | Kode kecamatan (BPS) |
-| nama | VARCHAR(100) | Ya | Nama kecamatan |
-| kabupaten_id | UUID | Ya | FK ke tbl_kabupaten |
-| is_active | BOOLEAN | Ya | Status aktif |
-
-### 3.17 Master Wilayah - Kelurahan (tbl_kelurahan)
-
-| Field | Tipe Data | Wajib | Keterangan |
-|-------|-----------|-------|------------|
-| id | UUID | Ya | Primary Key |
-| kode | VARCHAR(10) | Ya | Kode kelurahan (BPS) |
-| nama | VARCHAR(100) | Ya | Nama kelurahan/desa |
-| kecamatan_id | UUID | Ya | FK ke tbl_kecamatan |
-| kode_pos | VARCHAR(5) | Tidak | Kode pos |
-| is_active | BOOLEAN | Ya | Status aktif |
+> **Catatan:** Untuk data wilayah (Provinsi, Kabupaten, Kecamatan, Kelurahan), tidak menggunakan tabel master terpisah. Field alamat menyimpan kode wilayah sebagai angka/string yang dapat diintegrasikan dengan API wilayah Indonesia eksternal jika diperlukan.
 
 ---
 
@@ -459,9 +426,6 @@ Modul Master Data adalah sistem pengelolaan data referensi yang digunakan oleh s
 - Update dari sumber resmi WHO
 - Mapping dengan versi sebelumnya
 
-**Wilayah:**
-- Sinkronisasi dengan data BPS
-
 ### 5.5 Data Seeding
 
 **Fitur:**
@@ -481,7 +445,7 @@ Modul Master Data adalah sistem pengelolaan data referensi yang digunakan oleh s
 6. **Expired STR/SIP** akan memberikan warning
 7. **Bed** yang terisi tidak bisa diubah ke maintenance
 8. **Unit** tidak bisa dihapus jika masih ada pegawai terkait
-9. **Hierarki wilayah** harus konsisten (Provinsi → Kabupaten → Kecamatan → Kelurahan)
+9. **Master Lookup** harus memiliki kombinasi unik (value + category)
 10. **Backup master data** dilakukan sebelum import massal
 
 ---
@@ -530,8 +494,7 @@ Modul Master Data adalah sistem pengelolaan data referensi yang digunakan oleh s
 - [ ] Master Tindakan & Tarif
 - [ ] Master Obat
 - [ ] Master Penjamin
-- [ ] Master Wilayah (Provinsi s/d Kelurahan)
-- [ ] Master Referensi (Agama, Pendidikan, Pekerjaan)
+- [ ] Master Lookup (Agama, Pendidikan, Pekerjaan, Status Perkawinan, dll)
 
 ### 8.2 Data Opsional
 

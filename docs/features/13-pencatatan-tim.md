@@ -39,30 +39,30 @@ Modul Pencatatan Tim Terlibat adalah sistem untuk mendokumentasikan setiap tenag
 
 ## 3. Skema Data
 
-### 3.1 Tim Pelayanan (tbl_tim_pelayanan)
+### 3.1 Tim Pelayanan (tim_pelayanan)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | referensi_tipe | ENUM | Ya | 'KUNJUNGAN','RAWAT_INAP','TINDAKAN','ORDER_LAB','ORDER_RADIOLOGI' |
 | referensi_id | UUID | Ya | ID dari referensi |
-| kunjungan_id | UUID | Ya | FK ke tbl_kunjungan |
-| pasien_id | UUID | Ya | FK ke tbl_master_pasien |
-| unit_id | UUID | Ya | FK ke tbl_unit |
+| kunjungan_id | UUID | Ya | FK ke kunjungan |
+| pasien_id | UUID | Ya | FK ke master_pasien |
+| unit_id | UUID | Ya | FK ke unit |
 | tanggal | DATE | Ya | Tanggal pelayanan |
 | shift | ENUM | Tidak | 'PAGI','SIANG','MALAM' (untuk rawat inap) |
 | status | ENUM | Ya | 'AKTIF','SELESAI','BATAL' |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
-| created_by | UUID | Ya | FK ke tbl_user |
+| created_by | UUID | Ya | FK ke user |
 
-### 3.2 Anggota Tim (tbl_tim_anggota)
+### 3.2 Anggota Tim (tim_anggota)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| tim_id | UUID | Ya | FK ke tbl_tim_pelayanan |
-| pegawai_id | UUID | Ya | FK ke tbl_pegawai |
+| tim_id | UUID | Ya | FK ke tim_pelayanan |
+| pegawai_id | UUID | Ya | FK ke pegawai |
 | peran | VARCHAR(50) | Ya | Peran dalam tim |
 | is_utama | BOOLEAN | Ya | Apakah penanggung jawab utama |
 | waktu_mulai | DATETIME | Ya | Waktu mulai bertugas |
@@ -72,39 +72,39 @@ Modul Pencatatan Tim Terlibat adalah sistem untuk mendokumentasikan setiap tenag
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 3.3 Riwayat Pergantian Tim (tbl_tim_history)
+### 3.3 Riwayat Pergantian Tim (tim_history)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| tim_id | UUID | Ya | FK ke tbl_tim_pelayanan |
-| pegawai_lama_id | UUID | Ya | FK ke tbl_pegawai |
-| pegawai_baru_id | UUID | Ya | FK ke tbl_pegawai |
+| tim_id | UUID | Ya | FK ke tim_pelayanan |
+| pegawai_lama_id | UUID | Ya | FK ke pegawai |
+| pegawai_baru_id | UUID | Ya | FK ke pegawai |
 | peran | VARCHAR(50) | Ya | Peran yang digantikan |
 | waktu_pergantian | DATETIME | Ya | Waktu pergantian |
 | alasan | VARCHAR(100) | Ya | Alasan pergantian |
 | catatan_serah_terima | TEXT | Tidak | Catatan serah terima |
-| created_by | UUID | Ya | FK ke tbl_user |
+| created_by | UUID | Ya | FK ke user |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 3.4 Template Tim per Unit (tbl_template_tim)
+### 3.4 Template Tim per Unit (template_tim)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| unit_id | UUID | Ya | FK ke tbl_unit |
-| tindakan_id | UUID | Tidak | FK ke tbl_master_tindakan (jika spesifik) |
+| unit_id | UUID | Ya | FK ke unit |
+| tindakan_id | UUID | Tidak | FK ke master_tindakan (jika spesifik) |
 | nama_template | VARCHAR(100) | Ya | Nama template |
 | deskripsi | TEXT | Tidak | Deskripsi |
 | is_active | BOOLEAN | Ya | Status aktif |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 3.5 Detail Template Tim (tbl_template_tim_detail)
+### 3.5 Detail Template Tim (template_tim_detail)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| template_id | UUID | Ya | FK ke tbl_template_tim |
+| template_id | UUID | Ya | FK ke template_tim |
 | peran | VARCHAR(50) | Ya | Nama peran |
 | jumlah | INT | Ya | Jumlah orang dengan peran ini |
 | is_wajib | BOOLEAN | Ya | Wajib diisi |

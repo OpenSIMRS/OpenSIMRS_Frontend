@@ -40,13 +40,13 @@ Modul Audit Trail adalah sistem pencatatan log yang merekam setiap aktivitas dan
 
 ## 3. Skema Data
 
-### 3.1 Audit Log (tbl_audit_log)
+### 3.1 Audit Log (audit_log)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | timestamp | DATETIME(6) | Ya | Waktu kejadian (dengan microseconds) |
-| user_id | UUID | Ya | FK ke tbl_user |
+| user_id | UUID | Ya | FK ke user |
 | username | VARCHAR(50) | Ya | Username (snapshot) |
 | user_name | VARCHAR(100) | Ya | Nama lengkap user (snapshot) |
 | user_role | VARCHAR(50) | Ya | Role saat aksi (snapshot) |
@@ -55,7 +55,7 @@ Modul Audit Trail adalah sistem pencatatan log yang merekam setiap aktivitas dan
 | user_agent | TEXT | Tidak | Browser/device info |
 | action | ENUM | Ya | 'LOGIN','LOGOUT','CREATE','READ','UPDATE','DELETE','PRINT','EXPORT','ADMIN' |
 | module | VARCHAR(50) | Ya | Nama modul |
-| entity_type | VARCHAR(50) | Ya | Tipe entitas (tbl_pasien, tbl_soap, dll) |
+| entity_type | VARCHAR(50) | Ya | Tipe entitas (pasien, soap, dll) |
 | entity_id | VARCHAR(50) | Ya | ID record yang diakses |
 | entity_name | VARCHAR(200) | Tidak | Identifier entitas (nama pasien, no.RM) |
 | description | TEXT | Ya | Deskripsi aktivitas |
@@ -68,13 +68,13 @@ Modul Audit Trail adalah sistem pencatatan log yang merekam setiap aktivitas dan
 | additional_info | JSON | Tidak | Informasi tambahan |
 | created_at | TIMESTAMP | Ya | Waktu record dibuat |
 
-### 3.2 Audit Access Log (tbl_audit_access)
+### 3.2 Audit Access Log (audit_access)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | timestamp | DATETIME(6) | Ya | Waktu |
-| user_id | UUID | Ya | FK ke tbl_user |
+| user_id | UUID | Ya | FK ke user |
 | session_id | VARCHAR(100) | Ya | Session ID |
 | ip_address | VARCHAR(45) | Ya | IP Address |
 | action | ENUM | Ya | 'LOGIN','LOGOUT','SESSION_TIMEOUT','FORCE_LOGOUT' |
@@ -84,14 +84,14 @@ Modul Audit Trail adalah sistem pencatatan log yang merekam setiap aktivitas dan
 | location_info | JSON | Tidak | Info lokasi (jika tersedia) |
 | created_at | TIMESTAMP | Ya | Waktu record dibuat |
 
-### 3.3 Audit PHI Access (tbl_audit_phi)
+### 3.3 Audit PHI Access (audit_phi)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | timestamp | DATETIME(6) | Ya | Waktu |
-| user_id | UUID | Ya | FK ke tbl_user |
-| patient_id | UUID | Ya | FK ke tbl_master_pasien |
+| user_id | UUID | Ya | FK ke user |
+| patient_id | UUID | Ya | FK ke master_pasien |
 | patient_mrn | VARCHAR(20) | Ya | No. Rekam Medis |
 | access_type | ENUM | Ya | 'VIEW','CREATE','UPDATE','DELETE','PRINT','EXPORT' |
 | data_category | ENUM | Ya | 'DEMOGRAPHICS','CLINICAL','LAB','RADIOLOGY','PHARMACY','BILLING' |
@@ -101,7 +101,7 @@ Modul Audit Trail adalah sistem pencatatan log yang merekam setiap aktivitas dan
 | is_break_glass | BOOLEAN | Ya | Apakah akses emergency |
 | created_at | TIMESTAMP | Ya | Waktu record dibuat |
 
-### 3.4 Konfigurasi Audit (tbl_audit_config)
+### 3.4 Konfigurasi Audit (audit_config)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|

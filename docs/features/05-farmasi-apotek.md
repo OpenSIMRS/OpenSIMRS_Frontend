@@ -81,32 +81,32 @@ Modul Farmasi/Apotek adalah sistem informasi yang mengelola seluruh proses pelay
 
 ## 4. Skema Data
 
-### 4.1 Resep (tbl_resep)
+### 4.1 Resep (resep)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
 | no_resep | VARCHAR(20) | Ya | Nomor resep (auto-generated) |
-| kunjungan_id | UUID | Ya | FK ke tbl_kunjungan |
-| pasien_id | UUID | Ya | FK ke tbl_master_pasien |
+| kunjungan_id | UUID | Ya | FK ke kunjungan |
+| pasien_id | UUID | Ya | FK ke master_pasien |
 | tanggal_resep | DATETIME | Ya | Tanggal dan waktu resep |
-| dokter_id | UUID | Ya | FK ke tbl_pegawai (Dokter penulis resep) |
-| ruangan_asal_id | UUID | Ya | FK ke tbl_ruangan |
+| dokter_id | UUID | Ya | FK ke pegawai (Dokter penulis resep) |
+| ruangan_asal_id | UUID | Ya | FK ke ruangan |
 | jenis_resep | ENUM | Ya | 'RAWAT_JALAN','RAWAT_INAP','PULANG','IGD' |
 | prioritas | ENUM | Ya | 'CITO','BIASA' |
 | catatan | TEXT | Tidak | Catatan untuk farmasi |
 | status_resep | ENUM | Ya | 'PENDING','VERIFIKASI','PROSES','SELESAI','PARTIAL','BATAL' |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
-| created_by | UUID | Ya | FK ke tbl_user |
+| created_by | UUID | Ya | FK ke user |
 
-### 4.2 Detail Resep (tbl_resep_detail)
+### 4.2 Detail Resep (resep_detail)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| resep_id | UUID | Ya | FK ke tbl_resep |
-| obat_id | UUID | Ya | FK ke tbl_master_obat |
+| resep_id | UUID | Ya | FK ke resep |
+| obat_id | UUID | Ya | FK ke master_obat |
 | nama_obat | VARCHAR(100) | Ya | Nama obat (snapshot) |
 | dosis | VARCHAR(50) | Ya | Dosis per kali pakai |
 | satuan_dosis | VARCHAR(20) | Ya | Satuan dosis |
@@ -118,32 +118,32 @@ Modul Farmasi/Apotek adalah sistem informasi yang mengelola seluruh proses pelay
 | instruksi | TEXT | Tidak | Instruksi khusus |
 | status | ENUM | Ya | 'PENDING','TERSEDIA','TIDAK_TERSEDIA','DIBERIKAN','BATAL' |
 | alasan_tidak_tersedia | TEXT | Tidak | Alasan jika tidak tersedia |
-| alternatif_obat_id | UUID | Tidak | FK ke tbl_master_obat (obat pengganti) |
+| alternatif_obat_id | UUID | Tidak | FK ke master_obat (obat pengganti) |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 4.3 Dispensing (tbl_dispensing)
+### 4.3 Dispensing (dispensing)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| resep_id | UUID | Ya | FK ke tbl_resep |
-| resep_detail_id | UUID | Ya | FK ke tbl_resep_detail |
-| stok_id | UUID | Ya | FK ke tbl_stok_farmasi |
+| resep_id | UUID | Ya | FK ke resep |
+| resep_detail_id | UUID | Ya | FK ke resep_detail |
+| stok_id | UUID | Ya | FK ke stok_farmasi |
 | batch_number | VARCHAR(50) | Ya | Nomor batch obat |
 | expired_date | DATE | Ya | Tanggal kadaluarsa |
 | jumlah | INT | Ya | Jumlah yang didispensing |
-| farmasis_id | UUID | Ya | FK ke tbl_pegawai (Apoteker/TTK) |
+| farmasis_id | UUID | Ya | FK ke pegawai (Apoteker/TTK) |
 | waktu_dispensing | DATETIME | Ya | Waktu dispensing |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 4.4 Verifikasi Resep (tbl_verifikasi_resep)
+### 4.4 Verifikasi Resep (verifikasi_resep)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| resep_id | UUID | Ya | FK ke tbl_resep |
-| farmasis_id | UUID | Ya | FK ke tbl_pegawai |
+| resep_id | UUID | Ya | FK ke resep |
+| farmasis_id | UUID | Ya | FK ke pegawai |
 | waktu_verifikasi | DATETIME | Ya | Waktu verifikasi |
 | hasil_screening | ENUM | Ya | 'APPROVED','REVISI','TOLAK' |
 | catatan_screening | TEXT | Tidak | Catatan hasil screening |
@@ -152,23 +152,23 @@ Modul Farmasi/Apotek adalah sistem informasi yang mengelola seluruh proses pelay
 | alergi_warning | JSON | Tidak | Warning alergi |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 4.5 Penyerahan Obat (tbl_penyerahan_obat)
+### 4.5 Penyerahan Obat (penyerahan_obat)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| resep_id | UUID | Ya | FK ke tbl_resep |
+| resep_id | UUID | Ya | FK ke resep |
 | waktu_serah | DATETIME | Ya | Waktu penyerahan |
 | penerima | VARCHAR(100) | Ya | Nama penerima obat |
 | hubungan_pasien | VARCHAR(50) | Tidak | Hubungan dengan pasien |
 | no_identitas | VARCHAR(20) | Tidak | No. KTP penerima |
-| farmasis_id | UUID | Ya | FK ke tbl_pegawai |
+| farmasis_id | UUID | Ya | FK ke pegawai |
 | kie_diberikan | BOOLEAN | Ya | KIE sudah diberikan |
 | catatan_kie | TEXT | Tidak | Catatan informasi obat |
 | tanda_tangan | TEXT | Tidak | Tanda tangan digital penerima |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 4.6 Master Obat (tbl_master_obat)
+### 4.6 Master Obat (master_obat)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -179,9 +179,9 @@ Modul Farmasi/Apotek adalah sistem informasi yang mengelola seluruh proses pelay
 | bentuk_sediaan | VARCHAR(50) | Ya | Tablet, Sirup, Injeksi, dll |
 | kekuatan | VARCHAR(50) | Ya | Kekuatan sediaan |
 | satuan | VARCHAR(20) | Ya | Satuan terkecil |
-| kategori_id | UUID | Ya | FK ke tbl_kategori_obat |
+| kategori_id | UUID | Ya | FK ke kategori_obat |
 | golongan | ENUM | Ya | 'BEBAS','BEBAS_TERBATAS','KERAS','NARKOTIKA','PSIKOTROPIKA' |
-| produsen_id | UUID | Tidak | FK ke tbl_produsen |
+| produsen_id | UUID | Tidak | FK ke produsen |
 | harga_beli | DECIMAL(15,2) | Ya | Harga beli |
 | harga_jual | DECIMAL(15,2) | Ya | Harga jual |
 | margin_persen | DECIMAL(5,2) | Tidak | Persentase margin |
@@ -195,13 +195,13 @@ Modul Farmasi/Apotek adalah sistem informasi yang mengelola seluruh proses pelay
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 4.7 Stok Farmasi (tbl_stok_farmasi)
+### 4.7 Stok Farmasi (stok_farmasi)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| obat_id | UUID | Ya | FK ke tbl_master_obat |
-| depo_id | UUID | Ya | FK ke tbl_depo_farmasi |
+| obat_id | UUID | Ya | FK ke master_obat |
+| depo_id | UUID | Ya | FK ke depo_farmasi |
 | batch_number | VARCHAR(50) | Ya | Nomor batch |
 | expired_date | DATE | Ya | Tanggal kadaluarsa |
 | jumlah | INT | Ya | Jumlah stok |
@@ -210,7 +210,7 @@ Modul Farmasi/Apotek adalah sistem informasi yang mengelola seluruh proses pelay
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 4.8 Depo Farmasi (tbl_depo_farmasi)
+### 4.8 Depo Farmasi (depo_farmasi)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
@@ -221,13 +221,13 @@ Modul Farmasi/Apotek adalah sistem informasi yang mengelola seluruh proses pelay
 | lokasi | VARCHAR(100) | Tidak | Lokasi |
 | is_active | BOOLEAN | Ya | Status aktif |
 
-### 4.9 Interaksi Obat (tbl_interaksi_obat)
+### 4.9 Interaksi Obat (interaksi_obat)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| obat_a_id | UUID | Ya | FK ke tbl_master_obat |
-| obat_b_id | UUID | Ya | FK ke tbl_master_obat |
+| obat_a_id | UUID | Ya | FK ke master_obat |
+| obat_b_id | UUID | Ya | FK ke master_obat |
 | tingkat_keparahan | ENUM | Ya | 'RINGAN','SEDANG','BERAT','KONTRAINDIKASI' |
 | deskripsi | TEXT | Ya | Deskripsi interaksi |
 | mekanisme | TEXT | Tidak | Mekanisme interaksi |

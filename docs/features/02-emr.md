@@ -74,13 +74,13 @@ Modul EMR mencakup tiga konteks pelayanan:
 
 ## 3. Skema Data
 
-### 3.1 Asesmen Awal Keperawatan (tbl_asesmen_keperawatan)
+### 3.1 Asesmen Awal Keperawatan (asesmen_keperawatan)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| kunjungan_id | UUID | Ya | FK ke tbl_kunjungan |
-| pasien_id | UUID | Ya | FK ke tbl_master_pasien |
+| kunjungan_id | UUID | Ya | FK ke kunjungan |
+| pasien_id | UUID | Ya | FK ke master_pasien |
 | waktu_asesmen | DATETIME | Ya | Waktu asesmen dilakukan |
 | keluhan_utama | TEXT | Ya | Keluhan utama pasien |
 | riwayat_penyakit_sekarang | TEXT | Ya | Riwayat penyakit saat ini |
@@ -98,17 +98,17 @@ Modul EMR mencakup tiga konteks pelayanan:
 | berat_badan | DECIMAL(5,2) | Tidak | Berat badan (kg) |
 | spo2 | INT | Tidak | Saturasi oksigen (%) |
 | nyeri_skor | INT | Tidak | Skala nyeri (0-10) |
-| perawat_id | UUID | Ya | FK ke tbl_pegawai |
+| perawat_id | UUID | Ya | FK ke pegawai |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 3.2 Rekam Medis SOAP (tbl_soap)
+### 3.2 Rekam Medis SOAP (soap)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| kunjungan_id | UUID | Ya | FK ke tbl_kunjungan |
-| pasien_id | UUID | Ya | FK ke tbl_master_pasien |
+| kunjungan_id | UUID | Ya | FK ke kunjungan |
+| pasien_id | UUID | Ya | FK ke master_pasien |
 | tanggal_pemeriksaan | DATE | Ya | Tanggal pemeriksaan |
 | waktu_pemeriksaan | TIME | Ya | Waktu pemeriksaan |
 | subjective | TEXT | Ya | Keluhan pasien (Subjective) |
@@ -120,48 +120,48 @@ Modul EMR mencakup tiga konteks pelayanan:
 | nadi | INT | Ya | Nadi |
 | respirasi | INT | Ya | Respiratory Rate |
 | suhu | DECIMAL(4,1) | Ya | Suhu tubuh |
-| dokter_id | UUID | Ya | FK ke tbl_pegawai (Dokter pemeriksa) |
+| dokter_id | UUID | Ya | FK ke pegawai (Dokter pemeriksa) |
 | is_dpjp | BOOLEAN | Ya | Apakah dokter ini DPJP |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 3.3 Diagnosa (tbl_diagnosa)
+### 3.3 Diagnosa (diagnosa)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| soap_id | UUID | Ya | FK ke tbl_soap |
-| kunjungan_id | UUID | Ya | FK ke tbl_kunjungan |
-| icd10_id | UUID | Ya | FK ke tbl_icd10 |
+| soap_id | UUID | Ya | FK ke soap |
+| kunjungan_id | UUID | Ya | FK ke kunjungan |
+| icd10_id | UUID | Ya | FK ke icd10 |
 | jenis_diagnosa | ENUM | Ya | 'UTAMA','SEKUNDER','KOMPLIKASI' |
 | keterangan | TEXT | Tidak | Keterangan tambahan |
 | urutan | INT | Ya | Urutan diagnosa |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 3.4 Prosedur/Tindakan Medis (tbl_prosedur)
+### 3.4 Prosedur/Tindakan Medis (prosedur)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| soap_id | UUID | Ya | FK ke tbl_soap |
-| kunjungan_id | UUID | Ya | FK ke tbl_kunjungan |
-| icd9cm_id | UUID | Ya | FK ke tbl_icd9cm |
-| tindakan_id | UUID | Ya | FK ke tbl_master_tindakan |
+| soap_id | UUID | Ya | FK ke soap |
+| kunjungan_id | UUID | Ya | FK ke kunjungan |
+| icd9cm_id | UUID | Ya | FK ke icd9cm |
+| tindakan_id | UUID | Ya | FK ke master_tindakan |
 | tanggal_prosedur | DATETIME | Ya | Waktu prosedur dilakukan |
-| dokter_pelaksana_id | UUID | Ya | FK ke tbl_pegawai |
-| perawat_asisten_id | UUID | Tidak | FK ke tbl_pegawai |
+| dokter_pelaksana_id | UUID | Ya | FK ke pegawai |
+| perawat_asisten_id | UUID | Tidak | FK ke pegawai |
 | hasil | TEXT | Tidak | Hasil prosedur |
 | catatan | TEXT | Tidak | Catatan prosedur |
 | status | ENUM | Ya | 'RENCANA','DILAKUKAN','BATAL' |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
-### 3.5 Alergi Pasien (tbl_alergi)
+### 3.5 Alergi Pasien (alergi)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| pasien_id | UUID | Ya | FK ke tbl_master_pasien |
+| pasien_id | UUID | Ya | FK ke master_pasien |
 | jenis_alergi | ENUM | Ya | 'OBAT','MAKANAN','LAINNYA' |
 | nama_alergen | VARCHAR(100) | Ya | Nama zat/obat penyebab |
 | reaksi | TEXT | Ya | Reaksi yang timbul |
@@ -169,41 +169,41 @@ Modul EMR mencakup tiga konteks pelayanan:
 | tanggal_ditemukan | DATE | Tidak | Tanggal pertama diketahui |
 | status | ENUM | Ya | 'AKTIF','TIDAK_AKTIF' |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
-| created_by | UUID | Ya | FK ke tbl_user |
+| created_by | UUID | Ya | FK ke user |
 
-### 3.6 Riwayat Penyakit (tbl_riwayat_penyakit)
+### 3.6 Riwayat Penyakit (riwayat_penyakit)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| pasien_id | UUID | Ya | FK ke tbl_master_pasien |
+| pasien_id | UUID | Ya | FK ke master_pasien |
 | jenis_riwayat | ENUM | Ya | 'PRIBADI','KELUARGA' |
 | nama_penyakit | VARCHAR(100) | Ya | Nama penyakit |
-| icd10_id | UUID | Tidak | FK ke tbl_icd10 |
+| icd10_id | UUID | Tidak | FK ke icd10 |
 | tahun_diagnosa | INT | Tidak | Tahun pertama didiagnosa |
 | status_penyakit | ENUM | Ya | 'SEMBUH','TERKONTROL','AKTIF' |
 | keterangan | TEXT | Tidak | Keterangan tambahan |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 3.7 Catatan Keperawatan (tbl_catatan_keperawatan)
+### 3.7 Catatan Keperawatan (catatan_keperawatan)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| kunjungan_id | UUID | Ya | FK ke tbl_kunjungan |
+| kunjungan_id | UUID | Ya | FK ke kunjungan |
 | waktu_catatan | DATETIME | Ya | Waktu pencatatan |
 | jenis_catatan | ENUM | Ya | 'OBSERVASI','TINDAKAN','EDUKASI','LAINNYA' |
 | isi_catatan | TEXT | Ya | Isi catatan |
-| perawat_id | UUID | Ya | FK ke tbl_pegawai |
+| perawat_id | UUID | Ya | FK ke pegawai |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 
-### 3.8 Resume Medis (tbl_resume_medis)
+### 3.8 Resume Medis (resume_medis)
 
 | Field | Tipe Data | Wajib | Keterangan |
 |-------|-----------|-------|------------|
 | id | UUID | Ya | Primary Key |
-| kunjungan_id | UUID | Ya | FK ke tbl_kunjungan |
-| rawat_inap_id | UUID | Tidak | FK ke tbl_rawat_inap |
+| kunjungan_id | UUID | Ya | FK ke kunjungan |
+| rawat_inap_id | UUID | Tidak | FK ke rawat_inap |
 | tanggal_masuk | DATETIME | Ya | Tanggal masuk |
 | tanggal_keluar | DATETIME | Ya | Tanggal keluar |
 | diagnosa_masuk | TEXT | Ya | Diagnosa saat masuk |
@@ -215,7 +215,7 @@ Modul EMR mencakup tiga konteks pelayanan:
 | kondisi_saat_pulang | TEXT | Ya | Kondisi pasien saat pulang |
 | instruksi_pasca_pulang | TEXT | Tidak | Instruksi untuk di rumah |
 | jadwal_kontrol | DATE | Tidak | Jadwal kontrol berikutnya |
-| dokter_id | UUID | Ya | FK ke tbl_pegawai (DPJP) |
+| dokter_id | UUID | Ya | FK ke pegawai (DPJP) |
 | created_at | TIMESTAMP | Ya | Waktu pembuatan |
 | updated_at | TIMESTAMP | Ya | Waktu update terakhir |
 
