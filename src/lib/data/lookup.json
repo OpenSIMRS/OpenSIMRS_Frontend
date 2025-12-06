@@ -1,0 +1,211 @@
+[
+  {
+    "category": "AGAMA",
+    "id": "agama-001",
+    "kode": "AG001",
+    "nama": "Islam",
+    "deskripsi": null,
+    "urutan": 1,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category": "AGAMA",
+    "id": "agama-002",
+    "kode": "AG002",
+    "nama": "Kristen",
+    "deskripsi": null,
+    "urutan": 2,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category": "AGAMA",
+    "id": "agama-003",
+    "kode": "AG003",
+    "nama": "Katolik",
+    "deskripsi": null,
+    "urutan": 3,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category": "AGAMA",
+    "id": "agama-004",
+    "kode": "AG004",
+    "nama": "Hindu",
+    "deskripsi": null,
+    "urutan": 4,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category": "AGAMA",
+    "id": "agama-005",
+    "kode": "AG005",
+    "nama": "Buddha",
+    "deskripsi": null,
+    "urutan": 5,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category": "PENDIDIKAN",
+    "id": "pendidikan-001",
+    "kode": "PD001",
+    "nama": "Tidak Sekolah",
+    "deskripsi": null,
+    "urutan": 1,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category": "PENDIDIKAN",
+    "id": "pendidikan-002",
+    "kode": "PD002",
+    "nama": "SD",
+    "deskripsi": null,
+    "urutan": 2,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category": "PENDIDIKAN",
+    "id": "pendidikan-003",
+    "kode": "PD003",
+    "nama": "SMP",
+    "deskripsi": null,
+    "urutan": 3,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category": "PENDIDIKAN",
+    "id": "pendidikan-004",
+    "kode": "PD004",
+    "nama": "SMA",
+    "deskripsi": null,
+    "urutan": 4,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category": "PENDIDIKAN",
+    "id": "pendidikan-005",
+    "kode": "PD005",
+    "nama": "Diploma",
+    "deskripsi": null,
+    "urutan": 5,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category": "PENDIDIKAN",
+    "id": "pendidikan-006",
+    "kode": "PD006",
+    "nama": "S1",
+    "deskripsi": null,
+    "urutan": 6,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category": "PEKERJAAN",
+    "id": "pekerjaan-001",
+    "kode": "PK001",
+    "nama": "Tidak Bekerja",
+    "deskripsi": null,
+    "urutan": 1,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category": "PEKERJAAN",
+    "id": "pekerjaan-002",
+    "kode": "PK002",
+    "nama": "PNS",
+    "deskripsi": null,
+    "urutan": 2,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category": "PEKERJAAN",
+    "id": "pekerjaan-003",
+    "kode": "PK003",
+    "nama": "Pegawai Swasta",
+    "deskripsi": null,
+    "urutan": 3,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category": "PEKERJAAN",
+    "id": "pekerjaan-004",
+    "kode": "PK004",
+    "nama": "Wiraswasta",
+    "deskripsi": null,
+    "urutan": 4,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category": "PEKERJAAN",
+    "id": "pekerjaan-005",
+    "kode": "PK005",
+    "nama": "Pelajar/Mahasiswa",
+    "deskripsi": null,
+    "urutan": 5,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category": "STATUS_PERKAWINAN",
+    "id": "status-001",
+    "kode": "SP001",
+    "nama": "Belum Menikah",
+    "deskripsi": null,
+    "urutan": 1,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category": "STATUS_PERKAWINAN",
+    "id": "status-002",
+    "kode": "SP002",
+    "nama": "Menikah",
+    "deskripsi": null,
+    "urutan": 2,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "category": "STATUS_PERKAWINAN",
+    "id": "status-003",
+    "kode": "SP003",
+    "nama": "Cerai",
+    "deskripsi": null,
+    "urutan": 3,
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  }
+]

@@ -1,0 +1,74 @@
+[
+  {
+    "id": "icd10-001",
+    "kode": "A00.0",
+    "nama_id": "Kolera karena Vibrio cholerae 01, biovar cholerae",
+    "nama_en": "Cholera due to Vibrio cholerae 01, biovar cholerae",
+    "kategori": "A00-A09",
+    "parent_kode": "A00",
+    "deskripsi": "Penyakit diare akut yang disebabkan oleh infeksi bakteri Vibrio cholerae",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "icd10-002",
+    "kode": "A09",
+    "nama_id": "Diare dan gastroenteritis yang diduga berasal dari infeksi",
+    "nama_en": "Diarrhoea and gastroenteritis of presumed infectious origin",
+    "kategori": "A00-A09",
+    "parent_kode": null,
+    "deskripsi": "Kondisi diare dan peradangan lambung usus yang kemungkinan disebabkan oleh infeksi",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "icd10-003",
+    "kode": "J00",
+    "nama_id": "Nasofaringitis akut [selesma]",
+    "nama_en": "Acute nasopharyngitis [common cold]",
+    "kategori": "J00-J06",
+    "parent_kode": null,
+    "deskripsi": "Peradangan akut pada nasofaring, umumnya dikenal sebagai pilek atau selesma",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "icd10-004",
+    "kode": "J18.9",
+    "nama_id": "Pneumonia, tidak spesifik",
+    "nama_en": "Pneumonia, unspecified",
+    "kategori": "J12-J18",
+    "parent_kode": "J18",
+    "deskripsi": "Peradangan paru-paru yang penyebabnya tidak spesifik",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "icd10-005",
+    "kode": "E11.9",
+    "nama_id": "Diabetes melitus tipe 2 tanpa komplikasi",
+    "nama_en": "Type 2 diabetes mellitus without complications",
+    "kategori": "E10-E14",
+    "parent_kode": "E11",
+    "deskripsi": "Diabetes melitus tipe 2 tanpa adanya komplikasi",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  {
+    "id": "icd10-006",
+    "kode": "I10",
+    "nama_id": "Hipertensi esensial (primer)",
+    "nama_en": "Essential (primary) hypertension",
+    "kategori": "I10-I15",
+    "parent_kode": null,
+    "deskripsi": "Tekanan darah tinggi tanpa penyebab yang jelas",
+    "is_active": true,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-01T00:00:00Z"
+  }
+]
