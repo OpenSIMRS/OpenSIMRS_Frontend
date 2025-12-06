@@ -7,13 +7,14 @@
 	import Input from '$lib/components/ui/input.svelte';
 	import Label from '$lib/components/ui/label.svelte';
 	import type { MasterPasien, Kunjungan } from '$lib/types';
+	import { normalizeData } from '$lib/data-utils';
 	import pasienData from '$lib/data/master-pasien.json';
 	import kunjunganData from '$lib/data/kunjungan.json';
 
 	let searchQuery = $state('');
-	let selectedPatient = $state<any | null>(null);
-	let patients = $state<any[]>(pasienData);
-	let visits = $state<any[]>(kunjunganData);
+	let selectedPatient = $state<MasterPasien | null>(null);
+	let patients = $state<MasterPasien[]>(normalizeData<MasterPasien[]>(pasienData));
+	let visits = $state<Kunjungan[]>(normalizeData<Kunjungan[]>(kunjunganData));
 	
 	let filteredPatients = $derived(
 		searchQuery && !selectedPatient
@@ -36,7 +37,7 @@
 		keterangan: ''
 	});
 
-	function selectPatient(patient: any) {
+	function selectPatient(patient: MasterPasien) {
 		selectedPatient = patient;
 		searchQuery = `${patient.no_rm} - ${patient.nama_lengkap}`;
 	}
@@ -53,18 +54,18 @@
 		}
 
 		// Create new visit
-		const newVisit: any = {
+		const newVisit: Partial<Kunjungan> = {
 			id: `kunjungan-${Date.now()}`,
 			no_registrasi: `REG${new Date().toISOString().slice(0, 10).replace(/-/g, '')}${String(visits.length + 1).padStart(3, '0')}`,
 			pasien_id: selectedPatient.id,
 			tanggal_kunjungan: new Date().toISOString().slice(0, 10),
 			waktu_kunjungan: new Date().toTimeString().slice(0, 8),
-			jenis_kunjungan: formData.jenis_kunjungan,
+			jenis_kunjungan: formData.jenis_kunjungan as any,
 			ruangan_id: formData.ruangan_id,
 			dokter_id: formData.dokter_id,
 			penjamin_id: formData.penjamin_id,
 			no_penjamin: formData.no_penjamin || undefined,
-			status_kunjungan: 'DAFTAR',
+			status_kunjungan: 'DAFTAR' as any,
 			no_antrian: visits.filter((v) => v.tanggal_kunjungan === new Date().toISOString().slice(0, 10)).length + 1,
 			keterangan: formData.keterangan || undefined,
 			created_at: new Date().toISOString(),

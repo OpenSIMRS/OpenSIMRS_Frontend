@@ -7,11 +7,12 @@
 	import Input from '$lib/components/ui/input.svelte';
 	import Label from '$lib/components/ui/label.svelte';
 	import type { Kunjungan, MasterPasien } from '$lib/types';
+	import { normalizeData } from '$lib/data-utils';
 	import kunjunganData from '$lib/data/kunjungan.json';
 	import pasienData from '$lib/data/master-pasien.json';
 
-	let visits = $state<any[]>(kunjunganData);
-	let patients = $state<any[]>(pasienData);
+	let visits = $state<Kunjungan[]>(normalizeData<Kunjungan[]>(kunjunganData));
+	let patients = $state<MasterPasien[]>(normalizeData<MasterPasien[]>(pasienData));
 	
 	// Filter only today's RAJAL visits
 	let todayVisits = $derived(
@@ -23,7 +24,7 @@
 			}))
 	);
 
-	let selectedVisit = $state<any | null>(null);
+	let selectedVisit = $state<(Kunjungan & { pasien?: MasterPasien }) | null>(null);
 
 	// SOAP Form
 	let soapForm = $state({
@@ -45,7 +46,7 @@
 		tinggi_badan: ''
 	});
 
-	function selectVisit(visit: any) {
+	function selectVisit(visit: Kunjungan & { pasien?: MasterPasien }) {
 		selectedVisit = visit;
 	}
 

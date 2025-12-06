@@ -7,10 +7,11 @@
 	import Input from '$lib/components/ui/input.svelte';
 	import Label from '$lib/components/ui/label.svelte';
 	import type { MasterPasien } from '$lib/types';
+	import { normalizeData } from '$lib/data-utils';
 	import pasienData from '$lib/data/master-pasien.json';
 
 	let searchQuery = $state('');
-	let patients = $state<any[]>(pasienData);
+	let patients = $state<MasterPasien[]>(normalizeData<MasterPasien[]>(pasienData));
 	let filteredPatients = $derived(
 		searchQuery
 			? patients.filter(
