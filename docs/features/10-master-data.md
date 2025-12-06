@@ -243,6 +243,8 @@ Tabel ini menggabungkan semua master data sederhana yang hanya menyimpan nilai s
 | value | VARCHAR(100) | Ya | Nilai/nama item |
 | category | VARCHAR(50) | Ya | Kategori (AGAMA, PENDIDIKAN, PEKERJAAN, STATUS_PERKAWINAN, dll) |
 
+> **Constraint:** Kombinasi `value` + `category` harus unik untuk mencegah duplikasi data.
+
 **Contoh Data:**
 
 | id | value | category |
@@ -266,7 +268,7 @@ Tabel ini menggabungkan semua master data sederhana yang hanya menyimpan nilai s
 - CARA_BAYAR
 - Dan lainnya sesuai kebutuhan
 
-> **Catatan:** Untuk data wilayah (Provinsi, Kabupaten, Kecamatan, Kelurahan), tidak menggunakan tabel master terpisah. Field alamat menyimpan kode wilayah sebagai angka/string yang dapat diintegrasikan dengan API wilayah Indonesia eksternal jika diperlukan.
+> **Catatan:** Untuk data wilayah (Provinsi, Kabupaten, Kecamatan, Kelurahan), tidak menggunakan tabel master terpisah. Field `kode_wilayah` menyimpan kode BPS 13 digit sebagai string numerik (format: PPKKCCDDDDDD) yang dapat diintegrasikan dengan API wilayah Indonesia eksternal jika diperlukan.
 
 ---
 
