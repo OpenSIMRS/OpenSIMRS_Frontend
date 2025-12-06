@@ -5,6 +5,7 @@ Dokumentasi tentang struktur autentikasi di aplikasi OpenSIMRS Frontend dan cara
 ## Overview
 
 Aplikasi menggunakan **JWT-based authentication** dengan:
+
 - **Access Token**: Token dengan masa berlaku pendek untuk autentikasi request
 - **Refresh Token**: Token dengan masa berlaku lebih panjang untuk mendapatkan access token baru
 
@@ -119,59 +120,60 @@ File ini berisi konfigurasi Axios dengan interceptors untuk auth:
 ```typescript
 // Request interceptor: Add access token to headers
 api.interceptors.request.use(
-  async (config) => {
-    let token;
-    accessToken.subscribe((value) => (token = value));
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    config.headers.TZ = timezone;
-    return config;
-  },
-  (error) => Promise.reject(error)
+	async (config) => {
+		let token;
+		accessToken.subscribe((value) => (token = value));
+		if (token) {
+			config.headers.Authorization = `Bearer ${token}`;
+		}
+		const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+		config.headers.TZ = timezone;
+		return config;
+	},
+	(error) => Promise.reject(error)
 );
 
 // Response interceptor: Handle token refresh
 api.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    const originalRequest = error.config;
-    
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      
-      const refreshToken = localStorage.getItem('refreshToken');
-      if (!refreshToken) {
-        console.error('No refresh token found');
-        return Promise.reject(error);
-      }
-      
-      try {
-        const response = await axios.post<HttpResponse<PostAuthRefesh>>(
-          env.PUBLIC_BASE_API_URL + '/v1/auth/refresh',
-          { refreshToken }
-        );
-        
-        const newAccessToken = response.data.data.accessToken;
-        accessToken.set(newAccessToken);
-        
-        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-        return api(originalRequest);
-      } catch (refreshError) {
-        console.error('Token refresh failed:', refreshError);
-        accessToken.set('');
-        localStorage.removeItem('refreshToken');
-        return Promise.reject(refreshError);
-      }
-    }
-    
-    return Promise.reject(error);
-  }
+	(response) => response,
+	async (error) => {
+		const originalRequest = error.config;
+
+		if (error.response?.status === 401 && !originalRequest._retry) {
+			originalRequest._retry = true;
+
+			const refreshToken = localStorage.getItem('refreshToken');
+			if (!refreshToken) {
+				console.error('No refresh token found');
+				return Promise.reject(error);
+			}
+
+			try {
+				const response = await axios.post<HttpResponse<PostAuthRefesh>>(
+					env.PUBLIC_BASE_API_URL + '/v1/auth/refresh',
+					{ refreshToken }
+				);
+
+				const newAccessToken = response.data.data.accessToken;
+				accessToken.set(newAccessToken);
+
+				originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+				return api(originalRequest);
+			} catch (refreshError) {
+				console.error('Token refresh failed:', refreshError);
+				accessToken.set('');
+				localStorage.removeItem('refreshToken');
+				return Promise.reject(refreshError);
+			}
+		}
+
+		return Promise.reject(error);
+	}
 );
 ```
 
 **Key Points:**
+
 - Request interceptor menambahkan `Authorization` header dengan access token
 - Response interceptor menangani error 401 dengan mencoba refresh token
 - Jika refresh gagal, token dihapus dan user harus login ulang
@@ -185,6 +187,7 @@ export const accessToken = writable('');
 ```
 
 **Usage:**
+
 ```typescript
 import { accessToken } from '$lib/stores';
 
@@ -192,8 +195,8 @@ import { accessToken } from '$lib/stores';
 accessToken.set('new-token-value');
 
 // Subscribe to changes
-accessToken.subscribe(value => {
-  console.log('Token changed:', value);
+accessToken.subscribe((value) => {
+	console.log('Token changed:', value);
 });
 ```
 
@@ -201,20 +204,20 @@ accessToken.subscribe(value => {
 
 ```typescript
 export type PostAuthLogin = {
-  accessToken: string;
-  refreshToken: string;
-}
+	accessToken: string;
+	refreshToken: string;
+};
 
 export type PostAuthRefesh = {
-  accessToken: string;
-}
+	accessToken: string;
+};
 
 export type GetAuthMe = {
-  ID: string;
-  Email: string;
-  Name: string;
-  Role: string;
-} & GormModel
+	ID: string;
+	Email: string;
+	Name: string;
+	Role: string;
+} & GormModel;
 ```
 
 ## Disabling Auth for Local Development
@@ -228,19 +231,19 @@ Edit `src/lib/axios-instance.ts`:
 ```typescript
 // Comment out the authorization header
 api.interceptors.request.use(
-  async (config) => {
-    // DEVELOPMENT MODE: Auth disabled
-    // let token;
-    // accessToken.subscribe((value) => (token = value));
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`;
-    // }
-    
-    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    config.headers.TZ = timezone;
-    return config;
-  },
-  (error) => Promise.reject(error)
+	async (config) => {
+		// DEVELOPMENT MODE: Auth disabled
+		// let token;
+		// accessToken.subscribe((value) => (token = value));
+		// if (token) {
+		//   config.headers.Authorization = `Bearer ${token}`;
+		// }
+
+		const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+		config.headers.TZ = timezone;
+		return config;
+	},
+	(error) => Promise.reject(error)
 );
 ```
 
@@ -263,32 +266,34 @@ Jika backend tidak mengembalikan 401, Anda bisa disable response interceptor:
 Tambahkan environment variable untuk mengontrol auth:
 
 **.env:**
+
 ```env
 PUBLIC_BASE_API_URL=http://localhost:3000
 PUBLIC_AUTH_ENABLED=false
 ```
 
 **axios-instance.ts:**
+
 ```typescript
 import { env } from '$env/dynamic/public';
 
 const authEnabled = env.PUBLIC_AUTH_ENABLED === 'true';
 
 api.interceptors.request.use(
-  async (config) => {
-    if (authEnabled) {
-      let token;
-      accessToken.subscribe((value) => (token = value));
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
-    }
-    
-    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    config.headers.TZ = timezone;
-    return config;
-  },
-  (error) => Promise.reject(error)
+	async (config) => {
+		if (authEnabled) {
+			let token;
+			accessToken.subscribe((value) => (token = value));
+			if (token) {
+				config.headers.Authorization = `Bearer ${token}`;
+			}
+		}
+
+		const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+		config.headers.TZ = timezone;
+		return config;
+	},
+	(error) => Promise.reject(error)
 );
 ```
 
@@ -298,15 +303,15 @@ Edit `src/routes/+layout.ts` untuk skip auth check:
 
 ```typescript
 export const load = async ({ url }) => {
-  // DEVELOPMENT MODE: Skip auth check
-  // if (url.pathname !== '/login') {
-  //   const token = get(accessToken);
-  //   if (!token) {
-  //     throw redirect(307, '/login');
-  //   }
-  // }
-  
-  return {};
+	// DEVELOPMENT MODE: Skip auth check
+	// if (url.pathname !== '/login') {
+	//   const token = get(accessToken);
+	//   if (!token) {
+	//     throw redirect(307, '/login');
+	//   }
+	// }
+
+	return {};
 };
 ```
 
@@ -345,6 +350,7 @@ Lihat [API_ENDPOINTS.md](./API_ENDPOINTS.md#authentication-endpoints) untuk deta
 ### Manual Testing
 
 1. **Test Login:**
+
 ```bash
 curl -X POST http://localhost:3000/v1/auth/login \
   -H "Content-Type: application/json" \
@@ -352,12 +358,14 @@ curl -X POST http://localhost:3000/v1/auth/login \
 ```
 
 2. **Test Authenticated Request:**
+
 ```bash
 curl -X GET http://localhost:3000/v1/auth/me \
   -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
 ```
 
 3. **Test Token Refresh:**
+
 ```bash
 curl -X POST http://localhost:3000/v1/auth/refresh \
   -H "Content-Type: application/json" \
@@ -373,20 +381,20 @@ import { describe, it, expect } from 'vitest';
 import api from '$lib/axios-instance';
 
 describe('Auth Flow', () => {
-  it('should login successfully', async () => {
-    const response = await api.post('/v1/auth/login', {
-      email: 'test@hospital.com',
-      password: 'password123'
-    });
-    
-    expect(response.status).toBe(200);
-    expect(response.data.data).toHaveProperty('accessToken');
-    expect(response.data.data).toHaveProperty('refreshToken');
-  });
-  
-  it('should refresh token', async () => {
-    // ... test refresh logic
-  });
+	it('should login successfully', async () => {
+		const response = await api.post('/v1/auth/login', {
+			email: 'test@hospital.com',
+			password: 'password123'
+		});
+
+		expect(response.status).toBe(200);
+		expect(response.data.data).toHaveProperty('accessToken');
+		expect(response.data.data).toHaveProperty('refreshToken');
+	});
+
+	it('should refresh token', async () => {
+		// ... test refresh logic
+	});
 });
 ```
 
@@ -395,6 +403,7 @@ describe('Auth Flow', () => {
 ### Problem: "No refresh token found"
 
 **Solution:** Pastikan refresh token disimpan di localStorage setelah login:
+
 ```typescript
 localStorage.setItem('refreshToken', response.data.data.refreshToken);
 ```
@@ -406,17 +415,21 @@ localStorage.setItem('refreshToken', response.data.data.refreshToken);
 ### Problem: CORS error
 
 **Solution:** Pastikan backend mengizinkan origin frontend dan credentials:
+
 ```javascript
 // Backend CORS config
-app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true
-}));
+app.use(
+	cors({
+		origin: 'http://localhost:5173',
+		credentials: true
+	})
+);
 ```
 
 ### Problem: Token expired too quickly
 
 **Solution:** Sesuaikan token expiry di backend:
+
 ```javascript
 // Backend JWT config
 const accessToken = jwt.sign(payload, secret, { expiresIn: '15m' });

@@ -84,12 +84,14 @@ frontend/
 Direktori ini berisi kode yang dapat digunakan kembali di seluruh aplikasi.
 
 #### `data/`
+
 - Berisi file JSON sebagai dummy data untuk development
 - Data dapat dengan mudah diganti dengan API calls
 - Setiap file JSON memiliki TypeScript type yang sesuai
 - Lihat [data/README.md](../src/lib/data/README.md) untuk detail
 
 File dummy data yang tersedia:
+
 - `patients.json` - Data pasien
 - `employees.json` - Data pegawai/staff
 - `icd10.json` - Kode diagnosis ICD-10
@@ -99,12 +101,14 @@ File dummy data yang tersedia:
 - `kunjungan.json` - Data kunjungan pasien
 
 #### `types/`
+
 - Berisi semua TypeScript type definitions
 - Diorganisir per modul/domain
 - Setiap type file fokus pada satu domain
 - Lihat [types/README.md](../src/lib/types/README.md) untuk detail
 
 Type files yang tersedia:
+
 - `master-data.types.ts` - Patient, Employee, ICD, Ruangan, dll
 - `pendaftaran.types.ts` - Kunjungan, Antrian, Pendaftaran
 - `emr.types.ts` - EMR Record, Resep, Order Penunjang
@@ -117,6 +121,7 @@ Type files yang tersedia:
 - `index.ts` - Export semua types
 
 #### `axios-instance.ts`
+
 - Konfigurasi instance Axios dengan base URL dari environment variable
 - Mengatur request/response interceptors untuk:
   - Menambahkan access token ke setiap request
@@ -125,6 +130,7 @@ Type files yang tersedia:
 - Menyediakan `accessToken` store untuk manajemen autentikasi
 
 #### `types.ts`
+
 - Berisi base type definitions untuk:
   - `HttpResponse<T, M>`: Generic type untuk response API
   - `GormModel`: Base model dengan timestamps (CreatedAt, UpdatedAt, DeletedAt)
@@ -135,11 +141,13 @@ Type files yang tersedia:
 > **Note**: Type definitions yang spesifik untuk domain ada di folder `types/`
 
 #### `stores.ts`
+
 - Svelte stores global untuk state management
 - Berisi `accessToken` store untuk autentikasi
 - Dapat ditambah stores lain untuk user data, app state, dll
 
 #### `components/`
+
 - Komponen Svelte yang reusable
 - `Stateful.svelte`: Komponen dengan state management
 
@@ -175,6 +183,7 @@ Folder `features/` berisi dokumentasi detail untuk setiap modul:
 15. **Retur & Pembatalan** - Alur retur dan pembatalan
 
 Setiap dokumentasi fitur berisi:
+
 - Deskripsi umum modul
 - Alur kerja (workflow diagram)
 - Skema data yang dibutuhkan
@@ -189,20 +198,25 @@ Setiap dokumentasi fitur berisi:
 Direktori untuk file-based routing SvelteKit. Setiap folder/file merepresentasikan route di aplikasi.
 
 #### `+layout.svelte`
+
 - Layout wrapper untuk semua halaman
 - Berisi struktur UI yang konsisten (header, sidebar, footer, dll)
 
 #### `+layout.ts`
+
 - Logic untuk layout (data loading, authentication check, dll)
 
 #### `+page.svelte`
+
 - Halaman utama/landing page (route: `/`)
 
 #### `layout.css`
+
 - Global styles untuk layout
 - Custom CSS yang tidak dicakup oleh Tailwind
 
 #### `login/+page.svelte`
+
 - Halaman login (route: `/login`)
 - Form autentikasi user
 
@@ -216,24 +230,30 @@ Berisi file static yang akan disalin langsung ke output build tanpa diproses ole
 ### Configuration Files
 
 #### `.env.example`
+
 - Template file untuk environment variables
 - Berisi contoh konfigurasi yang diperlukan aplikasi
 - Developers harus membuat file `.env` sendiri berdasarkan template ini
 - **JANGAN** commit file `.env` ke version control (harus ada di `.gitignore`)
 
 Environment variables yang tersedia:
+
 ```env
 PUBLIC_BASE_API_URL=http://localhost:3000
 ```
 
 > **Catatan**: Untuk setup development, copy file ini menjadi `.env`:
+>
 > ```bash
 > cp .env.example .env
 > ```
+>
 > Kemudian sesuaikan nilai-nilai sesuai environment lokal Anda.
 
 #### `package.json`
+
 Mendefinisikan:
+
 - Project metadata (name, version)
 - Dependencies (axios)
 - DevDependencies (SvelteKit, TypeScript, Tailwind, ESLint, Prettier, dll)
@@ -259,6 +279,7 @@ Project menggunakan environment variables untuk konfigurasi yang dapat berubah a
 ### Setup Environment Variables
 
 1. Copy file `.env.example` menjadi `.env`:
+
    ```bash
    cp .env.example .env
    ```
@@ -274,13 +295,15 @@ Project menggunakan environment variables untuk konfigurasi yang dapat berubah a
 ### Accessing Environment Variables
 
 Variables dengan prefix `PUBLIC_` dapat diakses di client-side melalui:
+
 ```typescript
 import { env } from '$env/dynamic/public';
 
 const apiUrl = env.PUBLIC_BASE_API_URL;
 ```
 
-> **Penting**: 
+> **Penting**:
+>
 > - Variabel dengan prefix `PUBLIC_` dapat diakses di browser (client-side)
 > - Jangan simpan secret keys atau sensitive data di `PUBLIC_*` variables
 > - File `.env` tidak boleh di-commit ke git (pastikan ada di `.gitignore`)
@@ -289,21 +312,25 @@ const apiUrl = env.PUBLIC_BASE_API_URL;
 ## Fitur Utama
 
 ### 1. Autentikasi
+
 - Token-based authentication menggunakan Axios interceptors
 - Automatic token refresh
 - Access token disimpan di Svelte store
 
 ### 2. Type Safety
+
 - Full TypeScript support
 - Generic types untuk API responses
 - Type definitions untuk semua data models
 
 ### 3. Styling
+
 - Tailwind CSS 4.x dengan Vite plugin
 - Custom CSS untuk styling tambahan
 - Responsive design ready
 
 ### 4. Code Quality
+
 - ESLint untuk linting
 - Prettier untuk formatting
 - Svelte-check untuk type checking

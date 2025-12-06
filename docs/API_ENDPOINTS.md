@@ -43,30 +43,34 @@ Authorization: Bearer {accessToken}
 Login dan mendapatkan access token dan refresh token.
 
 **Request Body:**
+
 ```typescript
 {
-  email: string;
-  password: string;
+	email: string;
+	password: string;
 }
 ```
 
 **Response:**
+
 ```typescript
 {
-  message: string;
-  data: {
-    accessToken: string;
-    refreshToken: string;
-  }
+	message: string;
+	data: {
+		accessToken: string;
+		refreshToken: string;
+	}
 }
 ```
 
 **Status Codes:**
+
 - `200` - Login berhasil
 - `401` - Email atau password salah
 - `422` - Validasi gagal
 
 **Example:**
+
 ```bash
 curl -X POST http://localhost:3000/v1/auth/login \
   -H "Content-Type: application/json" \
@@ -80,23 +84,26 @@ curl -X POST http://localhost:3000/v1/auth/login \
 Refresh access token menggunakan refresh token.
 
 **Request Body:**
+
 ```typescript
 {
-  refreshToken: string;
+	refreshToken: string;
 }
 ```
 
 **Response:**
+
 ```typescript
 {
-  message: string;
-  data: {
-    accessToken: string;
-  }
+	message: string;
+	data: {
+		accessToken: string;
+	}
 }
 ```
 
 **Status Codes:**
+
 - `200` - Refresh berhasil
 - `401` - Refresh token tidak valid atau expired
 
@@ -107,27 +114,30 @@ Refresh access token menggunakan refresh token.
 Mendapatkan informasi user yang sedang login.
 
 **Headers:**
+
 ```
 Authorization: Bearer {accessToken}
 ```
 
 **Response:**
+
 ```typescript
 {
-  message: string;
-  data: {
-    ID: string;
-    Email: string;
-    Name: string;
-    Role: string;
-    CreatedAt: string;
-    UpdatedAt: string;
-    DeletedAt: string | null;
-  }
+	message: string;
+	data: {
+		ID: string;
+		Email: string;
+		Name: string;
+		Role: string;
+		CreatedAt: string;
+		UpdatedAt: string;
+		DeletedAt: string | null;
+	}
 }
 ```
 
 **Status Codes:**
+
 - `200` - Success
 - `401` - Unauthorized
 
@@ -138,11 +148,13 @@ Authorization: Bearer {accessToken}
 Logout dan invalidate refresh token.
 
 **Headers:**
+
 ```
 Authorization: Bearer {accessToken}
 ```
 
 **Status Codes:**
+
 - `200` - Logout berhasil
 - `401` - Unauthorized
 
@@ -159,6 +171,7 @@ Authorization: Bearer {accessToken}
 Mendapatkan daftar pasien dengan pagination.
 
 **Query Parameters:**
+
 ```typescript
 {
   page?: number;        // default: 1
@@ -170,6 +183,7 @@ Mendapatkan daftar pasien dengan pagination.
 ```
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -184,6 +198,7 @@ Mendapatkan daftar pasien dengan pagination.
 ```
 
 **Status Codes:**
+
 - `200` - Success
 - `401` - Unauthorized
 - `422` - Validasi parameter gagal
@@ -195,17 +210,20 @@ Mendapatkan daftar pasien dengan pagination.
 Mendapatkan detail pasien berdasarkan ID.
 
 **Path Parameters:**
+
 - `id` - Patient ID
 
 **Response:**
+
 ```typescript
 {
-  message: string;
-  data: Patient;
+	message: string;
+	data: Patient;
 }
 ```
 
 **Status Codes:**
+
 - `200` - Success
 - `401` - Unauthorized
 - `404` - Patient tidak ditemukan
@@ -217,6 +235,7 @@ Mendapatkan detail pasien berdasarkan ID.
 Membuat pasien baru.
 
 **Request Body:**
+
 ```typescript
 {
   NIK: string;
@@ -237,14 +256,16 @@ Membuat pasien baru.
 ```
 
 **Response:**
+
 ```typescript
 {
-  message: string;
-  data: Patient;
+	message: string;
+	data: Patient;
 }
 ```
 
 **Status Codes:**
+
 - `201` - Patient created
 - `401` - Unauthorized
 - `422` - Validasi gagal
@@ -256,24 +277,28 @@ Membuat pasien baru.
 Update data pasien.
 
 **Path Parameters:**
+
 - `id` - Patient ID
 
 **Request Body:**
+
 ```typescript
 {
-  // Same as POST, all fields optional
+	// Same as POST, all fields optional
 }
 ```
 
 **Response:**
+
 ```typescript
 {
-  message: string;
-  data: Patient;
+	message: string;
+	data: Patient;
 }
 ```
 
 **Status Codes:**
+
 - `200` - Success
 - `401` - Unauthorized
 - `404` - Patient tidak ditemukan
@@ -286,16 +311,19 @@ Update data pasien.
 Soft delete pasien (set DeletedAt).
 
 **Path Parameters:**
+
 - `id` - Patient ID
 
 **Response:**
+
 ```typescript
 {
-  message: string;
+	message: string;
 }
 ```
 
 **Status Codes:**
+
 - `200` - Success
 - `401` - Unauthorized
 - `404` - Patient tidak ditemukan
@@ -309,6 +337,7 @@ Soft delete pasien (set DeletedAt).
 Mendapatkan daftar pegawai dengan pagination.
 
 **Query Parameters:**
+
 ```typescript
 {
   page?: number;
@@ -321,6 +350,7 @@ Mendapatkan daftar pegawai dengan pagination.
 ```
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -336,13 +366,15 @@ Mendapatkan daftar pegawai dengan pagination.
 Mendapatkan detail pegawai.
 
 **Path Parameters:**
+
 - `id` - Employee ID
 
 **Response:**
+
 ```typescript
 {
-  message: string;
-  data: Employee;
+	message: string;
+	data: Employee;
 }
 ```
 
@@ -353,6 +385,7 @@ Mendapatkan detail pegawai.
 Membuat pegawai baru.
 
 **Request Body:**
+
 ```typescript
 {
   NIP: string;
@@ -369,10 +402,11 @@ Membuat pegawai baru.
 ```
 
 **Response:**
+
 ```typescript
 {
-  message: string;
-  data: Employee;
+	message: string;
+	data: Employee;
 }
 ```
 
@@ -383,15 +417,17 @@ Membuat pegawai baru.
 Update data pegawai.
 
 **Path Parameters:**
+
 - `id` - Employee ID
 
 **Request Body:** Same as POST, all fields optional
 
 **Response:**
+
 ```typescript
 {
-  message: string;
-  data: Employee;
+	message: string;
+	data: Employee;
 }
 ```
 
@@ -402,12 +438,14 @@ Update data pegawai.
 Soft delete pegawai.
 
 **Path Parameters:**
+
 - `id` - Employee ID
 
 **Response:**
+
 ```typescript
 {
-  message: string;
+	message: string;
 }
 ```
 
@@ -420,6 +458,7 @@ Soft delete pegawai.
 Mendapatkan daftar ICD-10 dengan pagination.
 
 **Query Parameters:**
+
 ```typescript
 {
   page?: number;
@@ -431,6 +470,7 @@ Mendapatkan daftar ICD-10 dengan pagination.
 ```
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -446,10 +486,11 @@ Mendapatkan daftar ICD-10 dengan pagination.
 Mendapatkan detail ICD-10.
 
 **Response:**
+
 ```typescript
 {
-  message: string;
-  data: ICD10;
+	message: string;
+	data: ICD10;
 }
 ```
 
@@ -462,6 +503,7 @@ Mendapatkan detail ICD-10.
 Mendapatkan daftar ICD-9 CM dengan pagination.
 
 **Query Parameters:**
+
 ```typescript
 {
   page?: number;
@@ -473,6 +515,7 @@ Mendapatkan daftar ICD-9 CM dengan pagination.
 ```
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -490,6 +533,7 @@ Mendapatkan daftar ICD-9 CM dengan pagination.
 Mendapatkan daftar ruangan.
 
 **Query Parameters:**
+
 ```typescript
 {
   page?: number;
@@ -501,6 +545,7 @@ Mendapatkan daftar ruangan.
 ```
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -516,6 +561,7 @@ Mendapatkan daftar ruangan.
 Membuat ruangan baru.
 
 **Request Body:**
+
 ```typescript
 {
   KodeRuangan: string;
@@ -536,6 +582,7 @@ Membuat ruangan baru.
 Mendapatkan daftar barang.
 
 **Query Parameters:**
+
 ```typescript
 {
   page?: number;
@@ -547,6 +594,7 @@ Mendapatkan daftar barang.
 ```
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -562,10 +610,11 @@ Mendapatkan daftar barang.
 Mendapatkan detail barang.
 
 **Response:**
+
 ```typescript
 {
-  message: string;
-  data: Barang;
+	message: string;
+	data: Barang;
 }
 ```
 
@@ -576,6 +625,7 @@ Mendapatkan detail barang.
 Membuat barang baru.
 
 **Request Body:**
+
 ```typescript
 {
   KodeBarang: string;
@@ -615,6 +665,7 @@ Soft delete barang.
 Mendapatkan daftar penjamin.
 
 **Query Parameters:**
+
 ```typescript
 {
   page?: number;
@@ -626,6 +677,7 @@ Mendapatkan daftar penjamin.
 ```
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -645,6 +697,7 @@ Mendapatkan daftar penjamin.
 Mendapatkan daftar kunjungan.
 
 **Query Parameters:**
+
 ```typescript
 {
   page?: number;
@@ -658,6 +711,7 @@ Mendapatkan daftar kunjungan.
 ```
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -673,10 +727,11 @@ Mendapatkan daftar kunjungan.
 Mendapatkan detail kunjungan.
 
 **Response:**
+
 ```typescript
 {
-  message: string;
-  data: Kunjungan;
+	message: string;
+	data: Kunjungan;
 }
 ```
 
@@ -687,6 +742,7 @@ Mendapatkan detail kunjungan.
 Membuat kunjungan baru (pendaftaran).
 
 **Request Body:**
+
 ```typescript
 {
   PasienID: string;
@@ -700,6 +756,7 @@ Membuat kunjungan baru (pendaftaran).
 ```
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -716,6 +773,7 @@ Membuat kunjungan baru (pendaftaran).
 Update status kunjungan.
 
 **Request Body:**
+
 ```typescript
 {
   StatusKunjungan?: "Terdaftar" | "Sedang Dilayani" | "Selesai" | "Batal";
@@ -732,6 +790,7 @@ Update status kunjungan.
 Mendapatkan antrian per poli.
 
 **Query Parameters:**
+
 ```typescript
 {
   poliID: string;
@@ -741,6 +800,7 @@ Mendapatkan antrian per poli.
 ```
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -755,13 +815,15 @@ Mendapatkan antrian per poli.
 Panggil antrian.
 
 **Path Parameters:**
+
 - `id` - Antrian ID
 
 **Response:**
+
 ```typescript
 {
-  message: string;
-  data: Antrian;
+	message: string;
+	data: Antrian;
 }
 ```
 
@@ -776,6 +838,7 @@ Panggil antrian.
 Mendapatkan daftar EMR records.
 
 **Query Parameters:**
+
 ```typescript
 {
   page?: number;
@@ -789,6 +852,7 @@ Mendapatkan daftar EMR records.
 ```
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -804,10 +868,11 @@ Mendapatkan daftar EMR records.
 Mendapatkan detail EMR record.
 
 **Response:**
+
 ```typescript
 {
-  message: string;
-  data: EMRRecord;
+	message: string;
+	data: EMRRecord;
 }
 ```
 
@@ -818,6 +883,7 @@ Mendapatkan detail EMR record.
 Membuat EMR record baru.
 
 **Request Body:**
+
 ```typescript
 {
   KunjunganID: string;
@@ -846,10 +912,11 @@ Membuat EMR record baru.
 ```
 
 **Response:**
+
 ```typescript
 {
-  message: string;
-  data: EMRRecord;
+	message: string;
+	data: EMRRecord;
 }
 ```
 
@@ -870,6 +937,7 @@ Update EMR record.
 Mendapatkan daftar resep.
 
 **Query Parameters:**
+
 ```typescript
 {
   page?: number;
@@ -883,6 +951,7 @@ Mendapatkan daftar resep.
 ```
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -898,6 +967,7 @@ Mendapatkan daftar resep.
 Membuat resep baru.
 
 **Request Body:**
+
 ```typescript
 {
   EMRRecordID: string;
@@ -919,6 +989,7 @@ Membuat resep baru.
 ```
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -937,6 +1008,7 @@ Membuat resep baru.
 Membuat order penunjang (Lab atau Radiologi).
 
 **Request Body:**
+
 ```typescript
 {
   EMRRecordID: string;
@@ -953,6 +1025,7 @@ Membuat order penunjang (Lab atau Radiologi).
 ```
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -973,6 +1046,7 @@ Membuat order penunjang (Lab atau Radiologi).
 Mendapatkan daftar order lab.
 
 **Query Parameters:**
+
 ```typescript
 {
   page?: number;
@@ -985,6 +1059,7 @@ Mendapatkan daftar order lab.
 ```
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -1000,6 +1075,7 @@ Mendapatkan daftar order lab.
 Mendapatkan detail order lab.
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -1018,6 +1094,7 @@ Mendapatkan detail order lab.
 Input sampel lab.
 
 **Request Body:**
+
 ```typescript
 {
   OrderLabID: string;
@@ -1037,6 +1114,7 @@ Input sampel lab.
 Input hasil lab.
 
 **Request Body:**
+
 ```typescript
 {
   OrderLabItemID: string;
@@ -1058,6 +1136,7 @@ Input hasil lab.
 Validasi hasil lab.
 
 **Request Body:**
+
 ```typescript
 {
   OrderLabID: string;
@@ -1078,6 +1157,7 @@ Validasi hasil lab.
 Mendapatkan daftar order radiologi.
 
 **Query Parameters:**
+
 ```typescript
 {
   page?: number;
@@ -1090,6 +1170,7 @@ Mendapatkan daftar order radiologi.
 ```
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -1105,6 +1186,7 @@ Mendapatkan daftar order radiologi.
 Mendapatkan detail order radiologi.
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -1123,10 +1205,11 @@ Mendapatkan detail order radiologi.
 Jadwalkan pemeriksaan radiologi.
 
 **Request Body:**
+
 ```typescript
 {
-  OrderRadiologiItemID: string;
-  JadwalPemeriksaan: string;  // ISO 8601 datetime
+	OrderRadiologiItemID: string;
+	JadwalPemeriksaan: string; // ISO 8601 datetime
 }
 ```
 
@@ -1137,6 +1220,7 @@ Jadwalkan pemeriksaan radiologi.
 Upload gambar radiologi (PACS).
 
 **Request Body:**
+
 ```typescript
 {
   OrderRadiologiItemID: string;
@@ -1156,6 +1240,7 @@ Upload gambar radiologi (PACS).
 Membuat expertise radiologi.
 
 **Request Body:**
+
 ```typescript
 {
   OrderRadiologiID: string;
@@ -1179,6 +1264,7 @@ Membuat expertise radiologi.
 Mendapatkan daftar resep farmasi.
 
 **Query Parameters:**
+
 ```typescript
 {
   page?: number;
@@ -1191,6 +1277,7 @@ Mendapatkan daftar resep farmasi.
 ```
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -1206,6 +1293,7 @@ Mendapatkan daftar resep farmasi.
 Mendapatkan detail resep farmasi.
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -1222,6 +1310,7 @@ Mendapatkan detail resep farmasi.
 Verifikasi resep.
 
 **Request Body:**
+
 ```typescript
 {
   ResepFarmasiID: string;
@@ -1241,6 +1330,7 @@ Verifikasi resep.
 Penyerahan obat ke pasien.
 
 **Request Body:**
+
 ```typescript
 {
   ResepFarmasiID: string;
@@ -1262,6 +1352,7 @@ Penyerahan obat ke pasien.
 Mendapatkan stok obat.
 
 **Query Parameters:**
+
 ```typescript
 {
   page?: number;
@@ -1272,6 +1363,7 @@ Mendapatkan stok obat.
 ```
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -1287,6 +1379,7 @@ Mendapatkan stok obat.
 Catat mutasi stok.
 
 **Request Body:**
+
 ```typescript
 {
   ObatID: string;
@@ -1313,6 +1406,7 @@ Catat mutasi stok.
 Mendapatkan daftar billing.
 
 **Query Parameters:**
+
 ```typescript
 {
   page?: number;
@@ -1326,6 +1420,7 @@ Mendapatkan daftar billing.
 ```
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -1341,6 +1436,7 @@ Mendapatkan daftar billing.
 Mendapatkan detail billing.
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -1358,24 +1454,25 @@ Mendapatkan detail billing.
 Membuat billing baru.
 
 **Request Body:**
+
 ```typescript
 {
-  KunjunganID: string;
-  PasienID: string;
-  PenjaminID: string;
-  TanggalBilling: string;
-  Items: Array<{
-    JenisItem: "Tindakan" | "Obat" | "Alkes" | "BHP" | "Kamar" | "Konsultasi" | "Lainnya";
-    ItemID: string;
-    NamaItem: string;
-    Jumlah: number;
-    HargaSatuan: number;
-    Diskon: number;
-    TanggalLayanan: string;
-    DokterPelaksana?: string;
-    RuanganID?: string;
-    Catatan?: string;
-  }>;
+	KunjunganID: string;
+	PasienID: string;
+	PenjaminID: string;
+	TanggalBilling: string;
+	Items: Array<{
+		JenisItem: 'Tindakan' | 'Obat' | 'Alkes' | 'BHP' | 'Kamar' | 'Konsultasi' | 'Lainnya';
+		ItemID: string;
+		NamaItem: string;
+		Jumlah: number;
+		HargaSatuan: number;
+		Diskon: number;
+		TanggalLayanan: string;
+		DokterPelaksana?: string;
+		RuanganID?: string;
+		Catatan?: string;
+	}>;
 }
 ```
 
@@ -1386,6 +1483,7 @@ Membuat billing baru.
 Proses pembayaran.
 
 **Request Body:**
+
 ```typescript
 {
   BillingID: string;
@@ -1405,6 +1503,7 @@ Proses pembayaran.
 Retur item billing.
 
 **Request Body:**
+
 ```typescript
 {
   BillingID: string;
@@ -1428,6 +1527,7 @@ Retur item billing.
 Mendapatkan perhitungan JP per periode.
 
 **Query Parameters:**
+
 ```typescript
 {
   periodeID?: string;
@@ -1438,6 +1538,7 @@ Mendapatkan perhitungan JP per periode.
 ```
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -1452,11 +1553,12 @@ Mendapatkan perhitungan JP per periode.
 Buat periode JP baru.
 
 **Request Body:**
+
 ```typescript
 {
-  NamaPeriode: string;
-  TanggalMulai: string;
-  TanggalSelesai: string;
+	NamaPeriode: string;
+	TanggalMulai: string;
+	TanggalSelesai: string;
 }
 ```
 
@@ -1467,9 +1569,10 @@ Buat periode JP baru.
 Hitung JP untuk periode tertentu.
 
 **Request Body:**
+
 ```typescript
 {
-  PeriodeJPID: string;
+	PeriodeJPID: string;
 }
 ```
 
@@ -1480,6 +1583,7 @@ Hitung JP untuk periode tertentu.
 Proses pembayaran JP.
 
 **Request Body:**
+
 ```typescript
 {
   RekapitulasiJPID: string;
@@ -1503,6 +1607,7 @@ Proses pembayaran JP.
 Mendapatkan metrics dashboard.
 
 **Query Parameters:**
+
 ```typescript
 {
   tanggal?: string;  // Default: today
@@ -1510,10 +1615,11 @@ Mendapatkan metrics dashboard.
 ```
 
 **Response:**
+
 ```typescript
 {
-  message: string;
-  data: DashboardMetrics;
+	message: string;
+	data: DashboardMetrics;
 }
 ```
 
@@ -1526,18 +1632,20 @@ Mendapatkan metrics dashboard.
 Laporan kunjungan.
 
 **Query Parameters:**
+
 ```typescript
 {
-  tanggalAwal: string;
-  tanggalAkhir: string;
+	tanggalAwal: string;
+	tanggalAkhir: string;
 }
 ```
 
 **Response:**
+
 ```typescript
 {
-  message: string;
-  data: LaporanKunjungan;
+	message: string;
+	data: LaporanKunjungan;
 }
 ```
 
@@ -1548,18 +1656,20 @@ Laporan kunjungan.
 Laporan pendapatan.
 
 **Query Parameters:**
+
 ```typescript
 {
-  tanggalAwal: string;
-  tanggalAkhir: string;
+	tanggalAwal: string;
+	tanggalAkhir: string;
 }
 ```
 
 **Response:**
+
 ```typescript
 {
-  message: string;
-  data: LaporanPendapatan;
+	message: string;
+	data: LaporanPendapatan;
 }
 ```
 
@@ -1570,6 +1680,7 @@ Laporan pendapatan.
 Top 10 penyakit.
 
 **Query Parameters:**
+
 ```typescript
 {
   periode: string;  // e.g., "2024-12"
@@ -1578,6 +1689,7 @@ Top 10 penyakit.
 ```
 
 **Response:**
+
 ```typescript
 {
   message: string;
@@ -1592,10 +1704,11 @@ Top 10 penyakit.
 Laporan stok.
 
 **Response:**
+
 ```typescript
 {
-  message: string;
-  data: LaporanStok;
+	message: string;
+	data: LaporanStok;
 }
 ```
 
@@ -1613,6 +1726,7 @@ Semua endpoint menggunakan format error yang konsisten:
 ```
 
 **Common HTTP Status Codes:**
+
 - `200` - Success (GET, PUT, DELETE)
 - `201` - Created (POST)
 - `400` - Bad Request

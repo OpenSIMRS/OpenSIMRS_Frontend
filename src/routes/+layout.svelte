@@ -18,6 +18,6 @@
 	{#await getUserInfo() then data}
 		{@render children()}
 	{:catch error}
-		{redirectTo("Not Logged Redirecto login page...", "/login")}
+		{redirectTo('Not Logged Redirecto login page...', '/login')}
 	{/await}
 {/if}

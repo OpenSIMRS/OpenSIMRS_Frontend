@@ -46,9 +46,12 @@ api.interceptors.response.use(
 
 			try {
 				// Call the refresh token endpoint
-				const response = await axios.post<HttpResponse<PostAuthRefesh>>(env.PUBLIC_BASE_API_URL + '/v1/auth/refresh', {
-					refreshToken
-				});
+				const response = await axios.post<HttpResponse<PostAuthRefesh>>(
+					env.PUBLIC_BASE_API_URL + '/v1/auth/refresh',
+					{
+						refreshToken
+					}
+				);
 
 				const newAccessToken = response.data.data.accessToken;
 

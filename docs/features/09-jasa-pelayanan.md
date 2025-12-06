@@ -16,21 +16,21 @@ Modul Jasa Pelayanan adalah sistem informasi yang mengelola perhitungan dan dist
 
 ### 2.1 Kategori Penerima Jasa
 
-| Kategori | Contoh |
-|----------|--------|
-| **Dokter** | Dokter umum, Dokter spesialis, Dokter gigi |
-| **Perawat** | Perawat pelaksana, Perawat pendamping |
-| **Tenaga Medis Lain** | Bidan, Analis, Radiografer, Apoteker |
-| **Tenaga Penunjang** | Administrasi, Cleaning Service, dll |
+| Kategori              | Contoh                                     |
+| --------------------- | ------------------------------------------ |
+| **Dokter**            | Dokter umum, Dokter spesialis, Dokter gigi |
+| **Perawat**           | Perawat pelaksana, Perawat pendamping      |
+| **Tenaga Medis Lain** | Bidan, Analis, Radiografer, Apoteker       |
+| **Tenaga Penunjang**  | Administrasi, Cleaning Service, dll        |
 
 ### 2.2 Jenis Jasa
 
-| Jenis | Keterangan |
-|-------|------------|
-| **Jasa Medis** | Komponen jasa dari tindakan medis |
-| **Jasa Sarana** | Komponen penggunaan sarana/alat |
-| **Jasa Manajemen** | Komponen untuk manajemen RS |
-| **Jasa Keperawatan** | Komponen jasa perawatan |
+| Jenis                | Keterangan                        |
+| -------------------- | --------------------------------- |
+| **Jasa Medis**       | Komponen jasa dari tindakan medis |
+| **Jasa Sarana**      | Komponen penggunaan sarana/alat   |
+| **Jasa Manajemen**   | Komponen untuk manajemen RS       |
+| **Jasa Keperawatan** | Komponen jasa perawatan           |
 
 ---
 
@@ -87,109 +87,109 @@ Modul Jasa Pelayanan adalah sistem informasi yang mengelola perhitungan dan dist
 
 ### 4.1 Pelaksana Tindakan (pelaksana_tindakan)
 
-| Field | Tipe Data | Wajib | Keterangan |
-|-------|-----------|-------|------------|
-| id | UUID | Ya | Primary Key |
-| billing_detail_id | UUID | Ya | FK ke billing_detail |
-| tindakan_id | UUID | Ya | FK ke master_tindakan |
-| pegawai_id | UUID | Ya | FK ke pegawai |
-| peran | ENUM | Ya | 'OPERATOR','ASISTEN_1','ASISTEN_2','ANESTESI','PERAWAT','LAINNYA' |
-| persentase | DECIMAL(5,2) | Ya | Persentase jasa |
-| nilai_jasa | DECIMAL(15,2) | Ya | Nilai jasa yang diterima |
-| status | ENUM | Ya | 'PENDING','CALCULATED','PAID' |
-| created_at | TIMESTAMP | Ya | Waktu pembuatan |
-| updated_at | TIMESTAMP | Ya | Waktu update terakhir |
-| created_by | UUID | Ya | FK ke user |
+| Field             | Tipe Data     | Wajib | Keterangan                                                        |
+| ----------------- | ------------- | ----- | ----------------------------------------------------------------- |
+| id                | UUID          | Ya    | Primary Key                                                       |
+| billing_detail_id | UUID          | Ya    | FK ke billing_detail                                              |
+| tindakan_id       | UUID          | Ya    | FK ke master_tindakan                                             |
+| pegawai_id        | UUID          | Ya    | FK ke pegawai                                                     |
+| peran             | ENUM          | Ya    | 'OPERATOR','ASISTEN_1','ASISTEN_2','ANESTESI','PERAWAT','LAINNYA' |
+| persentase        | DECIMAL(5,2)  | Ya    | Persentase jasa                                                   |
+| nilai_jasa        | DECIMAL(15,2) | Ya    | Nilai jasa yang diterima                                          |
+| status            | ENUM          | Ya    | 'PENDING','CALCULATED','PAID'                                     |
+| created_at        | TIMESTAMP     | Ya    | Waktu pembuatan                                                   |
+| updated_at        | TIMESTAMP     | Ya    | Waktu update terakhir                                             |
+| created_by        | UUID          | Ya    | FK ke user                                                        |
 
 ### 4.2 Formula Jasa (formula_jasa)
 
-| Field | Tipe Data | Wajib | Keterangan |
-|-------|-----------|-------|------------|
-| id | UUID | Ya | Primary Key |
-| kode | VARCHAR(20) | Ya | Kode formula |
-| nama | VARCHAR(100) | Ya | Nama formula |
-| kategori_tindakan_id | UUID | Ya | FK ke kategori_tindakan |
-| komponen_jasa_medis | DECIMAL(5,2) | Ya | Persentase jasa medis dari tarif |
-| komponen_jasa_sarana | DECIMAL(5,2) | Ya | Persentase jasa sarana |
-| komponen_jasa_rs | DECIMAL(5,2) | Ya | Persentase untuk RS |
-| is_active | BOOLEAN | Ya | Status aktif |
-| tanggal_berlaku | DATE | Ya | Tanggal mulai berlaku |
-| tanggal_berakhir | DATE | Tidak | Tanggal berakhir |
-| created_at | TIMESTAMP | Ya | Waktu pembuatan |
-| updated_at | TIMESTAMP | Ya | Waktu update terakhir |
+| Field                | Tipe Data    | Wajib | Keterangan                       |
+| -------------------- | ------------ | ----- | -------------------------------- |
+| id                   | UUID         | Ya    | Primary Key                      |
+| kode                 | VARCHAR(20)  | Ya    | Kode formula                     |
+| nama                 | VARCHAR(100) | Ya    | Nama formula                     |
+| kategori_tindakan_id | UUID         | Ya    | FK ke kategori_tindakan          |
+| komponen_jasa_medis  | DECIMAL(5,2) | Ya    | Persentase jasa medis dari tarif |
+| komponen_jasa_sarana | DECIMAL(5,2) | Ya    | Persentase jasa sarana           |
+| komponen_jasa_rs     | DECIMAL(5,2) | Ya    | Persentase untuk RS              |
+| is_active            | BOOLEAN      | Ya    | Status aktif                     |
+| tanggal_berlaku      | DATE         | Ya    | Tanggal mulai berlaku            |
+| tanggal_berakhir     | DATE         | Tidak | Tanggal berakhir                 |
+| created_at           | TIMESTAMP    | Ya    | Waktu pembuatan                  |
+| updated_at           | TIMESTAMP    | Ya    | Waktu update terakhir            |
 
 ### 4.3 Distribusi Formula per Peran (distribusi_formula)
 
-| Field | Tipe Data | Wajib | Keterangan |
-|-------|-----------|-------|------------|
-| id | UUID | Ya | Primary Key |
-| formula_id | UUID | Ya | FK ke formula_jasa |
-| peran | ENUM | Ya | 'OPERATOR','ASISTEN_1','ASISTEN_2','ANESTESI','PERAWAT' |
-| persentase | DECIMAL(5,2) | Ya | Persentase dari komponen jasa medis |
-| is_active | BOOLEAN | Ya | Status aktif |
-| created_at | TIMESTAMP | Ya | Waktu pembuatan |
+| Field      | Tipe Data    | Wajib | Keterangan                                              |
+| ---------- | ------------ | ----- | ------------------------------------------------------- |
+| id         | UUID         | Ya    | Primary Key                                             |
+| formula_id | UUID         | Ya    | FK ke formula_jasa                                      |
+| peran      | ENUM         | Ya    | 'OPERATOR','ASISTEN_1','ASISTEN_2','ANESTESI','PERAWAT' |
+| persentase | DECIMAL(5,2) | Ya    | Persentase dari komponen jasa medis                     |
+| is_active  | BOOLEAN      | Ya    | Status aktif                                            |
+| created_at | TIMESTAMP    | Ya    | Waktu pembuatan                                         |
 
 ### 4.4 Akumulasi Jasa (akumulasi_jasa)
 
-| Field | Tipe Data | Wajib | Keterangan |
-|-------|-----------|-------|------------|
-| id | UUID | Ya | Primary Key |
-| pegawai_id | UUID | Ya | FK ke pegawai |
-| periode_tahun | INT | Ya | Tahun periode |
-| periode_bulan | INT | Ya | Bulan periode |
-| total_jasa_medis | DECIMAL(15,2) | Ya | Total jasa medis |
-| total_jasa_keperawatan | DECIMAL(15,2) | Ya | Total jasa keperawatan |
-| total_jasa_lainnya | DECIMAL(15,2) | Ya | Total jasa lainnya |
-| grand_total | DECIMAL(15,2) | Ya | Grand total |
-| potongan_pajak | DECIMAL(15,2) | Ya | Potongan pajak |
-| potongan_lainnya | DECIMAL(15,2) | Tidak | Potongan lainnya |
-| netto | DECIMAL(15,2) | Ya | Jumlah bersih |
-| status | ENUM | Ya | 'DRAFT','APPROVED','PAID' |
-| approved_by | UUID | Tidak | FK ke user |
-| approved_at | DATETIME | Tidak | Waktu approval |
-| paid_at | DATETIME | Tidak | Waktu pembayaran |
-| created_at | TIMESTAMP | Ya | Waktu pembuatan |
-| updated_at | TIMESTAMP | Ya | Waktu update terakhir |
+| Field                  | Tipe Data     | Wajib | Keterangan                |
+| ---------------------- | ------------- | ----- | ------------------------- |
+| id                     | UUID          | Ya    | Primary Key               |
+| pegawai_id             | UUID          | Ya    | FK ke pegawai             |
+| periode_tahun          | INT           | Ya    | Tahun periode             |
+| periode_bulan          | INT           | Ya    | Bulan periode             |
+| total_jasa_medis       | DECIMAL(15,2) | Ya    | Total jasa medis          |
+| total_jasa_keperawatan | DECIMAL(15,2) | Ya    | Total jasa keperawatan    |
+| total_jasa_lainnya     | DECIMAL(15,2) | Ya    | Total jasa lainnya        |
+| grand_total            | DECIMAL(15,2) | Ya    | Grand total               |
+| potongan_pajak         | DECIMAL(15,2) | Ya    | Potongan pajak            |
+| potongan_lainnya       | DECIMAL(15,2) | Tidak | Potongan lainnya          |
+| netto                  | DECIMAL(15,2) | Ya    | Jumlah bersih             |
+| status                 | ENUM          | Ya    | 'DRAFT','APPROVED','PAID' |
+| approved_by            | UUID          | Tidak | FK ke user                |
+| approved_at            | DATETIME      | Tidak | Waktu approval            |
+| paid_at                | DATETIME      | Tidak | Waktu pembayaran          |
+| created_at             | TIMESTAMP     | Ya    | Waktu pembuatan           |
+| updated_at             | TIMESTAMP     | Ya    | Waktu update terakhir     |
 
 ### 4.5 Detail Akumulasi (akumulasi_jasa_detail)
 
-| Field | Tipe Data | Wajib | Keterangan |
-|-------|-----------|-------|------------|
-| id | UUID | Ya | Primary Key |
-| akumulasi_id | UUID | Ya | FK ke akumulasi_jasa |
-| pelaksana_id | UUID | Ya | FK ke pelaksana_tindakan |
-| tanggal | DATE | Ya | Tanggal tindakan |
-| billing_id | UUID | Ya | FK ke billing |
-| pasien_nama | VARCHAR(100) | Ya | Nama pasien |
-| tindakan_nama | VARCHAR(150) | Ya | Nama tindakan |
-| peran | VARCHAR(50) | Ya | Peran dalam tindakan |
-| nilai_jasa | DECIMAL(15,2) | Ya | Nilai jasa |
-| created_at | TIMESTAMP | Ya | Waktu pembuatan |
+| Field         | Tipe Data     | Wajib | Keterangan               |
+| ------------- | ------------- | ----- | ------------------------ |
+| id            | UUID          | Ya    | Primary Key              |
+| akumulasi_id  | UUID          | Ya    | FK ke akumulasi_jasa     |
+| pelaksana_id  | UUID          | Ya    | FK ke pelaksana_tindakan |
+| tanggal       | DATE          | Ya    | Tanggal tindakan         |
+| billing_id    | UUID          | Ya    | FK ke billing            |
+| pasien_nama   | VARCHAR(100)  | Ya    | Nama pasien              |
+| tindakan_nama | VARCHAR(150)  | Ya    | Nama tindakan            |
+| peran         | VARCHAR(50)   | Ya    | Peran dalam tindakan     |
+| nilai_jasa    | DECIMAL(15,2) | Ya    | Nilai jasa               |
+| created_at    | TIMESTAMP     | Ya    | Waktu pembuatan          |
 
 ### 4.6 Template Peran Tindakan (template_peran)
 
-| Field | Tipe Data | Wajib | Keterangan |
-|-------|-----------|-------|------------|
-| id | UUID | Ya | Primary Key |
-| tindakan_id | UUID | Ya | FK ke master_tindakan |
-| peran | ENUM | Ya | 'OPERATOR','ASISTEN_1','ASISTEN_2','ANESTESI','PERAWAT' |
-| is_required | BOOLEAN | Ya | Wajib diisi |
-| default_pegawai_id | UUID | Tidak | FK ke pegawai (default) |
-| created_at | TIMESTAMP | Ya | Waktu pembuatan |
+| Field              | Tipe Data | Wajib | Keterangan                                              |
+| ------------------ | --------- | ----- | ------------------------------------------------------- |
+| id                 | UUID      | Ya    | Primary Key                                             |
+| tindakan_id        | UUID      | Ya    | FK ke master_tindakan                                   |
+| peran              | ENUM      | Ya    | 'OPERATOR','ASISTEN_1','ASISTEN_2','ANESTESI','PERAWAT' |
+| is_required        | BOOLEAN   | Ya    | Wajib diisi                                             |
+| default_pegawai_id | UUID      | Tidak | FK ke pegawai (default)                                 |
+| created_at         | TIMESTAMP | Ya    | Waktu pembuatan                                         |
 
 ### 4.7 Periode Jasa (periode_jasa)
 
-| Field | Tipe Data | Wajib | Keterangan |
-|-------|-----------|-------|------------|
-| id | UUID | Ya | Primary Key |
-| tahun | INT | Ya | Tahun |
-| bulan | INT | Ya | Bulan |
-| tanggal_mulai | DATE | Ya | Tanggal awal periode |
-| tanggal_akhir | DATE | Ya | Tanggal akhir periode |
-| status | ENUM | Ya | 'OPEN','CALCULATING','CLOSED','PAID' |
-| closed_by | UUID | Tidak | FK ke user |
-| closed_at | DATETIME | Tidak | Waktu closing |
-| created_at | TIMESTAMP | Ya | Waktu pembuatan |
+| Field         | Tipe Data | Wajib | Keterangan                           |
+| ------------- | --------- | ----- | ------------------------------------ |
+| id            | UUID      | Ya    | Primary Key                          |
+| tahun         | INT       | Ya    | Tahun                                |
+| bulan         | INT       | Ya    | Bulan                                |
+| tanggal_mulai | DATE      | Ya    | Tanggal awal periode                 |
+| tanggal_akhir | DATE      | Ya    | Tanggal akhir periode                |
+| status        | ENUM      | Ya    | 'OPEN','CALCULATING','CLOSED','PAID' |
+| closed_by     | UUID      | Tidak | FK ke user                           |
+| closed_at     | DATETIME  | Tidak | Waktu closing                        |
+| created_at    | TIMESTAMP | Ya    | Waktu pembuatan                      |
 
 ---
 
@@ -200,13 +200,14 @@ Modul Jasa Pelayanan adalah sistem informasi yang mengelola perhitungan dan dist
 **Konteks:** Muncul saat input tindakan di EMR atau saat billing
 
 **Informasi Tindakan (read-only):**
+
 - Nama Tindakan
 - Kategori
 - Tarif
 - Komponen Jasa: Rp X
 
 **Input Pelaksana:**
-| Peran | Nama Pegawai* | Persentase | Nilai Jasa |
+| Peran | Nama Pegawai\* | Persentase | Nilai Jasa |
 |-------|---------------|------------|------------|
 | Operator Utama | [search dropdown] | [auto/input] | [auto-calc] |
 | Asisten 1 | [search dropdown] | [auto/input] | [auto-calc] |
@@ -216,6 +217,7 @@ Modul Jasa Pelayanan adalah sistem informasi yang mengelola perhitungan dan dist
 | Perawat Sirkuler | [search dropdown] | [auto/input] | [auto-calc] |
 
 **Validasi:**
+
 - Total persentase = 100%
 - Operator wajib diisi
 - Minimal 1 peran terisi
@@ -223,10 +225,11 @@ Modul Jasa Pelayanan adalah sistem informasi yang mengelola perhitungan dan dist
 ### 5.2 Form Setting Formula Jasa
 
 **Header:**
-- Kode Formula*
-- Nama Formula*
-- Kategori Tindakan* (dropdown)
-- Tanggal Berlaku*
+
+- Kode Formula\*
+- Nama Formula\*
+- Kategori Tindakan\* (dropdown)
+- Tanggal Berlaku\*
 - Tanggal Berakhir
 
 **Komponen Tarif:**
@@ -250,11 +253,13 @@ Modul Jasa Pelayanan adalah sistem informasi yang mengelola perhitungan dan dist
 ### 5.3 Form Kalkulasi Jasa Periode
 
 **Filter:**
-- Periode (Bulan/Tahun)*
+
+- Periode (Bulan/Tahun)\*
 - Unit (opsional)
 - Pegawai (opsional)
 
 **Proses:**
+
 1. Klik "Hitung Jasa"
 2. Sistem mengambil semua billing closed dalam periode
 3. Kalkulasi berdasarkan formula
@@ -268,6 +273,7 @@ Modul Jasa Pelayanan adalah sistem informasi yang mengelola perhitungan dan dist
 | 3 | 003 | Ns. C | Ruang Rawat | - | 3,500,000 | 3,500,000 |
 
 **Aksi:**
+
 - Simpan Draft
 - Submit untuk Approval
 - Export Excel
@@ -280,6 +286,7 @@ Modul Jasa Pelayanan adalah sistem informasi yang mengelola perhitungan dan dist
 | Jan 2025 | 150 | 500,000,000 | Pending | [Review] [Approve] [Reject] |
 
 **Detail Review:**
+
 - Summary per unit
 - Detail per pegawai
 - Perbandingan dengan periode sebelumnya
@@ -288,6 +295,7 @@ Modul Jasa Pelayanan adalah sistem informasi yang mengelola perhitungan dan dist
 ### 5.5 Form Slip Jasa Individu
 
 **Preview Slip:**
+
 ```
 ====================================
         SLIP JASA PELAYANAN
@@ -303,7 +311,7 @@ RINCIAN JASA
 Operasi Appendektomi      : Rp 2,500,000
   - Pasien: Budi (RM: 001)
   - Tanggal: 05/01/2025
-  
+
 Operasi Hernia           : Rp 3,000,000
   - Pasien: Ani (RM: 002)
   - Tanggal: 10/01/2025
@@ -321,8 +329,9 @@ TOTAL NETTO              : Rp 14,250,000
 ### 5.6 Form Laporan Jasa per Unit
 
 **Filter:**
-- Periode*
-- Unit*
+
+- Periode\*
+- Unit\*
 
 **Tampilan:**
 | Nama | Jabatan | Jumlah Tindakan | Total Jasa |
@@ -332,6 +341,7 @@ TOTAL NETTO              : Rp 14,250,000
 | Ns. C | Perawat | 50 | 5,000,000 |
 
 **Summary:**
+
 - Total Jasa Unit: Rp XX
 - Rata-rata per Pegawai: Rp XX
 - Top Performer: dr. A
@@ -343,12 +353,14 @@ TOTAL NETTO              : Rp 14,250,000
 ### 6.1 Dashboard Jasa Pelayanan
 
 **Widget:**
+
 - Total Jasa Bulan Ini
 - Perbandingan dengan Bulan Lalu
 - Top 10 Penerima Jasa
 - Distribusi per Unit
 
 **Chart:**
+
 - Trend Jasa 12 Bulan Terakhir
 - Pie Chart per Kategori Tindakan
 - Bar Chart per Unit
@@ -356,6 +368,7 @@ TOTAL NETTO              : Rp 14,250,000
 ### 6.2 Simulasi Perhitungan
 
 **Fitur:**
+
 - Input tindakan dan pelaksana
 - Kalkulasi simulasi jasa
 - Berguna untuk estimasi sebelum tindakan
@@ -363,6 +376,7 @@ TOTAL NETTO              : Rp 14,250,000
 ### 6.3 Audit Trail Jasa
 
 **Tracking:**
+
 - Perubahan pelaksana
 - Perubahan persentase
 - Approval history
@@ -371,6 +385,7 @@ TOTAL NETTO              : Rp 14,250,000
 ### 6.4 Integrasi Payroll
 
 **Fitur:**
+
 - Export data untuk sistem penggajian
 - Format sesuai kebutuhan
 - Scheduling otomatis
@@ -378,6 +393,7 @@ TOTAL NETTO              : Rp 14,250,000
 ### 6.5 Analitik Jasa
 
 **Report:**
+
 - Produktivitas per dokter
 - Trend pelayanan
 - Benchmark antar unit
@@ -387,18 +403,18 @@ TOTAL NETTO              : Rp 14,250,000
 
 ## 7. Integrasi dengan Modul Lain
 
-| Modul Sumber | Data yang Diterima | Penggunaan |
-|--------------|--------------------|--------------------|
-| Billing | Detail tindakan, tarif | Basis perhitungan |
-| EMR | Pelaksana tindakan | Data pelaksana |
-| Master Pegawai | Data pegawai | Identifikasi penerima |
-| Master Tindakan | Formula jasa | Perhitungan |
+| Modul Sumber    | Data yang Diterima     | Penggunaan            |
+| --------------- | ---------------------- | --------------------- |
+| Billing         | Detail tindakan, tarif | Basis perhitungan     |
+| EMR             | Pelaksana tindakan     | Data pelaksana        |
+| Master Pegawai  | Data pegawai           | Identifikasi penerima |
+| Master Tindakan | Formula jasa           | Perhitungan           |
 
-| Modul Tujuan | Data yang Dikirim | Trigger |
-|--------------|-------------------|---------|
-| Keuangan | Total jasa per periode | Setelah approval |
-| Payroll | Data jasa per pegawai | Setelah closing |
-| SDM | Kinerja pegawai | Periodik |
+| Modul Tujuan | Data yang Dikirim      | Trigger          |
+| ------------ | ---------------------- | ---------------- |
+| Keuangan     | Total jasa per periode | Setelah approval |
+| Payroll      | Data jasa per pegawai  | Setelah closing  |
+| SDM          | Kinerja pegawai        | Periodik         |
 
 ---
 
@@ -422,6 +438,7 @@ TOTAL NETTO              : Rp 14,250,000
 ### 9.1 Formula Engine
 
 **Requirement:**
+
 - Flexible formula definition
 - Multiple formula per kategori
 - Version control formula
@@ -429,24 +446,26 @@ TOTAL NETTO              : Rp 14,250,000
 
 ### 9.2 Permission/Role
 
-| Role | Akses |
-|------|-------|
-| Staff Unit | View jasa sendiri |
-| Kepala Unit | View jasa unit, input pelaksana |
-| Admin JP | Kalkulasi, setting formula |
-| Supervisor | Approval level 1 |
-| Manager | Approval level 2, closing periode |
-| Direktur | View all, override approval |
+| Role        | Akses                             |
+| ----------- | --------------------------------- |
+| Staff Unit  | View jasa sendiri                 |
+| Kepala Unit | View jasa unit, input pelaksana   |
+| Admin JP    | Kalkulasi, setting formula        |
+| Supervisor  | Approval level 1                  |
+| Manager     | Approval level 2, closing periode |
+| Direktur    | View all, override approval       |
 
 ### 9.3 Laporan
 
 **Laporan Periodik:**
+
 - Jasa per pegawai
 - Jasa per unit
 - Jasa per kategori tindakan
 - Summary bulanan
 
 **Laporan Analitik:**
+
 - Trend jasa
 - Produktivitas
 - Benchmark
@@ -456,10 +475,10 @@ TOTAL NETTO              : Rp 14,250,000
 
 ## 10. Notifikasi
 
-| Event | Penerima | Channel |
-|-------|----------|---------|
-| Jasa periode siap dihitung | Admin JP | Push |
-| Pending approval | Supervisor/Manager | Push |
-| Jasa diapprove | Pegawai | Push |
-| Jasa dibayarkan | Pegawai | Push + Email |
-| Anomaly terdeteksi | Admin JP | Alert |
+| Event                      | Penerima           | Channel      |
+| -------------------------- | ------------------ | ------------ |
+| Jasa periode siap dihitung | Admin JP           | Push         |
+| Pending approval           | Supervisor/Manager | Push         |
+| Jasa diapprove             | Pegawai            | Push         |
+| Jasa dibayarkan            | Pegawai            | Push + Email |
+| Anomaly terdeteksi         | Admin JP           | Alert        |

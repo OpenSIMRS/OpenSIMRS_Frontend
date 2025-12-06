@@ -27,25 +27,25 @@ Base types didefinisikan di `src/lib/types.ts`:
 ```typescript
 // Generic HTTP Response
 export type HttpResponse<T, M = undefined> = {
-  message: string;
-  data: T;
-  meta?: M;
+	message: string;
+	data: T;
+	meta?: M;
 };
 
 // GORM Model (timestamp fields)
 export type GormModel = {
-  CreatedAt: string;
-  UpdatedAt: string;
-  DeletedAt: null | string;
-}
+	CreatedAt: string;
+	UpdatedAt: string;
+	DeletedAt: null | string;
+};
 
 // Pagination Meta
 export type PaginatedMeta = {
-  total_count: number;
-  total_page: number;
-  page: number;
-  count: number;
-}
+	total_count: number;
+	total_page: number;
+	page: number;
+	count: number;
+};
 ```
 
 ## Usage
@@ -73,8 +73,7 @@ const response: HttpResponse<Patient> = await api.get('/v1/master/patients/123')
 const patient: Patient = response.data;
 
 // List with pagination
-const listResponse: HttpResponse<Patient[], PaginatedMeta> = 
-  await api.get('/v1/master/patients');
+const listResponse: HttpResponse<Patient[], PaginatedMeta> = await api.get('/v1/master/patients');
 const patients: Patient[] = listResponse.data;
 const meta: PaginatedMeta = listResponse.meta!;
 ```
@@ -84,12 +83,12 @@ const meta: PaginatedMeta = listResponse.meta!;
 ```typescript
 <script lang="ts">
   import type { Patient } from '$lib/types';
-  
+
   type Props = {
     patient: Patient;
     onUpdate?: (patient: Patient) => void;
   };
-  
+
   let { patient, onUpdate }: Props = $props();
 </script>
 
@@ -109,8 +108,8 @@ export const selectedPatient: Writable<Patient | null> = writable(null);
 
 // Usage
 selectedPatient.set(patient);
-selectedPatient.subscribe(value => {
-  console.log('Selected patient:', value);
+selectedPatient.subscribe((value) => {
+	console.log('Selected patient:', value);
 });
 ```
 
@@ -120,11 +119,11 @@ selectedPatient.subscribe(value => {
 import type { Kunjungan } from '$lib/types';
 
 function isRawatJalan(kunjungan: Kunjungan): boolean {
-  return kunjungan.JenisKunjungan === 'Rawat Jalan';
+	return kunjungan.JenisKunjungan === 'Rawat Jalan';
 }
 
 function isIGD(kunjungan: Kunjungan): boolean {
-  return kunjungan.JenisKunjungan === 'IGD';
+	return kunjungan.JenisKunjungan === 'IGD';
 }
 ```
 
@@ -175,23 +174,23 @@ import type { GormModel } from '../types';
  * Represents a new entity in the system
  */
 export type NewEntity = {
-  ID: string;
-  /** The name of the entity */
-  Nama: string;
-  /** Status of the entity */
-  Status: 'Aktif' | 'Nonaktif';
-  /** Optional description */
-  Deskripsi?: string;
+	ID: string;
+	/** The name of the entity */
+	Nama: string;
+	/** Status of the entity */
+	Status: 'Aktif' | 'Nonaktif';
+	/** Optional description */
+	Deskripsi?: string;
 } & GormModel;
 
 /**
  * Detail item for NewEntity
  */
 export type NewEntityDetail = {
-  ID: string;
-  NewEntityID: string;
-  ItemName: string;
-  Quantity: number;
+	ID: string;
+	NewEntityID: string;
+	ItemName: string;
+	Quantity: number;
 } & GormModel;
 ```
 
@@ -209,11 +208,11 @@ Use `?` for optional fields:
 
 ```typescript
 export type Patient = {
-  ID: string;
-  Nama: string;
-  Email?: string;  // Optional
-  NomorKartuBPJS?: string;  // Optional
-}
+	ID: string;
+	Nama: string;
+	Email?: string; // Optional
+	NomorKartuBPJS?: string; // Optional
+};
 ```
 
 ### Union Types for Status
@@ -222,17 +221,17 @@ Use union types for status fields:
 
 ```typescript
 export type Kunjungan = {
-  StatusKunjungan: 'Terdaftar' | 'Sedang Dilayani' | 'Selesai' | 'Batal';
-}
+	StatusKunjungan: 'Terdaftar' | 'Sedang Dilayani' | 'Selesai' | 'Batal';
+};
 ```
 
 ### Arrays for Multiple Items
 
 ```typescript
 export type Patient = {
-  Alergi?: string[];  // Array of allergies
-  DiagnosisSekunder?: string[];  // Array of ICD-10 IDs
-}
+	Alergi?: string[]; // Array of allergies
+	DiagnosisSekunder?: string[]; // Array of ICD-10 IDs
+};
 ```
 
 ### References to Other Entities
@@ -241,10 +240,10 @@ Use string ID for references:
 
 ```typescript
 export type Kunjungan = {
-  PasienID: string;  // Reference to Patient.ID
-  DokterID?: string;  // Reference to Employee.ID
-  PenjaminID: string;  // Reference to Penjamin.ID
-}
+	PasienID: string; // Reference to Patient.ID
+	DokterID?: string; // Reference to Employee.ID
+	PenjaminID: string; // Reference to Penjamin.ID
+};
 ```
 
 ### Extending Base Types
@@ -253,10 +252,10 @@ All database entities extend `GormModel`:
 
 ```typescript
 export type Patient = {
-  ID: string;
-  Nama: string;
-  // ... other fields
-} & GormModel;  // Adds CreatedAt, UpdatedAt, DeletedAt
+	ID: string;
+	Nama: string;
+	// ... other fields
+} & GormModel; // Adds CreatedAt, UpdatedAt, DeletedAt
 ```
 
 ## Type Safety Best Practices
@@ -270,18 +269,18 @@ export type Patient = {
 ### Example: Discriminated Unions
 
 ```typescript
-type ApiState<T> = 
-  | { status: 'idle' }
-  | { status: 'loading' }
-  | { status: 'success', data: T }
-  | { status: 'error', error: string };
+type ApiState<T> =
+	| { status: 'idle' }
+	| { status: 'loading' }
+	| { status: 'success'; data: T }
+	| { status: 'error'; error: string };
 
 // Usage
 let patientState: ApiState<Patient> = { status: 'idle' };
 
 // Type narrowing
 if (patientState.status === 'success') {
-  console.log(patientState.data.Nama);  // TypeScript knows data exists
+	console.log(patientState.data.Nama); // TypeScript knows data exists
 }
 ```
 
@@ -311,6 +310,7 @@ export type Patient = {
 ## Validation
 
 For runtime validation, consider using libraries like:
+
 - `zod` - Schema validation
 - `yup` - Object schema validation
 - `io-ts` - Runtime type checking
@@ -321,19 +321,19 @@ Example with Zod:
 import { z } from 'zod';
 
 const PatientSchema = z.object({
-  ID: z.string(),
-  NoRM: z.string(),
-  NIK: z.string().length(16),
-  Nama: z.string().min(1),
-  TanggalLahir: z.string().datetime(),
-  JenisKelamin: z.enum(['L', 'P']),
-  // ...
+	ID: z.string(),
+	NoRM: z.string(),
+	NIK: z.string().length(16),
+	Nama: z.string().min(1),
+	TanggalLahir: z.string().datetime(),
+	JenisKelamin: z.enum(['L', 'P'])
+	// ...
 });
 
 // Use for validation
 const result = PatientSchema.safeParse(data);
 if (result.success) {
-  const patient: Patient = result.data;
+	const patient: Patient = result.data;
 }
 ```
 
@@ -347,16 +347,16 @@ import type { Patient } from '$lib/types';
 import patientsData from '$lib/data/patients.json';
 
 describe('Patient Type', () => {
-  it('should have correct structure', () => {
-    const patient = patientsData[0] as Patient;
-    
-    expect(patient).toHaveProperty('ID');
-    expect(patient).toHaveProperty('NoRM');
-    expect(patient).toHaveProperty('Nama');
-    expect(patient).toHaveProperty('CreatedAt');
-    expect(patient).toHaveProperty('UpdatedAt');
-    expect(patient).toHaveProperty('DeletedAt');
-  });
+	it('should have correct structure', () => {
+		const patient = patientsData[0] as Patient;
+
+		expect(patient).toHaveProperty('ID');
+		expect(patient).toHaveProperty('NoRM');
+		expect(patient).toHaveProperty('Nama');
+		expect(patient).toHaveProperty('CreatedAt');
+		expect(patient).toHaveProperty('UpdatedAt');
+		expect(patient).toHaveProperty('DeletedAt');
+	});
 });
 ```
 

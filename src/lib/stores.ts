@@ -1,5 +1,5 @@
-import { writable } from "svelte/store";
-import type { GetAuthMe } from "$lib/types";
+import { writable } from 'svelte/store';
+import type { GetAuthMe } from '$lib/types';
 
 export const TitlePageStore = writable<string>('');
 

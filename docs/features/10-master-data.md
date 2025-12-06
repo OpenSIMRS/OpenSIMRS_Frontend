@@ -16,39 +16,39 @@ Modul Master Data adalah sistem pengelolaan data referensi yang digunakan oleh s
 
 ### 2.1 Master Data Klinis Wajib
 
-| Master | Deskripsi | Sumber |
-|--------|-----------|--------|
-| **ICD-10** | Kode diagnosa penyakit | WHO |
-| **ICD-9 CM** | Kode prosedur/tindakan medis | WHO |
+| Master       | Deskripsi                    | Sumber |
+| ------------ | ---------------------------- | ------ |
+| **ICD-10**   | Kode diagnosa penyakit       | WHO    |
+| **ICD-9 CM** | Kode prosedur/tindakan medis | WHO    |
 
 ### 2.2 Master Data Tarif & Barang
 
-| Master | Deskripsi |
-|--------|-----------|
+| Master                    | Deskripsi                          |
+| ------------------------- | ---------------------------------- |
 | **Master Tindakan/Tarif** | Daftar tindakan medis dengan tarif |
-| **Master Obat** | Data obat-obatan |
-| **Master Alkes** | Alat kesehatan |
-| **Master BHP** | Bahan habis pakai |
-| **Master Barang Umum** | Barang non-medis |
+| **Master Obat**           | Data obat-obatan                   |
+| **Master Alkes**          | Alat kesehatan                     |
+| **Master BHP**            | Bahan habis pakai                  |
+| **Master Barang Umum**    | Barang non-medis                   |
 
 ### 2.3 Master Data SDM & Unit
 
-| Master | Deskripsi |
-|--------|-----------|
-| **Master Pegawai** | Data seluruh pegawai RS |
-| **Master Jabatan** | Struktur jabatan |
-| **Master Unit/Ruangan** | Unit pelayanan |
-| **Master Kamar & Bed** | Kamar rawat inap |
-| **Master Poli** | Poliklinik |
+| Master                  | Deskripsi               |
+| ----------------------- | ----------------------- |
+| **Master Pegawai**      | Data seluruh pegawai RS |
+| **Master Jabatan**      | Struktur jabatan        |
+| **Master Unit/Ruangan** | Unit pelayanan          |
+| **Master Kamar & Bed**  | Kamar rawat inap        |
+| **Master Poli**         | Poliklinik              |
 
 ### 2.4 Master Data Referensi
 
-| Master | Deskripsi |
-|--------|-----------|
-| **Master Penjamin** | Jenis penjamin (BPJS, Asuransi, dll) |
-| **Master Supplier** | Pemasok barang |
-| **Master Produsen** | Produsen obat/alkes |
-| **Master Lookup** | Data referensi sederhana (Agama, Pendidikan, Pekerjaan, Status Perkawinan, dll) |
+| Master              | Deskripsi                                                                       |
+| ------------------- | ------------------------------------------------------------------------------- |
+| **Master Penjamin** | Jenis penjamin (BPJS, Asuransi, dll)                                            |
+| **Master Supplier** | Pemasok barang                                                                  |
+| **Master Produsen** | Produsen obat/alkes                                                             |
+| **Master Lookup**   | Data referensi sederhana (Agama, Pendidikan, Pekerjaan, Status Perkawinan, dll) |
 
 > **Catatan:** Data wilayah (Provinsi, Kabupaten, Kecamatan, Kelurahan) tidak disimpan di database, melainkan menggunakan kode wilayah BPS sebagai angka.
 
@@ -58,207 +58,208 @@ Modul Master Data adalah sistem pengelolaan data referensi yang digunakan oleh s
 
 ### 3.1 Master ICD-10 (icd10)
 
-| Field | Tipe Data | Wajib | Keterangan |
-|-------|-----------|-------|------------|
-| id | UUID | Ya | Primary Key |
-| kode | VARCHAR(10) | Ya | Kode ICD-10 |
-| nama_id | VARCHAR(255) | Ya | Nama diagnosa (Indonesia) |
-| nama_en | VARCHAR(255) | Ya | Nama diagnosa (English) |
-| kategori | VARCHAR(10) | Tidak | Kategori (Chapter) |
-| parent_kode | VARCHAR(10) | Tidak | Kode parent (hierarki) |
-| deskripsi | TEXT | Tidak | Deskripsi detail |
-| is_active | BOOLEAN | Ya | Status aktif |
-| created_at | TIMESTAMP | Ya | Waktu pembuatan |
-| updated_at | TIMESTAMP | Ya | Waktu update terakhir |
+| Field       | Tipe Data    | Wajib | Keterangan                |
+| ----------- | ------------ | ----- | ------------------------- |
+| id          | UUID         | Ya    | Primary Key               |
+| kode        | VARCHAR(10)  | Ya    | Kode ICD-10               |
+| nama_id     | VARCHAR(255) | Ya    | Nama diagnosa (Indonesia) |
+| nama_en     | VARCHAR(255) | Ya    | Nama diagnosa (English)   |
+| kategori    | VARCHAR(10)  | Tidak | Kategori (Chapter)        |
+| parent_kode | VARCHAR(10)  | Tidak | Kode parent (hierarki)    |
+| deskripsi   | TEXT         | Tidak | Deskripsi detail          |
+| is_active   | BOOLEAN      | Ya    | Status aktif              |
+| created_at  | TIMESTAMP    | Ya    | Waktu pembuatan           |
+| updated_at  | TIMESTAMP    | Ya    | Waktu update terakhir     |
 
 ### 3.2 Master ICD-9 CM (icd9cm)
 
-| Field | Tipe Data | Wajib | Keterangan |
-|-------|-----------|-------|------------|
-| id | UUID | Ya | Primary Key |
-| kode | VARCHAR(10) | Ya | Kode ICD-9 CM |
-| nama_id | VARCHAR(255) | Ya | Nama prosedur (Indonesia) |
-| nama_en | VARCHAR(255) | Ya | Nama prosedur (English) |
-| kategori | VARCHAR(10) | Tidak | Kategori |
-| parent_kode | VARCHAR(10) | Tidak | Kode parent |
-| deskripsi | TEXT | Tidak | Deskripsi detail |
-| is_active | BOOLEAN | Ya | Status aktif |
-| created_at | TIMESTAMP | Ya | Waktu pembuatan |
-| updated_at | TIMESTAMP | Ya | Waktu update terakhir |
+| Field       | Tipe Data    | Wajib | Keterangan                |
+| ----------- | ------------ | ----- | ------------------------- |
+| id          | UUID         | Ya    | Primary Key               |
+| kode        | VARCHAR(10)  | Ya    | Kode ICD-9 CM             |
+| nama_id     | VARCHAR(255) | Ya    | Nama prosedur (Indonesia) |
+| nama_en     | VARCHAR(255) | Ya    | Nama prosedur (English)   |
+| kategori    | VARCHAR(10)  | Tidak | Kategori                  |
+| parent_kode | VARCHAR(10)  | Tidak | Kode parent               |
+| deskripsi   | TEXT         | Tidak | Deskripsi detail          |
+| is_active   | BOOLEAN      | Ya    | Status aktif              |
+| created_at  | TIMESTAMP    | Ya    | Waktu pembuatan           |
+| updated_at  | TIMESTAMP    | Ya    | Waktu update terakhir     |
 
 ### 3.3 Master Tindakan (master_tindakan)
 
-| Field | Tipe Data | Wajib | Keterangan |
-|-------|-----------|-------|------------|
-| id | UUID | Ya | Primary Key |
-| kode | VARCHAR(20) | Ya | Kode tindakan internal |
-| nama | VARCHAR(200) | Ya | Nama tindakan |
-| kategori_id | UUID | Ya | FK ke kategori_tindakan |
-| icd9cm_id | UUID | Tidak | FK ke icd9cm |
-| unit_id | UUID | Ya | FK ke unit (unit pelaksana) |
-| is_operasi | BOOLEAN | Ya | Apakah tindakan operasi |
-| is_memerlukan_consent | BOOLEAN | Ya | Memerlukan informed consent |
-| tarif_default | DECIMAL(15,2) | Ya | Tarif default |
-| komponen_jasa_medis | DECIMAL(15,2) | Ya | Komponen jasa medis |
-| komponen_sarana | DECIMAL(15,2) | Ya | Komponen sarana |
-| komponen_bhp | DECIMAL(15,2) | Ya | Komponen BHP |
-| durasi_estimasi | INT | Tidak | Durasi estimasi (menit) |
-| keterangan | TEXT | Tidak | Keterangan |
-| is_active | BOOLEAN | Ya | Status aktif |
-| created_at | TIMESTAMP | Ya | Waktu pembuatan |
-| updated_at | TIMESTAMP | Ya | Waktu update terakhir |
+| Field                 | Tipe Data     | Wajib | Keterangan                  |
+| --------------------- | ------------- | ----- | --------------------------- |
+| id                    | UUID          | Ya    | Primary Key                 |
+| kode                  | VARCHAR(20)   | Ya    | Kode tindakan internal      |
+| nama                  | VARCHAR(200)  | Ya    | Nama tindakan               |
+| kategori_id           | UUID          | Ya    | FK ke kategori_tindakan     |
+| icd9cm_id             | UUID          | Tidak | FK ke icd9cm                |
+| unit_id               | UUID          | Ya    | FK ke unit (unit pelaksana) |
+| is_operasi            | BOOLEAN       | Ya    | Apakah tindakan operasi     |
+| is_memerlukan_consent | BOOLEAN       | Ya    | Memerlukan informed consent |
+| tarif_default         | DECIMAL(15,2) | Ya    | Tarif default               |
+| komponen_jasa_medis   | DECIMAL(15,2) | Ya    | Komponen jasa medis         |
+| komponen_sarana       | DECIMAL(15,2) | Ya    | Komponen sarana             |
+| komponen_bhp          | DECIMAL(15,2) | Ya    | Komponen BHP                |
+| durasi_estimasi       | INT           | Tidak | Durasi estimasi (menit)     |
+| keterangan            | TEXT          | Tidak | Keterangan                  |
+| is_active             | BOOLEAN       | Ya    | Status aktif                |
+| created_at            | TIMESTAMP     | Ya    | Waktu pembuatan             |
+| updated_at            | TIMESTAMP     | Ya    | Waktu update terakhir       |
 
 ### 3.4 Master Tarif per Kelas/Penjamin (tarif_detail)
 
-| Field | Tipe Data | Wajib | Keterangan |
-|-------|-----------|-------|------------|
-| id | UUID | Ya | Primary Key |
-| tindakan_id | UUID | Ya | FK ke master_tindakan |
-| kelas_id | UUID | Tidak | FK ke kelas_kamar |
-| penjamin_id | UUID | Tidak | FK ke penjamin |
-| tarif | DECIMAL(15,2) | Ya | Nilai tarif |
-| komponen_jasa_medis | DECIMAL(15,2) | Tidak | Jasa medis khusus |
-| komponen_sarana | DECIMAL(15,2) | Tidak | Sarana khusus |
-| komponen_bhp | DECIMAL(15,2) | Tidak | BHP khusus |
-| tanggal_berlaku | DATE | Ya | Tanggal mulai berlaku |
-| tanggal_berakhir | DATE | Tidak | Tanggal berakhir |
-| is_active | BOOLEAN | Ya | Status aktif |
-| created_at | TIMESTAMP | Ya | Waktu pembuatan |
+| Field               | Tipe Data     | Wajib | Keterangan            |
+| ------------------- | ------------- | ----- | --------------------- |
+| id                  | UUID          | Ya    | Primary Key           |
+| tindakan_id         | UUID          | Ya    | FK ke master_tindakan |
+| kelas_id            | UUID          | Tidak | FK ke kelas_kamar     |
+| penjamin_id         | UUID          | Tidak | FK ke penjamin        |
+| tarif               | DECIMAL(15,2) | Ya    | Nilai tarif           |
+| komponen_jasa_medis | DECIMAL(15,2) | Tidak | Jasa medis khusus     |
+| komponen_sarana     | DECIMAL(15,2) | Tidak | Sarana khusus         |
+| komponen_bhp        | DECIMAL(15,2) | Tidak | BHP khusus            |
+| tanggal_berlaku     | DATE          | Ya    | Tanggal mulai berlaku |
+| tanggal_berakhir    | DATE          | Tidak | Tanggal berakhir      |
+| is_active           | BOOLEAN       | Ya    | Status aktif          |
+| created_at          | TIMESTAMP     | Ya    | Waktu pembuatan       |
 
 ### 3.5 Master Pegawai (pegawai)
 
-| Field | Tipe Data | Wajib | Keterangan |
-|-------|-----------|-------|------------|
-| id | UUID | Ya | Primary Key |
-| nip | VARCHAR(20) | Ya | Nomor Induk Pegawai |
-| nik | VARCHAR(16) | Ya | NIK |
-| nama_lengkap | VARCHAR(100) | Ya | Nama lengkap |
-| gelar_depan | VARCHAR(20) | Tidak | Gelar depan |
-| gelar_belakang | VARCHAR(50) | Tidak | Gelar belakang |
-| tempat_lahir | VARCHAR(50) | Ya | Tempat lahir |
-| tanggal_lahir | DATE | Ya | Tanggal lahir |
-| jenis_kelamin | ENUM('L','P') | Ya | Jenis kelamin |
-| alamat | TEXT | Ya | Alamat |
-| no_telepon | VARCHAR(15) | Tidak | Nomor telepon |
-| no_hp | VARCHAR(15) | Ya | Nomor HP |
-| email | VARCHAR(100) | Tidak | Email |
-| jabatan_id | UUID | Ya | FK ke jabatan |
-| unit_id | UUID | Ya | FK ke unit |
-| jenis_pegawai | ENUM | Ya | 'PNS','KONTRAK','HONORER','DOKTER_TAMU' |
-| status_pegawai | ENUM | Ya | 'AKTIF','CUTI','RESIGN','PENSIUN' |
-| tanggal_masuk | DATE | Ya | Tanggal mulai bekerja |
-| tanggal_keluar | DATE | Tidak | Tanggal keluar |
-| no_str | VARCHAR(50) | Tidak | Nomor STR (untuk nakes) |
-| tanggal_str_expired | DATE | Tidak | Tanggal expired STR |
-| no_sip | VARCHAR(50) | Tidak | Nomor SIP |
-| tanggal_sip_expired | DATE | Tidak | Tanggal expired SIP |
-| spesialisasi | VARCHAR(100) | Tidak | Spesialisasi (untuk dokter) |
-| foto | VARCHAR(255) | Tidak | Path foto |
-| user_id | UUID | Tidak | FK ke user (akun SIMRS) |
-| is_active | BOOLEAN | Ya | Status aktif |
-| created_at | TIMESTAMP | Ya | Waktu pembuatan |
-| updated_at | TIMESTAMP | Ya | Waktu update terakhir |
+| Field               | Tipe Data     | Wajib | Keterangan                              |
+| ------------------- | ------------- | ----- | --------------------------------------- |
+| id                  | UUID          | Ya    | Primary Key                             |
+| nip                 | VARCHAR(20)   | Ya    | Nomor Induk Pegawai                     |
+| nik                 | VARCHAR(16)   | Ya    | NIK                                     |
+| nama_lengkap        | VARCHAR(100)  | Ya    | Nama lengkap                            |
+| gelar_depan         | VARCHAR(20)   | Tidak | Gelar depan                             |
+| gelar_belakang      | VARCHAR(50)   | Tidak | Gelar belakang                          |
+| tempat_lahir        | VARCHAR(50)   | Ya    | Tempat lahir                            |
+| tanggal_lahir       | DATE          | Ya    | Tanggal lahir                           |
+| jenis_kelamin       | ENUM('L','P') | Ya    | Jenis kelamin                           |
+| alamat              | TEXT          | Ya    | Alamat                                  |
+| no_telepon          | VARCHAR(15)   | Tidak | Nomor telepon                           |
+| no_hp               | VARCHAR(15)   | Ya    | Nomor HP                                |
+| email               | VARCHAR(100)  | Tidak | Email                                   |
+| jabatan_id          | UUID          | Ya    | FK ke jabatan                           |
+| unit_id             | UUID          | Ya    | FK ke unit                              |
+| jenis_pegawai       | ENUM          | Ya    | 'PNS','KONTRAK','HONORER','DOKTER_TAMU' |
+| status_pegawai      | ENUM          | Ya    | 'AKTIF','CUTI','RESIGN','PENSIUN'       |
+| tanggal_masuk       | DATE          | Ya    | Tanggal mulai bekerja                   |
+| tanggal_keluar      | DATE          | Tidak | Tanggal keluar                          |
+| no_str              | VARCHAR(50)   | Tidak | Nomor STR (untuk nakes)                 |
+| tanggal_str_expired | DATE          | Tidak | Tanggal expired STR                     |
+| no_sip              | VARCHAR(50)   | Tidak | Nomor SIP                               |
+| tanggal_sip_expired | DATE          | Tidak | Tanggal expired SIP                     |
+| spesialisasi        | VARCHAR(100)  | Tidak | Spesialisasi (untuk dokter)             |
+| foto                | VARCHAR(255)  | Tidak | Path foto                               |
+| user_id             | UUID          | Tidak | FK ke user (akun SIMRS)                 |
+| is_active           | BOOLEAN       | Ya    | Status aktif                            |
+| created_at          | TIMESTAMP     | Ya    | Waktu pembuatan                         |
+| updated_at          | TIMESTAMP     | Ya    | Waktu update terakhir                   |
 
 ### 3.6 Master Unit/Ruangan (unit)
 
-| Field | Tipe Data | Wajib | Keterangan |
-|-------|-----------|-------|------------|
-| id | UUID | Ya | Primary Key |
-| kode | VARCHAR(10) | Ya | Kode unit |
-| nama | VARCHAR(100) | Ya | Nama unit |
-| jenis | ENUM | Ya | 'POLI','IGD','RAWAT_INAP','PENUNJANG','ADMINISTRASI' |
-| parent_id | UUID | Tidak | FK ke unit (parent, untuk hierarki) |
-| lokasi | VARCHAR(100) | Tidak | Lokasi/gedung/lantai |
-| telepon | VARCHAR(20) | Tidak | Nomor telepon unit |
-| kepala_unit_id | UUID | Tidak | FK ke pegawai |
-| is_active | BOOLEAN | Ya | Status aktif |
-| created_at | TIMESTAMP | Ya | Waktu pembuatan |
-| updated_at | TIMESTAMP | Ya | Waktu update terakhir |
+| Field          | Tipe Data    | Wajib | Keterangan                                           |
+| -------------- | ------------ | ----- | ---------------------------------------------------- |
+| id             | UUID         | Ya    | Primary Key                                          |
+| kode           | VARCHAR(10)  | Ya    | Kode unit                                            |
+| nama           | VARCHAR(100) | Ya    | Nama unit                                            |
+| jenis          | ENUM         | Ya    | 'POLI','IGD','RAWAT_INAP','PENUNJANG','ADMINISTRASI' |
+| parent_id      | UUID         | Tidak | FK ke unit (parent, untuk hierarki)                  |
+| lokasi         | VARCHAR(100) | Tidak | Lokasi/gedung/lantai                                 |
+| telepon        | VARCHAR(20)  | Tidak | Nomor telepon unit                                   |
+| kepala_unit_id | UUID         | Tidak | FK ke pegawai                                        |
+| is_active      | BOOLEAN      | Ya    | Status aktif                                         |
+| created_at     | TIMESTAMP    | Ya    | Waktu pembuatan                                      |
+| updated_at     | TIMESTAMP    | Ya    | Waktu update terakhir                                |
 
 ### 3.7 Master Kelas Kamar (kelas_kamar)
 
-| Field | Tipe Data | Wajib | Keterangan |
-|-------|-----------|-------|------------|
-| id | UUID | Ya | Primary Key |
-| kode | VARCHAR(10) | Ya | Kode kelas |
-| nama | VARCHAR(50) | Ya | Nama kelas |
-| deskripsi | TEXT | Tidak | Deskripsi |
-| tarif_kamar | DECIMAL(15,2) | Ya | Tarif per hari |
-| urutan | INT | Ya | Urutan (VIP=1, I=2, II=3, III=4) |
-| is_active | BOOLEAN | Ya | Status aktif |
-| created_at | TIMESTAMP | Ya | Waktu pembuatan |
+| Field       | Tipe Data     | Wajib | Keterangan                       |
+| ----------- | ------------- | ----- | -------------------------------- |
+| id          | UUID          | Ya    | Primary Key                      |
+| kode        | VARCHAR(10)   | Ya    | Kode kelas                       |
+| nama        | VARCHAR(50)   | Ya    | Nama kelas                       |
+| deskripsi   | TEXT          | Tidak | Deskripsi                        |
+| tarif_kamar | DECIMAL(15,2) | Ya    | Tarif per hari                   |
+| urutan      | INT           | Ya    | Urutan (VIP=1, I=2, II=3, III=4) |
+| is_active   | BOOLEAN       | Ya    | Status aktif                     |
+| created_at  | TIMESTAMP     | Ya    | Waktu pembuatan                  |
 
 ### 3.8 Master Kamar (kamar)
 
-| Field | Tipe Data | Wajib | Keterangan |
-|-------|-----------|-------|------------|
-| id | UUID | Ya | Primary Key |
-| kode | VARCHAR(10) | Ya | Kode kamar |
-| nama | VARCHAR(50) | Ya | Nama kamar |
-| unit_id | UUID | Ya | FK ke unit (ruangan rawat inap) |
-| kelas_id | UUID | Ya | FK ke kelas_kamar |
-| kapasitas_bed | INT | Ya | Jumlah bed dalam kamar |
-| fasilitas | TEXT | Tidak | Daftar fasilitas |
-| lokasi | VARCHAR(100) | Tidak | Lokasi detail |
-| is_active | BOOLEAN | Ya | Status aktif |
-| created_at | TIMESTAMP | Ya | Waktu pembuatan |
-| updated_at | TIMESTAMP | Ya | Waktu update terakhir |
+| Field         | Tipe Data    | Wajib | Keterangan                      |
+| ------------- | ------------ | ----- | ------------------------------- |
+| id            | UUID         | Ya    | Primary Key                     |
+| kode          | VARCHAR(10)  | Ya    | Kode kamar                      |
+| nama          | VARCHAR(50)  | Ya    | Nama kamar                      |
+| unit_id       | UUID         | Ya    | FK ke unit (ruangan rawat inap) |
+| kelas_id      | UUID         | Ya    | FK ke kelas_kamar               |
+| kapasitas_bed | INT          | Ya    | Jumlah bed dalam kamar          |
+| fasilitas     | TEXT         | Tidak | Daftar fasilitas                |
+| lokasi        | VARCHAR(100) | Tidak | Lokasi detail                   |
+| is_active     | BOOLEAN      | Ya    | Status aktif                    |
+| created_at    | TIMESTAMP    | Ya    | Waktu pembuatan                 |
+| updated_at    | TIMESTAMP    | Ya    | Waktu update terakhir           |
 
 ### 3.9 Master Bed (bed)
 
-| Field | Tipe Data | Wajib | Keterangan |
-|-------|-----------|-------|------------|
-| id | UUID | Ya | Primary Key |
-| kode | VARCHAR(10) | Ya | Kode bed |
-| nama | VARCHAR(20) | Ya | Nama bed (Bed A, Bed B, dll) |
-| kamar_id | UUID | Ya | FK ke kamar |
-| status | ENUM | Ya | 'TERSEDIA','TERISI','MAINTENANCE','BOOKING' |
-| pasien_id | UUID | Tidak | FK ke master_pasien (jika terisi) |
-| rawat_inap_id | UUID | Tidak | FK ke rawat_inap (jika terisi) |
-| is_active | BOOLEAN | Ya | Status aktif |
-| created_at | TIMESTAMP | Ya | Waktu pembuatan |
-| updated_at | TIMESTAMP | Ya | Waktu update terakhir |
+| Field         | Tipe Data   | Wajib | Keterangan                                  |
+| ------------- | ----------- | ----- | ------------------------------------------- |
+| id            | UUID        | Ya    | Primary Key                                 |
+| kode          | VARCHAR(10) | Ya    | Kode bed                                    |
+| nama          | VARCHAR(20) | Ya    | Nama bed (Bed A, Bed B, dll)                |
+| kamar_id      | UUID        | Ya    | FK ke kamar                                 |
+| status        | ENUM        | Ya    | 'TERSEDIA','TERISI','MAINTENANCE','BOOKING' |
+| pasien_id     | UUID        | Tidak | FK ke master_pasien (jika terisi)           |
+| rawat_inap_id | UUID        | Tidak | FK ke rawat_inap (jika terisi)              |
+| is_active     | BOOLEAN     | Ya    | Status aktif                                |
+| created_at    | TIMESTAMP   | Ya    | Waktu pembuatan                             |
+| updated_at    | TIMESTAMP   | Ya    | Waktu update terakhir                       |
 
 ### 3.10 Master Jabatan (jabatan)
 
-| Field | Tipe Data | Wajib | Keterangan |
-|-------|-----------|-------|------------|
-| id | UUID | Ya | Primary Key |
-| kode | VARCHAR(10) | Ya | Kode jabatan |
-| nama | VARCHAR(100) | Ya | Nama jabatan |
-| kategori | ENUM | Ya | 'STRUKTURAL','FUNGSIONAL','UMUM' |
-| parent_id | UUID | Tidak | FK ke jabatan (hierarki) |
-| level | INT | Ya | Level jabatan |
-| is_medis | BOOLEAN | Ya | Jabatan medis |
-| is_active | BOOLEAN | Ya | Status aktif |
-| created_at | TIMESTAMP | Ya | Waktu pembuatan |
+| Field      | Tipe Data    | Wajib | Keterangan                       |
+| ---------- | ------------ | ----- | -------------------------------- |
+| id         | UUID         | Ya    | Primary Key                      |
+| kode       | VARCHAR(10)  | Ya    | Kode jabatan                     |
+| nama       | VARCHAR(100) | Ya    | Nama jabatan                     |
+| kategori   | ENUM         | Ya    | 'STRUKTURAL','FUNGSIONAL','UMUM' |
+| parent_id  | UUID         | Tidak | FK ke jabatan (hierarki)         |
+| level      | INT          | Ya    | Level jabatan                    |
+| is_medis   | BOOLEAN      | Ya    | Jabatan medis                    |
+| is_active  | BOOLEAN      | Ya    | Status aktif                     |
+| created_at | TIMESTAMP    | Ya    | Waktu pembuatan                  |
 
 ### 3.11 Master Lookup (master_lookup)
 
 Tabel ini menggabungkan semua master data sederhana yang hanya menyimpan nilai string seperti Agama, Pendidikan, Pekerjaan, Status Perkawinan, dan lainnya.
 
-| Field | Tipe Data | Wajib | Keterangan |
-|-------|-----------|-------|------------|
-| id | UUID | Ya | Primary Key |
-| value | VARCHAR(100) | Ya | Nilai/nama item |
-| category | VARCHAR(50) | Ya | Kategori (AGAMA, PENDIDIKAN, PEKERJAAN, STATUS_PERKAWINAN, dll) |
+| Field    | Tipe Data    | Wajib | Keterangan                                                      |
+| -------- | ------------ | ----- | --------------------------------------------------------------- |
+| id       | UUID         | Ya    | Primary Key                                                     |
+| value    | VARCHAR(100) | Ya    | Nilai/nama item                                                 |
+| category | VARCHAR(50)  | Ya    | Kategori (AGAMA, PENDIDIKAN, PEKERJAAN, STATUS_PERKAWINAN, dll) |
 
 > **Constraint:** Kombinasi `value` + `category` harus unik untuk mencegah duplikasi data.
 
 **Contoh Data:**
 
-| id | value | category |
-|----|-------|----------|
-| uuid-1 | Islam | AGAMA |
-| uuid-2 | Kristen | AGAMA |
-| uuid-3 | SD | PENDIDIKAN |
-| uuid-4 | SMP | PENDIDIKAN |
-| uuid-5 | PNS | PEKERJAAN |
-| uuid-6 | Wiraswasta | PEKERJAAN |
+| id     | value       | category          |
+| ------ | ----------- | ----------------- |
+| uuid-1 | Islam       | AGAMA             |
+| uuid-2 | Kristen     | AGAMA             |
+| uuid-3 | SD          | PENDIDIKAN        |
+| uuid-4 | SMP         | PENDIDIKAN        |
+| uuid-5 | PNS         | PEKERJAAN         |
+| uuid-6 | Wiraswasta  | PEKERJAAN         |
 | uuid-7 | Belum Kawin | STATUS_PERKAWINAN |
-| uuid-8 | Kawin | STATUS_PERKAWINAN |
+| uuid-8 | Kawin       | STATUS_PERKAWINAN |
 
 **Kategori yang Didukung:**
+
 - AGAMA
 - PENDIDIKAN
 - PEKERJAAN
@@ -279,12 +280,14 @@ Tabel ini menggabungkan semua master data sederhana yang hanya menyimpan nilai s
 **Template Form untuk semua master:**
 
 **Tampilan List:**
+
 - Search/Filter
 - Tabel dengan pagination
 - Kolom: Kode, Nama, Status, Aksi
 - Aksi: View, Edit, Delete, Aktif/Non-aktif
 
 **Form Add/Edit:**
+
 - Field sesuai struktur tabel
 - Validasi required
 - Tombol: Simpan, Batal
@@ -292,6 +295,7 @@ Tabel ini menggabungkan semua master data sederhana yang hanya menyimpan nilai s
 ### 4.2 Form Master ICD-10/ICD-9 CM
 
 **Fitur Khusus:**
+
 - Import dari file (Excel/CSV)
 - Tree view hierarki
 - Search advanced (by kode/nama)
@@ -300,20 +304,23 @@ Tabel ini menggabungkan semua master data sederhana yang hanya menyimpan nilai s
 ### 4.3 Form Master Tindakan
 
 **Bagian 1: Informasi Dasar**
-- Kode Tindakan*
-- Nama Tindakan*
-- Kategori* (dropdown)
-- Unit Pelaksana* (dropdown)
+
+- Kode Tindakan\*
+- Nama Tindakan\*
+- Kategori\* (dropdown)
+- Unit Pelaksana\* (dropdown)
 - Mapping ICD-9 CM (autocomplete)
 - Durasi Estimasi (menit)
 
 **Bagian 2: Tarif**
-- Tarif Default*
+
+- Tarif Default\*
 - Komponen Jasa Medis
 - Komponen Sarana
 - Komponen BHP
 
 **Bagian 3: Setting**
+
 - [ ] Tindakan Operasi
 - [ ] Memerlukan Informed Consent
 
@@ -325,44 +332,49 @@ Tabel ini menggabungkan semua master data sederhana yang hanya menyimpan nilai s
 ### 4.4 Form Master Pegawai
 
 **Bagian 1: Data Pribadi**
-- NIP*
-- NIK*
-- Nama Lengkap*
+
+- NIP\*
+- NIK\*
+- Nama Lengkap\*
 - Gelar Depan
 - Gelar Belakang
-- Tempat/Tanggal Lahir*
-- Jenis Kelamin*
-- Alamat*
-- No. HP*
+- Tempat/Tanggal Lahir\*
+- Jenis Kelamin\*
+- Alamat\*
+- No. HP\*
 - Email
 - Foto (upload)
 
 **Bagian 2: Data Kepegawaian**
-- Jabatan* (dropdown)
-- Unit Kerja* (dropdown)
-- Jenis Pegawai* (dropdown)
-- Status Pegawai* (dropdown)
-- Tanggal Masuk*
+
+- Jabatan\* (dropdown)
+- Unit Kerja\* (dropdown)
+- Jenis Pegawai\* (dropdown)
+- Status Pegawai\* (dropdown)
+- Tanggal Masuk\*
 - Tanggal Keluar
 
 **Bagian 3: Data Profesi (untuk Nakes)**
+
 - Spesialisasi
-- No. STR*
-- Tanggal Expired STR*
+- No. STR\*
+- Tanggal Expired STR\*
 - No. SIP
 - Tanggal Expired SIP
 
 **Bagian 4: Akun SIMRS**
+
 - Buat Akun User (link ke User Management)
 
 ### 4.5 Form Master Kamar & Bed
 
 **Master Kamar:**
-- Kode Kamar*
-- Nama Kamar*
-- Ruangan* (dropdown unit rawat inap)
-- Kelas* (dropdown)
-- Kapasitas Bed*
+
+- Kode Kamar\*
+- Nama Kamar\*
+- Ruangan\* (dropdown unit rawat inap)
+- Kelas\* (dropdown)
+- Kapasitas Bed\*
 - Fasilitas (checkbox list)
 
 **Master Bed (Sub-form per Kamar):**
@@ -375,6 +387,7 @@ Tabel ini menggabungkan semua master data sederhana yang hanya menyimpan nilai s
 **Untuk Update Tarif Massal:**
 
 **Filter:**
+
 - Kategori Tindakan
 - Unit
 - Kelas
@@ -386,8 +399,9 @@ Tabel ini menggabungkan semua master data sederhana yang hanya menyimpan nilai s
 | T002 | Tindakan B | 150,000 | [input] | [auto] |
 
 **Opsi:**
+
 - [ ] Naik semua X%
-- Tanggal Berlaku*
+- Tanggal Berlaku\*
 
 ---
 
@@ -396,11 +410,13 @@ Tabel ini menggabungkan semua master data sederhana yang hanya menyimpan nilai s
 ### 5.1 Import/Export Data
 
 **Format yang Didukung:**
+
 - Excel (.xlsx)
 - CSV (.csv)
 - JSON (.json)
 
 **Fitur:**
+
 - Template download
 - Validasi sebelum import
 - Error report
@@ -409,6 +425,7 @@ Tabel ini menggabungkan semua master data sederhana yang hanya menyimpan nilai s
 ### 5.2 Validasi Data
 
 **Validasi Otomatis:**
+
 - Duplikasi kode
 - Format data
 - Referential integrity
@@ -417,6 +434,7 @@ Tabel ini menggabungkan semua master data sederhana yang hanya menyimpan nilai s
 ### 5.3 Audit Trail Master
 
 **Tracking:**
+
 - Setiap perubahan master data
 - Siapa yang mengubah
 - Kapan diubah
@@ -425,12 +443,14 @@ Tabel ini menggabungkan semua master data sederhana yang hanya menyimpan nilai s
 ### 5.4 Sinkronisasi Data Eksternal
 
 **ICD-10/ICD-9 CM:**
+
 - Update dari sumber resmi WHO
 - Mapping dengan versi sebelumnya
 
 ### 5.5 Data Seeding
 
 **Fitur:**
+
 - Initial data setup
 - Demo data untuk testing
 - Restore default
@@ -456,16 +476,17 @@ Tabel ini menggabungkan semua master data sederhana yang hanya menyimpan nilai s
 
 ### 7.1 Permission/Role
 
-| Role | Akses |
-|------|-------|
-| Admin Master | Full CRUD semua master |
-| Admin Unit | View all, Edit unit terkait |
-| Supervisor | View all |
-| User Biasa | View yang diperlukan |
+| Role         | Akses                       |
+| ------------ | --------------------------- |
+| Admin Master | Full CRUD semua master      |
+| Admin Unit   | View all, Edit unit terkait |
+| Supervisor   | View all                    |
+| User Biasa   | View yang diperlukan        |
 
 ### 7.2 Caching
 
 **Untuk Performa:**
+
 - Cache master yang sering diakses
 - Invalidate cache saat ada perubahan
 - TTL yang sesuai
@@ -473,11 +494,13 @@ Tabel ini menggabungkan semua master data sederhana yang hanya menyimpan nilai s
 ### 7.3 Search & Indexing
 
 **Indexing:**
+
 - Kode (primary search)
 - Nama (full-text search)
 - Kategori
 
 **Autocomplete:**
+
 - ICD-10/ICD-9 CM search
 - Obat search
 - Pegawai search

@@ -46,7 +46,7 @@ import patientsData from '$lib/data/patients.json';
 import type { Patient } from '$lib/types';
 
 export function loadPatients(): Patient[] {
-  return patientsData as Patient[];
+	return patientsData as Patient[];
 }
 ```
 
@@ -56,9 +56,9 @@ Untuk mensimulasikan delay API call:
 
 ```typescript
 async function fetchPatients(): Promise<Patient[]> {
-  // Simulate network delay
-  await new Promise(resolve => setTimeout(resolve, 500));
-  return patientsData as Patient[];
+	// Simulate network delay
+	await new Promise((resolve) => setTimeout(resolve, 500));
+	return patientsData as Patient[];
 }
 ```
 
@@ -66,18 +66,18 @@ async function fetchPatients(): Promise<Patient[]> {
 
 ```typescript
 function paginateData<T>(data: T[], page: number, perPage: number) {
-  const start = (page - 1) * perPage;
-  const end = start + perPage;
-  
-  return {
-    data: data.slice(start, end),
-    meta: {
-      total_count: data.length,
-      total_page: Math.ceil(data.length / perPage),
-      page: page,
-      count: Math.min(perPage, data.length - start)
-    }
-  };
+	const start = (page - 1) * perPage;
+	const end = start + perPage;
+
+	return {
+		data: data.slice(start, end),
+		meta: {
+			total_count: data.length,
+			total_page: Math.ceil(data.length / perPage),
+			page: page,
+			count: Math.min(perPage, data.length - start)
+		}
+	};
 }
 
 // Usage
@@ -88,12 +88,13 @@ const result = paginateData(patients, 1, 10);
 
 ```typescript
 function searchPatients(patients: Patient[], query: string): Patient[] {
-  const lowerQuery = query.toLowerCase();
-  return patients.filter(patient => 
-    patient.Nama.toLowerCase().includes(lowerQuery) ||
-    patient.NoRM.toLowerCase().includes(lowerQuery) ||
-    patient.NIK.toLowerCase().includes(lowerQuery)
-  );
+	const lowerQuery = query.toLowerCase();
+	return patients.filter(
+		(patient) =>
+			patient.Nama.toLowerCase().includes(lowerQuery) ||
+			patient.NoRM.toLowerCase().includes(lowerQuery) ||
+			patient.NIK.toLowerCase().includes(lowerQuery)
+	);
 }
 ```
 
@@ -102,12 +103,14 @@ function searchPatients(patients: Patient[], query: string): Patient[] {
 Ketika backend API sudah siap, Anda dapat dengan mudah mengganti import JSON dengan API call:
 
 ### Before (JSON):
+
 ```typescript
 import patientsData from '$lib/data/patients.json';
 const patients = patientsData as Patient[];
 ```
 
 ### After (API):
+
 ```typescript
 import api from '$lib/axios-instance';
 import type { HttpResponse, Patient, PaginatedMeta } from '$lib/types';
@@ -130,25 +133,25 @@ import patientsData from '$lib/data/patients.json';
 const USE_API = false;
 
 export async function getPatients(): Promise<Patient[]> {
-  if (USE_API) {
-    const response = await api.get('/v1/master/patients');
-    return response.data.data;
-  } else {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 300));
-    return patientsData as Patient[];
-  }
+	if (USE_API) {
+		const response = await api.get('/v1/master/patients');
+		return response.data.data;
+	} else {
+		// Simulate API delay
+		await new Promise((resolve) => setTimeout(resolve, 300));
+		return patientsData as Patient[];
+	}
 }
 
 export async function getPatientById(id: string): Promise<Patient | null> {
-  if (USE_API) {
-    const response = await api.get(`/v1/master/patients/${id}`);
-    return response.data.data;
-  } else {
-    await new Promise(resolve => setTimeout(resolve, 200));
-    const patients = patientsData as Patient[];
-    return patients.find(p => p.ID === id) || null;
-  }
+	if (USE_API) {
+		const response = await api.get(`/v1/master/patients/${id}`);
+		return response.data.data;
+	} else {
+		await new Promise((resolve) => setTimeout(resolve, 200));
+		const patients = patientsData as Patient[];
+		return patients.find((p) => p.ID === id) || null;
+	}
 }
 ```
 
@@ -176,22 +179,22 @@ Example:
 ```typescript
 // 1. Create type in src/lib/types/new-module.types.ts
 export type NewEntity = {
-  ID: string;
-  Name: string;
-  // ... other fields
+	ID: string;
+	Name: string;
+	// ... other fields
 } & GormModel;
 
 // 2. Create src/lib/data/new-entities.json
 [
-  {
-    "ID": "new-001",
-    "Name": "Example",
-    // ...
-    "CreatedAt": "2024-01-01T08:00:00Z",
-    "UpdatedAt": "2024-01-01T08:00:00Z",
-    "DeletedAt": null
-  }
-]
+	{
+		ID: 'new-001',
+		Name: 'Example',
+		// ...
+		CreatedAt: '2024-01-01T08:00:00Z',
+		UpdatedAt: '2024-01-01T08:00:00Z',
+		DeletedAt: null
+	}
+];
 
 // 3. Export in src/lib/types/index.ts
 export * from './new-module.types';
@@ -215,6 +218,7 @@ const entities: NewEntity[] = newEntitiesData;
 ## Update Data
 
 Data dummy ini harus di-update ketika:
+
 - Ada perubahan pada TypeScript types
 - Ada perubahan pada struktur database
 - Butuh test case baru
