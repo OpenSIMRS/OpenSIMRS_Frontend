@@ -63,7 +63,7 @@ Modul Radiologi (RIS - Radiology Information System) adalah sistem informasi yan
 - Cek lab (kreatinin untuk kontras)
 
 **4. Pelaksanaan Pemeriksaan**
-- Posisioning pasien
+- Positioning pasien
 - Pengambilan gambar
 - Quality check gambar
 - Pemberian kontras (jika ada)
