@@ -1,0 +1,53 @@
+[
+  {
+    "ID": "penjamin-001",
+    "KodePenjamin": "BPJS-001",
+    "NamaPenjamin": "BPJS Kesehatan",
+    "JenisPenjamin": "BPJS",
+    "NoKontrak": "KONTRAK/BPJS/2024/001",
+    "TanggalMulai": "2024-01-01",
+    "TanggalBerakhir": "2024-12-31",
+    "Status": "Aktif",
+    "CreatedAt": "2024-01-01T08:00:00Z",
+    "UpdatedAt": "2024-01-01T08:00:00Z",
+    "DeletedAt": null
+  },
+  {
+    "ID": "penjamin-002",
+    "KodePenjamin": "ASU-001",
+    "NamaPenjamin": "Asuransi Sinar Mas",
+    "JenisPenjamin": "Asuransi Swasta",
+    "NoKontrak": "KONTRAK/ASU/2024/001",
+    "TanggalMulai": "2024-01-01",
+    "TanggalBerakhir": "2024-12-31",
+    "PersentaseDiskon": 10,
+    "Status": "Aktif",
+    "CreatedAt": "2024-01-01T08:00:00Z",
+    "UpdatedAt": "2024-01-01T08:00:00Z",
+    "DeletedAt": null
+  },
+  {
+    "ID": "penjamin-003",
+    "KodePenjamin": "UMUM",
+    "NamaPenjamin": "Pasien Umum",
+    "JenisPenjamin": "Umum",
+    "Status": "Aktif",
+    "CreatedAt": "2024-01-01T08:00:00Z",
+    "UpdatedAt": "2024-01-01T08:00:00Z",
+    "DeletedAt": null
+  },
+  {
+    "ID": "penjamin-004",
+    "KodePenjamin": "CORP-001",
+    "NamaPenjamin": "PT. Maju Bersama",
+    "JenisPenjamin": "Perusahaan",
+    "NoKontrak": "KONTRAK/CORP/2024/001",
+    "TanggalMulai": "2024-01-01",
+    "TanggalBerakhir": "2024-12-31",
+    "PersentaseDiskon": 15,
+    "Status": "Aktif",
+    "CreatedAt": "2024-01-01T08:00:00Z",
+    "UpdatedAt": "2024-01-01T08:00:00Z",
+    "DeletedAt": null
+  }
+]

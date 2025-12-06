@@ -1,0 +1,122 @@
+[
+  {
+    "ID": "room-001",
+    "KodeRuangan": "POL-PD",
+    "NamaRuangan": "Poliklinik Penyakit Dalam",
+    "JenisRuangan": "Poliklinik",
+    "Lantai": 2,
+    "Gedung": "Gedung A",
+    "Status": "Aktif",
+    "CreatedAt": "2024-01-01T08:00:00Z",
+    "UpdatedAt": "2024-01-01T08:00:00Z",
+    "DeletedAt": null
+  },
+  {
+    "ID": "room-002",
+    "KodeRuangan": "POL-ANAK",
+    "NamaRuangan": "Poliklinik Anak",
+    "JenisRuangan": "Poliklinik",
+    "Lantai": 2,
+    "Gedung": "Gedung A",
+    "Status": "Aktif",
+    "CreatedAt": "2024-01-01T08:00:00Z",
+    "UpdatedAt": "2024-01-01T08:00:00Z",
+    "DeletedAt": null
+  },
+  {
+    "ID": "room-003",
+    "KodeRuangan": "LAB-01",
+    "NamaRuangan": "Laboratorium Patologi Klinik",
+    "JenisRuangan": "Lab",
+    "Lantai": 1,
+    "Gedung": "Gedung B",
+    "Status": "Aktif",
+    "CreatedAt": "2024-01-01T08:00:00Z",
+    "UpdatedAt": "2024-01-01T08:00:00Z",
+    "DeletedAt": null
+  },
+  {
+    "ID": "room-004",
+    "KodeRuangan": "RAD-01",
+    "NamaRuangan": "Radiologi",
+    "JenisRuangan": "Radiologi",
+    "Lantai": 1,
+    "Gedung": "Gedung B",
+    "Status": "Aktif",
+    "CreatedAt": "2024-01-01T08:00:00Z",
+    "UpdatedAt": "2024-01-01T08:00:00Z",
+    "DeletedAt": null
+  },
+  {
+    "ID": "room-005",
+    "KodeRuangan": "FARM-01",
+    "NamaRuangan": "Apotek",
+    "JenisRuangan": "Farmasi",
+    "Lantai": 1,
+    "Gedung": "Gedung A",
+    "Status": "Aktif",
+    "CreatedAt": "2024-01-01T08:00:00Z",
+    "UpdatedAt": "2024-01-01T08:00:00Z",
+    "DeletedAt": null
+  },
+  {
+    "ID": "room-006",
+    "KodeRuangan": "IGD-01",
+    "NamaRuangan": "Instalasi Gawat Darurat",
+    "JenisRuangan": "IGD",
+    "Lantai": 1,
+    "Gedung": "Gedung C",
+    "Status": "Aktif",
+    "CreatedAt": "2024-01-01T08:00:00Z",
+    "UpdatedAt": "2024-01-01T08:00:00Z",
+    "DeletedAt": null
+  },
+  {
+    "ID": "room-007",
+    "KodeRuangan": "RI-VIP",
+    "NamaRuangan": "Rawat Inap VIP",
+    "JenisRuangan": "Rawat Inap",
+    "Lantai": 3,
+    "Gedung": "Gedung D",
+    "Status": "Aktif",
+    "CreatedAt": "2024-01-01T08:00:00Z",
+    "UpdatedAt": "2024-01-01T08:00:00Z",
+    "DeletedAt": null
+  },
+  {
+    "ID": "room-008",
+    "KodeRuangan": "RI-K1",
+    "NamaRuangan": "Rawat Inap Kelas 1",
+    "JenisRuangan": "Rawat Inap",
+    "Lantai": 4,
+    "Gedung": "Gedung D",
+    "Status": "Aktif",
+    "CreatedAt": "2024-01-01T08:00:00Z",
+    "UpdatedAt": "2024-01-01T08:00:00Z",
+    "DeletedAt": null
+  },
+  {
+    "ID": "room-009",
+    "KodeRuangan": "RI-K2",
+    "NamaRuangan": "Rawat Inap Kelas 2",
+    "JenisRuangan": "Rawat Inap",
+    "Lantai": 5,
+    "Gedung": "Gedung D",
+    "Status": "Aktif",
+    "CreatedAt": "2024-01-01T08:00:00Z",
+    "UpdatedAt": "2024-01-01T08:00:00Z",
+    "DeletedAt": null
+  },
+  {
+    "ID": "room-010",
+    "KodeRuangan": "RI-K3",
+    "NamaRuangan": "Rawat Inap Kelas 3",
+    "JenisRuangan": "Rawat Inap",
+    "Lantai": 5,
+    "Gedung": "Gedung D",
+    "Status": "Aktif",
+    "CreatedAt": "2024-01-01T08:00:00Z",
+    "UpdatedAt": "2024-01-01T08:00:00Z",
+    "DeletedAt": null
+  }
+]

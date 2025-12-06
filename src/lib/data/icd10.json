@@ -1,0 +1,102 @@
+[
+  {
+    "ID": "icd10-001",
+    "Kode": "A09",
+    "Deskripsi": "Diarrhoea and gastroenteritis of presumed infectious origin",
+    "KategoriUtama": "Certain infectious and parasitic diseases",
+    "Status": "Aktif",
+    "CreatedAt": "2024-01-01T08:00:00Z",
+    "UpdatedAt": "2024-01-01T08:00:00Z",
+    "DeletedAt": null
+  },
+  {
+    "ID": "icd10-002",
+    "Kode": "J00",
+    "Deskripsi": "Acute nasopharyngitis [common cold]",
+    "KategoriUtama": "Diseases of the respiratory system",
+    "Status": "Aktif",
+    "CreatedAt": "2024-01-01T08:00:00Z",
+    "UpdatedAt": "2024-01-01T08:00:00Z",
+    "DeletedAt": null
+  },
+  {
+    "ID": "icd10-003",
+    "Kode": "E11",
+    "Deskripsi": "Type 2 diabetes mellitus",
+    "KategoriUtama": "Endocrine, nutritional and metabolic diseases",
+    "Status": "Aktif",
+    "CreatedAt": "2024-01-01T08:00:00Z",
+    "UpdatedAt": "2024-01-01T08:00:00Z",
+    "DeletedAt": null
+  },
+  {
+    "ID": "icd10-004",
+    "Kode": "I10",
+    "Deskripsi": "Essential (primary) hypertension",
+    "KategoriUtama": "Diseases of the circulatory system",
+    "Status": "Aktif",
+    "CreatedAt": "2024-01-01T08:00:00Z",
+    "UpdatedAt": "2024-01-01T08:00:00Z",
+    "DeletedAt": null
+  },
+  {
+    "ID": "icd10-005",
+    "Kode": "M79.3",
+    "Deskripsi": "Panniculitis, unspecified",
+    "KategoriUtama": "Diseases of the musculoskeletal system and connective tissue",
+    "Status": "Aktif",
+    "CreatedAt": "2024-01-01T08:00:00Z",
+    "UpdatedAt": "2024-01-01T08:00:00Z",
+    "DeletedAt": null
+  },
+  {
+    "ID": "icd10-006",
+    "Kode": "R50.9",
+    "Deskripsi": "Fever, unspecified",
+    "KategoriUtama": "Symptoms, signs and abnormal clinical and laboratory findings",
+    "Status": "Aktif",
+    "CreatedAt": "2024-01-01T08:00:00Z",
+    "UpdatedAt": "2024-01-01T08:00:00Z",
+    "DeletedAt": null
+  },
+  {
+    "ID": "icd10-007",
+    "Kode": "K29.0",
+    "Deskripsi": "Acute gastritis",
+    "KategoriUtama": "Diseases of the digestive system",
+    "Status": "Aktif",
+    "CreatedAt": "2024-01-01T08:00:00Z",
+    "UpdatedAt": "2024-01-01T08:00:00Z",
+    "DeletedAt": null
+  },
+  {
+    "ID": "icd10-008",
+    "Kode": "N39.0",
+    "Deskripsi": "Urinary tract infection, site not specified",
+    "KategoriUtama": "Diseases of the genitourinary system",
+    "Status": "Aktif",
+    "CreatedAt": "2024-01-01T08:00:00Z",
+    "UpdatedAt": "2024-01-01T08:00:00Z",
+    "DeletedAt": null
+  },
+  {
+    "ID": "icd10-009",
+    "Kode": "J18.9",
+    "Deskripsi": "Pneumonia, unspecified",
+    "KategoriUtama": "Diseases of the respiratory system",
+    "Status": "Aktif",
+    "CreatedAt": "2024-01-01T08:00:00Z",
+    "UpdatedAt": "2024-01-01T08:00:00Z",
+    "DeletedAt": null
+  },
+  {
+    "ID": "icd10-010",
+    "Kode": "G43.9",
+    "Deskripsi": "Migraine, unspecified",
+    "KategoriUtama": "Diseases of the nervous system",
+    "Status": "Aktif",
+    "CreatedAt": "2024-01-01T08:00:00Z",
+    "UpdatedAt": "2024-01-01T08:00:00Z",
+    "DeletedAt": null
+  }
+]

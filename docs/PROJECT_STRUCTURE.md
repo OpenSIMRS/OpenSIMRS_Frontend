@@ -18,16 +18,45 @@ OpenSIMRS Frontend adalah aplikasi web berbasis SvelteKit dengan TypeScript yang
 ```
 frontend/
 ├── docs/                          # Dokumentasi project
+│   ├── features/                  # Dokumentasi per modul/fitur
+│   │   ├── 01-pendaftaran-admisi.md
+│   │   ├── 02-emr.md
+│   │   ├── ... (15 feature docs)
+│   │   └── README.md
+│   ├── API_ENDPOINTS.md           # Dokumentasi lengkap API endpoints
+│   ├── AUTH_STRUCTURE.md          # Dokumentasi struktur autentikasi
+│   ├── CORE_FEATURE.md            # Deskripsi fitur inti aplikasi
 │   └── PROJECT_STRUCTURE.md       # Dokumentasi struktur project (file ini)
 ├── src/                           # Source code aplikasi
 │   ├── lib/                       # Library dan utilities
 │   │   ├── assets/                # Asset seperti gambar, font, dll
 │   │   ├── components/            # Komponen Svelte yang dapat digunakan kembali
 │   │   │   └── Stateful.svelte    # Komponen stateful
+│   │   ├── data/                  # Dummy data JSON untuk development
+│   │   │   ├── patients.json      # Data pasien
+│   │   │   ├── employees.json     # Data pegawai
+│   │   │   ├── icd10.json         # Kode ICD-10
+│   │   │   ├── ruangan.json       # Data ruangan
+│   │   │   ├── barang.json        # Data obat/alkes/BHP
+│   │   │   ├── penjamin.json      # Data penjamin
+│   │   │   ├── kunjungan.json     # Data kunjungan
+│   │   │   └── README.md          # Dokumentasi dummy data
+│   │   ├── types/                 # TypeScript type definitions
+│   │   │   ├── master-data.types.ts      # Types untuk master data
+│   │   │   ├── pendaftaran.types.ts      # Types untuk pendaftaran
+│   │   │   ├── emr.types.ts              # Types untuk EMR
+│   │   │   ├── laboratorium.types.ts     # Types untuk lab
+│   │   │   ├── radiologi.types.ts        # Types untuk radiologi
+│   │   │   ├── farmasi.types.ts          # Types untuk farmasi
+│   │   │   ├── billing.types.ts          # Types untuk billing
+│   │   │   ├── jasa-pelayanan.types.ts   # Types untuk jasa pelayanan
+│   │   │   ├── common.types.ts           # Common types
+│   │   │   ├── index.ts                  # Export semua types
+│   │   │   └── README.md                 # Dokumentasi types
 │   │   ├── axios-instance.ts      # Konfigurasi Axios dengan interceptor
 │   │   ├── index.ts               # Entry point untuk library exports
 │   │   ├── stores.ts              # Svelte stores global
-│   │   └── types.ts               # Type definitions TypeScript
+│   │   └── types.ts               # Base type definitions
 │   ├── routes/                    # File-based routing SvelteKit
 │   │   ├── login/                 # Route untuk halaman login
 │   │   │   └── +page.svelte       # Halaman login
@@ -54,6 +83,39 @@ frontend/
 
 Direktori ini berisi kode yang dapat digunakan kembali di seluruh aplikasi.
 
+#### `data/`
+- Berisi file JSON sebagai dummy data untuk development
+- Data dapat dengan mudah diganti dengan API calls
+- Setiap file JSON memiliki TypeScript type yang sesuai
+- Lihat [data/README.md](../src/lib/data/README.md) untuk detail
+
+File dummy data yang tersedia:
+- `patients.json` - Data pasien
+- `employees.json` - Data pegawai/staff
+- `icd10.json` - Kode diagnosis ICD-10
+- `ruangan.json` - Data ruangan/unit
+- `barang.json` - Data obat/alkes/BHP
+- `penjamin.json` - Data penjamin/asuransi
+- `kunjungan.json` - Data kunjungan pasien
+
+#### `types/`
+- Berisi semua TypeScript type definitions
+- Diorganisir per modul/domain
+- Setiap type file fokus pada satu domain
+- Lihat [types/README.md](../src/lib/types/README.md) untuk detail
+
+Type files yang tersedia:
+- `master-data.types.ts` - Patient, Employee, ICD, Ruangan, dll
+- `pendaftaran.types.ts` - Kunjungan, Antrian, Pendaftaran
+- `emr.types.ts` - EMR Record, Resep, Order Penunjang
+- `laboratorium.types.ts` - Order Lab, Hasil Lab, Sampel
+- `radiologi.types.ts` - Order Radiologi, PACS, Expertise
+- `farmasi.types.ts` - Resep Farmasi, Stok Obat, Mutasi
+- `billing.types.ts` - Billing, Pembayaran, Piutang
+- `jasa-pelayanan.types.ts` - JP Configuration, Rekapitulasi
+- `common.types.ts` - Audit Trail, Dashboard, Notifikasi
+- `index.ts` - Export semua types
+
 #### `axios-instance.ts`
 - Konfigurasi instance Axios dengan base URL dari environment variable
 - Mengatur request/response interceptors untuk:
@@ -63,21 +125,66 @@ Direktori ini berisi kode yang dapat digunakan kembali di seluruh aplikasi.
 - Menyediakan `accessToken` store untuk manajemen autentikasi
 
 #### `types.ts`
-- Berisi type definitions untuk:
+- Berisi base type definitions untuk:
   - `HttpResponse<T, M>`: Generic type untuk response API
   - `GormModel`: Base model dengan timestamps (CreatedAt, UpdatedAt, DeletedAt)
   - `PaginatedMeta`: Type untuk metadata pagination
+  - Type-type untuk auth (GetAuthMe, PostAuthLogin, PostAuthRefesh)
   - Type-type lain untuk data dari API
+
+> **Note**: Type definitions yang spesifik untuk domain ada di folder `types/`
 
 #### `stores.ts`
 - Svelte stores global untuk state management
-- Dapat berisi stores untuk user data, app state, dll
+- Berisi `accessToken` store untuk autentikasi
+- Dapat ditambah stores lain untuk user data, app state, dll
 
 #### `components/`
 - Komponen Svelte yang reusable
 - `Stateful.svelte`: Komponen dengan state management
 
-### `/src/routes/`
+### `/docs/`
+
+Direktori dokumentasi project.
+
+#### Dokumentasi Utama
+
+- **`PROJECT_STRUCTURE.md`** (file ini) - Struktur dan arsitektur project
+- **`CORE_FEATURE.md`** - Deskripsi fitur inti dan alur pelayanan utama
+- **`API_ENDPOINTS.md`** - Dokumentasi lengkap semua API endpoints
+- **`AUTH_STRUCTURE.md`** - Dokumentasi struktur autentikasi dan cara disable untuk development
+
+#### Dokumentasi Fitur
+
+Folder `features/` berisi dokumentasi detail untuk setiap modul:
+
+1. **Pendaftaran & Admisi** - Pendaftaran pasien dan kunjungan
+2. **EMR** - Electronic Medical Record
+3. **Laboratorium** - LIS (Laboratory Information System)
+4. **Radiologi** - RIS (Radiology Information System)
+5. **Farmasi/Apotek** - E-Resep dan stok obat
+6. **Gizi/Dietary** - Order diet dan produksi makanan
+7. **Gudang/Logistik** - Pengadaan dan distribusi barang
+8. **Billing/Kasir** - Billing dan pembayaran
+9. **Jasa Pelayanan** - Perhitungan jasa pelayanan
+10. **Master Data** - Pengelolaan data master
+11. **Dashboard & Laporan** - Metrics dan reporting
+12. **Audit Trail** - Log perubahan data
+13. **Pencatatan Tim** - Tim yang terlibat per layanan
+14. **Edukasi Pasien** - Materi edukasi pasien
+15. **Retur & Pembatalan** - Alur retur dan pembatalan
+
+Setiap dokumentasi fitur berisi:
+- Deskripsi umum modul
+- Alur kerja (workflow diagram)
+- Skema data yang dibutuhkan
+- Form-form yang diperlukan
+- Fitur pendukung
+- Integrasi dengan modul lain
+- Aturan bisnis (business rules)
+- Kebutuhan teknis
+
+### `/src/lib/types.ts`
 
 Direktori untuk file-based routing SvelteKit. Setiap folder/file merepresentasikan route di aplikasi.
 
