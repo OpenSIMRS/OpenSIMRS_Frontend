@@ -1,0 +1,312 @@
+{
+	"pegawai": [
+		{
+			"id": "peg-001",
+			"nip": "12345",
+			"nama": "dr. Ahmad Budiman, Sp.B",
+			"jabatan": "Dokter Spesialis Bedah",
+			"unit_id": "unit-001",
+			"unit_nama": "Instalasi Bedah Sentral",
+			"is_active": true,
+			"created_at": "2024-01-01T00:00:00Z",
+			"updated_at": "2024-01-01T00:00:00Z"
+		},
+		{
+			"id": "peg-002",
+			"nip": "12346",
+			"nama": "dr. Siti Rahayu, Sp.PD",
+			"jabatan": "Dokter Spesialis Penyakit Dalam",
+			"unit_id": "unit-002",
+			"unit_nama": "Poliklinik Penyakit Dalam",
+			"is_active": true,
+			"created_at": "2024-01-01T00:00:00Z",
+			"updated_at": "2024-01-01T00:00:00Z"
+		},
+		{
+			"id": "peg-003",
+			"nip": "12347",
+			"nama": "Ns. Ani Lestari, S.Kep",
+			"jabatan": "Perawat",
+			"unit_id": "unit-003",
+			"unit_nama": "Ruang Rawat Inap",
+			"is_active": true,
+			"created_at": "2024-01-01T00:00:00Z",
+			"updated_at": "2024-01-01T00:00:00Z"
+		},
+		{
+			"id": "peg-004",
+			"nip": "12348",
+			"nama": "dr. Budi Santoso",
+			"jabatan": "Dokter Umum",
+			"unit_id": "unit-004",
+			"unit_nama": "IGD",
+			"is_active": true,
+			"created_at": "2024-01-01T00:00:00Z",
+			"updated_at": "2024-01-01T00:00:00Z"
+		},
+		{
+			"id": "peg-005",
+			"nip": "12349",
+			"nama": "Ns. Dewi Anggraini, S.Kep",
+			"jabatan": "Perawat",
+			"unit_id": "unit-001",
+			"unit_nama": "Instalasi Bedah Sentral",
+			"is_active": true,
+			"created_at": "2024-01-01T00:00:00Z",
+			"updated_at": "2024-01-01T00:00:00Z"
+		}
+	],
+	"units": [
+		{
+			"id": "unit-001",
+			"kode": "IBS",
+			"nama": "Instalasi Bedah Sentral",
+			"is_active": true,
+			"created_at": "2024-01-01T00:00:00Z",
+			"updated_at": "2024-01-01T00:00:00Z"
+		},
+		{
+			"id": "unit-002",
+			"kode": "POLI-PD",
+			"nama": "Poliklinik Penyakit Dalam",
+			"is_active": true,
+			"created_at": "2024-01-01T00:00:00Z",
+			"updated_at": "2024-01-01T00:00:00Z"
+		},
+		{
+			"id": "unit-003",
+			"kode": "RRI",
+			"nama": "Ruang Rawat Inap",
+			"is_active": true,
+			"created_at": "2024-01-01T00:00:00Z",
+			"updated_at": "2024-01-01T00:00:00Z"
+		},
+		{
+			"id": "unit-004",
+			"kode": "IGD",
+			"nama": "IGD",
+			"is_active": true,
+			"created_at": "2024-01-01T00:00:00Z",
+			"updated_at": "2024-01-01T00:00:00Z"
+		}
+	],
+	"kategoriTindakan": [
+		{
+			"id": "kat-001",
+			"kode": "BEDAH",
+			"nama": "Tindakan Bedah",
+			"is_active": true,
+			"created_at": "2024-01-01T00:00:00Z",
+			"updated_at": "2024-01-01T00:00:00Z"
+		},
+		{
+			"id": "kat-002",
+			"kode": "KONSUL",
+			"nama": "Konsultasi",
+			"is_active": true,
+			"created_at": "2024-01-01T00:00:00Z",
+			"updated_at": "2024-01-01T00:00:00Z"
+		},
+		{
+			"id": "kat-003",
+			"kode": "RAWAT",
+			"nama": "Perawatan",
+			"is_active": true,
+			"created_at": "2024-01-01T00:00:00Z",
+			"updated_at": "2024-01-01T00:00:00Z"
+		}
+	],
+	"tindakan": [
+		{
+			"id": "tind-001",
+			"kode": "APPEND",
+			"nama": "Operasi Appendektomi",
+			"kategori_tindakan_id": "kat-001",
+			"kategori_nama": "Tindakan Bedah",
+			"tarif": 5000000,
+			"komponen_jasa": 2500000,
+			"is_active": true,
+			"created_at": "2024-01-01T00:00:00Z",
+			"updated_at": "2024-01-01T00:00:00Z"
+		},
+		{
+			"id": "tind-002",
+			"kode": "HERNIA",
+			"nama": "Operasi Hernia",
+			"kategori_tindakan_id": "kat-001",
+			"kategori_nama": "Tindakan Bedah",
+			"tarif": 6000000,
+			"komponen_jasa": 3000000,
+			"is_active": true,
+			"created_at": "2024-01-01T00:00:00Z",
+			"updated_at": "2024-01-01T00:00:00Z"
+		},
+		{
+			"id": "tind-003",
+			"kode": "KONSUL-PD",
+			"nama": "Konsultasi Penyakit Dalam",
+			"kategori_tindakan_id": "kat-002",
+			"kategori_nama": "Konsultasi",
+			"tarif": 200000,
+			"komponen_jasa": 100000,
+			"is_active": true,
+			"created_at": "2024-01-01T00:00:00Z",
+			"updated_at": "2024-01-01T00:00:00Z"
+		}
+	],
+	"formulaJasa": [
+		{
+			"id": "form-001",
+			"kode": "FORM-BEDAH-01",
+			"nama": "Formula Tindakan Bedah",
+			"kategori_tindakan_id": "kat-001",
+			"komponen_jasa_medis": 50.0,
+			"komponen_jasa_sarana": 30.0,
+			"komponen_jasa_rs": 20.0,
+			"is_active": true,
+			"tanggal_berlaku": "2024-01-01",
+			"tanggal_berakhir": null,
+			"created_at": "2024-01-01T00:00:00Z",
+			"updated_at": "2024-01-01T00:00:00Z"
+		},
+		{
+			"id": "form-002",
+			"kode": "FORM-KONSUL-01",
+			"nama": "Formula Konsultasi",
+			"kategori_tindakan_id": "kat-002",
+			"komponen_jasa_medis": 70.0,
+			"komponen_jasa_sarana": 15.0,
+			"komponen_jasa_rs": 15.0,
+			"is_active": true,
+			"tanggal_berlaku": "2024-01-01",
+			"tanggal_berakhir": null,
+			"created_at": "2024-01-01T00:00:00Z",
+			"updated_at": "2024-01-01T00:00:00Z"
+		}
+	],
+	"distribusiFormula": [
+		{
+			"id": "dist-001",
+			"formula_id": "form-001",
+			"peran": "OPERATOR",
+			"persentase": 50.0,
+			"is_active": true,
+			"created_at": "2024-01-01T00:00:00Z"
+		},
+		{
+			"id": "dist-002",
+			"formula_id": "form-001",
+			"peran": "ASISTEN_1",
+			"persentase": 20.0,
+			"is_active": true,
+			"created_at": "2024-01-01T00:00:00Z"
+		},
+		{
+			"id": "dist-003",
+			"formula_id": "form-001",
+			"peran": "ASISTEN_2",
+			"persentase": 10.0,
+			"is_active": true,
+			"created_at": "2024-01-01T00:00:00Z"
+		},
+		{
+			"id": "dist-004",
+			"formula_id": "form-001",
+			"peran": "ANESTESI",
+			"persentase": 15.0,
+			"is_active": true,
+			"created_at": "2024-01-01T00:00:00Z"
+		},
+		{
+			"id": "dist-005",
+			"formula_id": "form-001",
+			"peran": "PERAWAT",
+			"persentase": 5.0,
+			"is_active": true,
+			"created_at": "2024-01-01T00:00:00Z"
+		}
+	],
+	"akumulasiJasa": [
+		{
+			"id": "akum-001",
+			"pegawai_id": "peg-001",
+			"periode_tahun": 2025,
+			"periode_bulan": 1,
+			"total_jasa_medis": 15000000,
+			"total_jasa_keperawatan": 0,
+			"total_jasa_lainnya": 0,
+			"grand_total": 15000000,
+			"potongan_pajak": 750000,
+			"potongan_lainnya": 0,
+			"netto": 14250000,
+			"status": "APPROVED",
+			"approved_by": "user-001",
+			"approved_at": "2025-02-01T10:00:00Z",
+			"paid_at": null,
+			"created_at": "2025-01-31T00:00:00Z",
+			"updated_at": "2025-02-01T10:00:00Z"
+		},
+		{
+			"id": "akum-002",
+			"pegawai_id": "peg-002",
+			"periode_tahun": 2025,
+			"periode_bulan": 1,
+			"total_jasa_medis": 12500000,
+			"total_jasa_keperawatan": 0,
+			"total_jasa_lainnya": 0,
+			"grand_total": 12500000,
+			"potongan_pajak": 625000,
+			"potongan_lainnya": 0,
+			"netto": 11875000,
+			"status": "APPROVED",
+			"approved_by": "user-001",
+			"approved_at": "2025-02-01T10:00:00Z",
+			"paid_at": null,
+			"created_at": "2025-01-31T00:00:00Z",
+			"updated_at": "2025-02-01T10:00:00Z"
+		},
+		{
+			"id": "akum-003",
+			"pegawai_id": "peg-003",
+			"periode_tahun": 2025,
+			"periode_bulan": 1,
+			"total_jasa_medis": 0,
+			"total_jasa_keperawatan": 3500000,
+			"total_jasa_lainnya": 0,
+			"grand_total": 3500000,
+			"potongan_pajak": 175000,
+			"potongan_lainnya": 0,
+			"netto": 3325000,
+			"status": "APPROVED",
+			"approved_by": "user-001",
+			"approved_at": "2025-02-01T10:00:00Z",
+			"paid_at": null,
+			"created_at": "2025-01-31T00:00:00Z",
+			"updated_at": "2025-02-01T10:00:00Z"
+		}
+	],
+	"periodeJasa": [
+		{
+			"id": "periode-001",
+			"tahun": 2025,
+			"bulan": 1,
+			"tanggal_mulai": "2025-01-01",
+			"tanggal_akhir": "2025-01-31",
+			"status": "CLOSED",
+			"closed_by": "user-001",
+			"closed_at": "2025-02-01T00:00:00Z",
+			"created_at": "2025-01-01T00:00:00Z"
+		},
+		{
+			"id": "periode-002",
+			"tahun": 2025,
+			"bulan": 2,
+			"tanggal_mulai": "2025-02-01",
+			"tanggal_akhir": "2025-02-28",
+			"status": "OPEN",
+			"closed_by": null,
+			"closed_at": null,
+			"created_at": "2025-02-01T00:00:00Z"
+		}
+	]
+}
