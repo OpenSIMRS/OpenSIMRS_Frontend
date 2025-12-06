@@ -96,7 +96,7 @@ Modul Pendaftaran dan Admisi adalah gerbang utama untuk semua pasien yang akan m
 | alamat | TEXT | Ya | Alamat lengkap |
 | rt | VARCHAR(3) | Tidak | RT |
 | rw | VARCHAR(3) | Tidak | RW |
-| kode_wilayah | VARCHAR(13) | Ya | Kode wilayah BPS format: PPKKCCDDDDDD (PP=Provinsi 2 digit, KK=Kabupaten 2 digit, CC=Kecamatan 2 digit, DDDDDD=Desa/Kelurahan 6 digit) |
+| kode_wilayah | VARCHAR(15) | Ya | Kode wilayah format: PP.KK.CC.DDDD (PP=Provinsi, KK=Kabupaten, CC=Kecamatan, DDDD=Desa/Kelurahan). Contoh: '11.01.01.2001'. Sumber: https://github.com/cahyadsn/wilayah |
 | kode_pos | VARCHAR(5) | Tidak | Kode pos |
 | no_telepon | VARCHAR(15) | Tidak | Nomor telepon |
 | no_hp | VARCHAR(15) | Ya | Nomor HP |

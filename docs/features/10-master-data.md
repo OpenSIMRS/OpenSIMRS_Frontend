@@ -268,7 +268,7 @@ Tabel ini menggabungkan semua master data sederhana yang hanya menyimpan nilai s
 - CARA_BAYAR
 - Dan lainnya sesuai kebutuhan
 
-> **Catatan:** Untuk data wilayah (Provinsi, Kabupaten, Kecamatan, Kelurahan), tidak menggunakan tabel master terpisah. Field `kode_wilayah` menyimpan kode BPS 13 digit sebagai string numerik (format: PPKKCCDDDDDD) yang dapat diintegrasikan dengan API wilayah Indonesia eksternal jika diperlukan.
+> **Catatan:** Untuk data wilayah (Provinsi, Kabupaten, Kecamatan, Kelurahan), tidak menggunakan tabel master terpisah. Field `kode_wilayah` menyimpan kode wilayah dengan format `PP.KK.CC.DDDD` (contoh: `11.01.01.2001`). Sumber data wilayah: https://github.com/cahyadsn/wilayah
 
 ---
 
