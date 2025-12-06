@@ -1,0 +1,372 @@
+{
+  "pegawai": [
+    {
+      "id": "peg-001",
+      "nip": "12345",
+      "nama": "dr. Ahmad Budiman, Sp.B",
+      "unit_id": "unit-001",
+      "unit_nama": "Instalasi Bedah Sentral",
+      "jabatan": "Dokter Spesialis Bedah",
+      "email": "ahmad.budiman@hospital.com",
+      "is_active": true
+    },
+    {
+      "id": "peg-002",
+      "nip": "12346",
+      "nama": "dr. Siti Rahmawati, Sp.PD",
+      "unit_id": "unit-002",
+      "unit_nama": "Poli Penyakit Dalam",
+      "jabatan": "Dokter Spesialis Penyakit Dalam",
+      "email": "siti.rahmawati@hospital.com",
+      "is_active": true
+    },
+    {
+      "id": "peg-003",
+      "nip": "12347",
+      "nama": "Ns. Citra Dewi, S.Kep",
+      "unit_id": "unit-003",
+      "unit_nama": "Ruang Rawat Inap",
+      "jabatan": "Perawat",
+      "email": "citra.dewi@hospital.com",
+      "is_active": true
+    },
+    {
+      "id": "peg-004",
+      "nip": "12348",
+      "nama": "dr. Budi Santoso",
+      "unit_id": "unit-001",
+      "unit_nama": "Instalasi Bedah Sentral",
+      "jabatan": "Dokter Umum",
+      "email": "budi.santoso@hospital.com",
+      "is_active": true
+    },
+    {
+      "id": "peg-005",
+      "nip": "12349",
+      "nama": "Ns. Rina Astuti, AMK",
+      "unit_id": "unit-001",
+      "unit_nama": "Instalasi Bedah Sentral",
+      "jabatan": "Perawat Instrumen",
+      "email": "rina.astuti@hospital.com",
+      "is_active": true
+    }
+  ],
+  "kategori_tindakan": [
+    {
+      "id": "kat-001",
+      "kode": "BDH",
+      "nama": "Bedah",
+      "is_active": true
+    },
+    {
+      "id": "kat-002",
+      "kode": "OBS",
+      "nama": "Obstetri & Ginekologi",
+      "is_active": true
+    },
+    {
+      "id": "kat-003",
+      "kode": "INT",
+      "nama": "Penyakit Dalam",
+      "is_active": true
+    }
+  ],
+  "tindakan": [
+    {
+      "id": "tind-001",
+      "kode": "APD-001",
+      "nama": "Operasi Appendektomi",
+      "kategori_id": "kat-001",
+      "kategori_nama": "Bedah",
+      "tarif": 5000000,
+      "komponen_jasa": 2500000,
+      "is_active": true
+    },
+    {
+      "id": "tind-002",
+      "kode": "HRN-001",
+      "nama": "Operasi Hernia",
+      "kategori_id": "kat-001",
+      "kategori_nama": "Bedah",
+      "tarif": 6000000,
+      "komponen_jasa": 3000000,
+      "is_active": true
+    },
+    {
+      "id": "tind-003",
+      "kode": "CSC-001",
+      "nama": "Sectio Caesarea",
+      "kategori_id": "kat-002",
+      "kategori_nama": "Obstetri & Ginekologi",
+      "tarif": 8000000,
+      "komponen_jasa": 4000000,
+      "is_active": true
+    }
+  ],
+  "formula_jasa": [
+    {
+      "id": "form-001",
+      "kode": "FORM-BDH-01",
+      "nama": "Formula Jasa Bedah Umum",
+      "kategori_tindakan_id": "kat-001",
+      "komponen_jasa_medis": 50,
+      "komponen_jasa_sarana": 30,
+      "komponen_jasa_rs": 20,
+      "is_active": true,
+      "tanggal_berlaku": "2025-01-01",
+      "tanggal_berakhir": null,
+      "created_at": "2024-12-01T10:00:00Z",
+      "updated_at": "2024-12-01T10:00:00Z"
+    },
+    {
+      "id": "form-002",
+      "kode": "FORM-OBS-01",
+      "nama": "Formula Jasa Obstetri",
+      "kategori_tindakan_id": "kat-002",
+      "komponen_jasa_medis": 55,
+      "komponen_jasa_sarana": 25,
+      "komponen_jasa_rs": 20,
+      "is_active": true,
+      "tanggal_berlaku": "2025-01-01",
+      "tanggal_berakhir": null,
+      "created_at": "2024-12-01T10:00:00Z",
+      "updated_at": "2024-12-01T10:00:00Z"
+    }
+  ],
+  "distribusi_formula": [
+    {
+      "id": "dist-001",
+      "formula_id": "form-001",
+      "peran": "OPERATOR",
+      "persentase": 60,
+      "is_active": true,
+      "created_at": "2024-12-01T10:00:00Z"
+    },
+    {
+      "id": "dist-002",
+      "formula_id": "form-001",
+      "peran": "ASISTEN_1",
+      "persentase": 20,
+      "is_active": true,
+      "created_at": "2024-12-01T10:00:00Z"
+    },
+    {
+      "id": "dist-003",
+      "formula_id": "form-001",
+      "peran": "ANESTESI",
+      "persentase": 15,
+      "is_active": true,
+      "created_at": "2024-12-01T10:00:00Z"
+    },
+    {
+      "id": "dist-004",
+      "formula_id": "form-001",
+      "peran": "PERAWAT",
+      "persentase": 5,
+      "is_active": true,
+      "created_at": "2024-12-01T10:00:00Z"
+    }
+  ],
+  "pelaksana_tindakan": [
+    {
+      "id": "pel-001",
+      "billing_detail_id": "bill-det-001",
+      "tindakan_id": "tind-001",
+      "pegawai_id": "peg-001",
+      "peran": "OPERATOR",
+      "persentase": 60,
+      "nilai_jasa": 1500000,
+      "status": "CALCULATED",
+      "created_at": "2025-01-05T10:00:00Z",
+      "updated_at": "2025-01-05T10:00:00Z",
+      "created_by": "user-001"
+    },
+    {
+      "id": "pel-002",
+      "billing_detail_id": "bill-det-001",
+      "tindakan_id": "tind-001",
+      "pegawai_id": "peg-004",
+      "peran": "ASISTEN_1",
+      "persentase": 20,
+      "nilai_jasa": 500000,
+      "status": "CALCULATED",
+      "created_at": "2025-01-05T10:00:00Z",
+      "updated_at": "2025-01-05T10:00:00Z",
+      "created_by": "user-001"
+    },
+    {
+      "id": "pel-003",
+      "billing_detail_id": "bill-det-001",
+      "tindakan_id": "tind-001",
+      "pegawai_id": "peg-005",
+      "peran": "PERAWAT",
+      "persentase": 20,
+      "nilai_jasa": 500000,
+      "status": "CALCULATED",
+      "created_at": "2025-01-05T10:00:00Z",
+      "updated_at": "2025-01-05T10:00:00Z",
+      "created_by": "user-001"
+    }
+  ],
+  "periode_jasa": [
+    {
+      "id": "per-001",
+      "tahun": 2025,
+      "bulan": 1,
+      "tanggal_mulai": "2025-01-01",
+      "tanggal_akhir": "2025-01-31",
+      "status": "CALCULATING",
+      "closed_by": null,
+      "closed_at": null,
+      "created_at": "2025-01-01T00:00:00Z"
+    },
+    {
+      "id": "per-002",
+      "tahun": 2024,
+      "bulan": 12,
+      "tanggal_mulai": "2024-12-01",
+      "tanggal_akhir": "2024-12-31",
+      "status": "CLOSED",
+      "closed_by": "user-admin",
+      "closed_at": "2025-01-01T00:00:00Z",
+      "created_at": "2024-12-01T00:00:00Z"
+    }
+  ],
+  "akumulasi_jasa": [
+    {
+      "id": "akum-001",
+      "pegawai_id": "peg-001",
+      "periode_tahun": 2025,
+      "periode_bulan": 1,
+      "total_jasa_medis": 15000000,
+      "total_jasa_keperawatan": 0,
+      "total_jasa_lainnya": 0,
+      "grand_total": 15000000,
+      "potongan_pajak": 750000,
+      "potongan_lainnya": 0,
+      "netto": 14250000,
+      "status": "DRAFT",
+      "approved_by": null,
+      "approved_at": null,
+      "paid_at": null,
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z"
+    },
+    {
+      "id": "akum-002",
+      "pegawai_id": "peg-002",
+      "periode_tahun": 2025,
+      "periode_bulan": 1,
+      "total_jasa_medis": 12500000,
+      "total_jasa_keperawatan": 0,
+      "total_jasa_lainnya": 0,
+      "grand_total": 12500000,
+      "potongan_pajak": 625000,
+      "potongan_lainnya": 0,
+      "netto": 11875000,
+      "status": "DRAFT",
+      "approved_by": null,
+      "approved_at": null,
+      "paid_at": null,
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z"
+    },
+    {
+      "id": "akum-003",
+      "pegawai_id": "peg-003",
+      "periode_tahun": 2025,
+      "periode_bulan": 1,
+      "total_jasa_medis": 0,
+      "total_jasa_keperawatan": 3500000,
+      "total_jasa_lainnya": 0,
+      "grand_total": 3500000,
+      "potongan_pajak": 175000,
+      "potongan_lainnya": 0,
+      "netto": 3325000,
+      "status": "DRAFT",
+      "approved_by": null,
+      "approved_at": null,
+      "paid_at": null,
+      "created_at": "2025-01-15T10:00:00Z",
+      "updated_at": "2025-01-15T10:00:00Z"
+    }
+  ],
+  "akumulasi_jasa_detail": [
+    {
+      "id": "akum-det-001",
+      "akumulasi_id": "akum-001",
+      "pelaksana_id": "pel-001",
+      "tanggal": "2025-01-05",
+      "billing_id": "bill-001",
+      "pasien_nama": "Budi Santoso",
+      "tindakan_nama": "Operasi Appendektomi",
+      "peran": "Operator Utama",
+      "nilai_jasa": 2500000,
+      "created_at": "2025-01-15T10:00:00Z"
+    },
+    {
+      "id": "akum-det-002",
+      "akumulasi_id": "akum-001",
+      "pelaksana_id": "pel-002",
+      "tanggal": "2025-01-10",
+      "billing_id": "bill-002",
+      "pasien_nama": "Ani Wijaya",
+      "tindakan_nama": "Operasi Hernia",
+      "peran": "Operator Utama",
+      "nilai_jasa": 3000000,
+      "created_at": "2025-01-15T10:00:00Z"
+    }
+  ],
+  "dashboard_jasa": {
+    "total_bulan_ini": 31000000,
+    "perbandingan_bulan_lalu": {
+      "nilai": 28000000,
+      "persentase": 10.71
+    },
+    "top_penerima": [
+      {
+        "nama": "dr. Ahmad Budiman, Sp.B",
+        "unit": "Instalasi Bedah Sentral",
+        "total": 15000000
+      },
+      {
+        "nama": "dr. Siti Rahmawati, Sp.PD",
+        "unit": "Poli Penyakit Dalam",
+        "total": 12500000
+      },
+      {
+        "nama": "Ns. Citra Dewi, S.Kep",
+        "unit": "Ruang Rawat Inap",
+        "total": 3500000
+      }
+    ],
+    "distribusi_unit": [
+      {
+        "unit": "Instalasi Bedah Sentral",
+        "total": 20000000
+      },
+      {
+        "unit": "Poli Penyakit Dalam",
+        "total": 12500000
+      },
+      {
+        "unit": "Ruang Rawat Inap",
+        "total": 3500000
+      }
+    ],
+    "trend_12_bulan": [
+      {"bulan": "Feb 2024", "tahun": 2024, "total": 25000000},
+      {"bulan": "Mar 2024", "tahun": 2024, "total": 27000000},
+      {"bulan": "Apr 2024", "tahun": 2024, "total": 26000000},
+      {"bulan": "May 2024", "tahun": 2024, "total": 29000000},
+      {"bulan": "Jun 2024", "tahun": 2024, "total": 30000000},
+      {"bulan": "Jul 2024", "tahun": 2024, "total": 28500000},
+      {"bulan": "Aug 2024", "tahun": 2024, "total": 27500000},
+      {"bulan": "Sep 2024", "tahun": 2024, "total": 29500000},
+      {"bulan": "Oct 2024", "tahun": 2024, "total": 31000000},
+      {"bulan": "Nov 2024", "tahun": 2024, "total": 30000000},
+      {"bulan": "Dec 2024", "tahun": 2024, "total": 28000000},
+      {"bulan": "Jan 2025", "tahun": 2025, "total": 31000000}
+    ]
+  }
+}
