@@ -91,7 +91,7 @@ Modul Pendaftaran dan Admisi adalah gerbang utama untuk semua pasien yang akan m
 | nama_lengkap | VARCHAR(100) | Ya | Nama lengkap pasien |
 | tempat_lahir | VARCHAR(50) | Ya | Tempat lahir |
 | tanggal_lahir | DATE | Ya | Tanggal lahir |
-| jenis_kelamin | ENUM('L','P') | Ya | Laki-laki/Perempuan |
+| jenis_kelamin | ENUM('L','P','K') | Ya | Laki-laki/Perempuan/Lainnya |
 | golongan_darah | ENUM('A','B','AB','O','-') | Tidak | Golongan darah |
 | alamat | TEXT | Ya | Alamat lengkap |
 | rt | VARCHAR(3) | Tidak | RT |
