@@ -12,12 +12,12 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-{#if publicPath.includes(window.location.pathname)}
+<!-- {#if publicPath.includes(window.location.pathname)}
 	{@render children()}
 {:else}
-	{#await getUserInfo() then data}
+	{#await getUserInfo() then data} -->
 		{@render children()}
-	{:catch error}
+	<!-- {:catch error}
 		{redirectTo("Not Logged Redirecto login page...", "/login")}
 	{/await}
-{/if}
+{/if} -->

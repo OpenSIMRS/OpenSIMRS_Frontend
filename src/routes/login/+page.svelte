@@ -9,11 +9,11 @@
     let password = $state("")
 </script>
 
-{#await getUserInfo()}
+<!-- {#await getUserInfo()}
     "Checking authentication..."
 {:then data} 
     {redirectTo("Already Logged In Redirect to home page...", "/")}
-{:catch error}
+{:catch error} -->
     <div class="flex flex-col mr-auto w-80">
         <span>Login to your account</span>
         <label>
@@ -50,7 +50,7 @@
             {/snippet}
         </Stateful>
     </div>
-{/await}
+<!-- {/await} -->
 <style lang="postcss">
     @reference "tailwindcss";
 
