@@ -1,0 +1,172 @@
+[
+  {
+    "id": "agama-1",
+    "value": "Islam",
+    "category": "AGAMA"
+  },
+  {
+    "id": "agama-2",
+    "value": "Kristen",
+    "category": "AGAMA"
+  },
+  {
+    "id": "agama-3",
+    "value": "Katolik",
+    "category": "AGAMA"
+  },
+  {
+    "id": "agama-4",
+    "value": "Hindu",
+    "category": "AGAMA"
+  },
+  {
+    "id": "agama-5",
+    "value": "Buddha",
+    "category": "AGAMA"
+  },
+  {
+    "id": "agama-6",
+    "value": "Konghucu",
+    "category": "AGAMA"
+  },
+  {
+    "id": "pendidikan-1",
+    "value": "Tidak Sekolah",
+    "category": "PENDIDIKAN"
+  },
+  {
+    "id": "pendidikan-2",
+    "value": "SD",
+    "category": "PENDIDIKAN"
+  },
+  {
+    "id": "pendidikan-3",
+    "value": "SMP",
+    "category": "PENDIDIKAN"
+  },
+  {
+    "id": "pendidikan-4",
+    "value": "SMA",
+    "category": "PENDIDIKAN"
+  },
+  {
+    "id": "pendidikan-5",
+    "value": "Diploma",
+    "category": "PENDIDIKAN"
+  },
+  {
+    "id": "pendidikan-6",
+    "value": "Sarjana",
+    "category": "PENDIDIKAN"
+  },
+  {
+    "id": "pekerjaan-1",
+    "value": "Tidak Bekerja",
+    "category": "PEKERJAAN"
+  },
+  {
+    "id": "pekerjaan-2",
+    "value": "Pelajar/Mahasiswa",
+    "category": "PEKERJAAN"
+  },
+  {
+    "id": "pekerjaan-3",
+    "value": "PNS",
+    "category": "PEKERJAAN"
+  },
+  {
+    "id": "pekerjaan-4",
+    "value": "Pegawai Swasta",
+    "category": "PEKERJAAN"
+  },
+  {
+    "id": "pekerjaan-5",
+    "value": "Wiraswasta",
+    "category": "PEKERJAAN"
+  },
+  {
+    "id": "pekerjaan-6",
+    "value": "Petani",
+    "category": "PEKERJAAN"
+  },
+  {
+    "id": "pekerjaan-7",
+    "value": "Nelayan",
+    "category": "PEKERJAAN"
+  },
+  {
+    "id": "status-1",
+    "value": "Belum Kawin",
+    "category": "STATUS_PERKAWINAN"
+  },
+  {
+    "id": "status-2",
+    "value": "Kawin",
+    "category": "STATUS_PERKAWINAN"
+  },
+  {
+    "id": "status-3",
+    "value": "Cerai Hidup",
+    "category": "STATUS_PERKAWINAN"
+  },
+  {
+    "id": "status-4",
+    "value": "Cerai Mati",
+    "category": "STATUS_PERKAWINAN"
+  },
+  {
+    "id": "darah-1",
+    "value": "A",
+    "category": "GOLONGAN_DARAH"
+  },
+  {
+    "id": "darah-2",
+    "value": "B",
+    "category": "GOLONGAN_DARAH"
+  },
+  {
+    "id": "darah-3",
+    "value": "AB",
+    "category": "GOLONGAN_DARAH"
+  },
+  {
+    "id": "darah-4",
+    "value": "O",
+    "category": "GOLONGAN_DARAH"
+  },
+  {
+    "id": "darah-5",
+    "value": "-",
+    "category": "GOLONGAN_DARAH"
+  },
+  {
+    "id": "hubungan-1",
+    "value": "Suami",
+    "category": "HUBUNGAN_KELUARGA"
+  },
+  {
+    "id": "hubungan-2",
+    "value": "Istri",
+    "category": "HUBUNGAN_KELUARGA"
+  },
+  {
+    "id": "hubungan-3",
+    "value": "Anak",
+    "category": "HUBUNGAN_KELUARGA"
+  },
+  {
+    "id": "hubungan-4",
+    "value": "Orang Tua",
+    "category": "HUBUNGAN_KELUARGA"
+  },
+  {
+    "id": "hubungan-5",
+    "value": "Saudara",
+    "category": "HUBUNGAN_KELUARGA"
+  },
+  {
+    "id": "hubungan-6",
+    "value": "Lainnya",
+    "category": "HUBUNGAN_KELUARGA"
+  }
+]

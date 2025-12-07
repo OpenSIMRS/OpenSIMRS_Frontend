@@ -1,0 +1,66 @@
+[
+  {
+    "id": "poli-1",
+    "kode": "POL-001",
+    "nama": "Poli Umum",
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "poli-2",
+    "kode": "POL-002",
+    "nama": "Poli Anak",
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "poli-3",
+    "kode": "POL-003",
+    "nama": "Poli Gigi",
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "poli-4",
+    "kode": "POL-004",
+    "nama": "Poli Kandungan",
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "poli-5",
+    "kode": "POL-005",
+    "nama": "Poli Jantung",
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "poli-6",
+    "kode": "POL-006",
+    "nama": "Poli Mata",
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "poli-7",
+    "kode": "POL-007",
+    "nama": "Poli THT",
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "poli-8",
+    "kode": "POL-008",
+    "nama": "Poli Kulit & Kelamin",
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  }
+]

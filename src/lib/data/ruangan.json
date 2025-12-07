@@ -1,0 +1,56 @@
+[
+  {
+    "id": "ruangan-1",
+    "kode": "RUA-001",
+    "nama": "Ruang Poli Umum Lt.1",
+    "jenis": "POLI",
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "ruangan-2",
+    "kode": "RUA-002",
+    "nama": "Ruang Poli Anak Lt.1",
+    "jenis": "POLI",
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "ruangan-3",
+    "kode": "RUA-003",
+    "nama": "Ruang Poli Gigi Lt.2",
+    "jenis": "POLI",
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "ruangan-4",
+    "kode": "RUA-004",
+    "nama": "Ruang Poli Kandungan Lt.2",
+    "jenis": "POLI",
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "ruangan-5",
+    "kode": "RUA-005",
+    "nama": "Ruang IGD",
+    "jenis": "IGD",
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "ruangan-6",
+    "kode": "RUA-006",
+    "nama": "Ruang Rawat Inap VIP",
+    "jenis": "RAWAT_INAP",
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  }
+]

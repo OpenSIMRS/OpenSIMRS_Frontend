@@ -1,0 +1,47 @@
+[
+  {
+    "id": "penjamin-1",
+    "kode": "PEN-001",
+    "nama": "Umum (Tunai)",
+    "jenis": "UMUM",
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "penjamin-2",
+    "kode": "PEN-002",
+    "nama": "BPJS Kesehatan",
+    "jenis": "BPJS",
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "penjamin-3",
+    "kode": "PEN-003",
+    "nama": "Asuransi Prudential",
+    "jenis": "ASURANSI",
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "penjamin-4",
+    "kode": "PEN-004",
+    "nama": "Asuransi Allianz",
+    "jenis": "ASURANSI",
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "penjamin-5",
+    "kode": "PEN-005",
+    "nama": "Asuransi Mandiri Inhealth",
+    "jenis": "ASURANSI",
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  }
+]
