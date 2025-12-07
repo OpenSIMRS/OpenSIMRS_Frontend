@@ -252,7 +252,7 @@
 							class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
 							bind:value={formData.no_penjamin}
 							placeholder="Jika menggunakan BPJS/Asuransi"
-							disabled={!selectedPatient || formData.penjamin_id === 'penjamin-1'}
+							disabled={!selectedPatient || penjaminList.find(p => p.id === formData.penjamin_id)?.jenis === 'UMUM'}
 						/>
 					</div>
 				</div>

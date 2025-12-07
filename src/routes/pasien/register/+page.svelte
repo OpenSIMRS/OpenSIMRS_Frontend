@@ -240,15 +240,18 @@
 
 						<div>
 							<label class="block text-sm font-medium text-gray-700 mb-1">
-								Kode Wilayah (Format: PP.KK.CC.DDDD) <span class="text-red-500">*</span>
+								Kode Wilayah (PP.KK.CC.DDDD) <span class="text-red-500">*</span>
 							</label>
 							<input
 								type="text"
 								class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
 								bind:value={formData.kode_wilayah}
 								required
-								placeholder="Contoh: 31.71.01.1001"
+								placeholder="31.71.01.1001"
 							/>
+							<p class="text-xs text-gray-500 mt-1">
+								PP=Provinsi, KK=Kabupaten/Kota, CC=Kecamatan, DDDD=Desa/Kelurahan
+							</p>
 						</div>
 
 						<div class="grid grid-cols-1 md:grid-cols-2 gap-4">

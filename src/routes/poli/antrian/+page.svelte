@@ -66,7 +66,7 @@
 		}
 	}
 
-	async function handleAcceptVisit(kunjungan: Kunjungan) {
+	async function handleAcceptVisit(kunjungan: KunjunganWithDetails) {
 		if (confirm(`Terima pasien ${kunjungan.pasien?.nama_lengkap}?`)) {
 			await kunjunganService.updateKunjungan(kunjungan.id, {
 				status_kunjungan: 'DILAYANI'
@@ -77,7 +77,7 @@
 		}
 	}
 
-	async function handleCompleteVisit(kunjungan: Kunjungan) {
+	async function handleCompleteVisit(kunjungan: KunjunganWithDetails) {
 		if (confirm(`Selesaikan kunjungan pasien ${kunjungan.pasien?.nama_lengkap}?`)) {
 			await kunjunganService.updateKunjungan(kunjungan.id, {
 				status_kunjungan: 'SELESAI'
@@ -217,9 +217,23 @@
 										{kunjungan.waktu_kunjungan}
 									</td>
 									<td class="px-6 py-4 whitespace-nowrap">
-										<span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-{statusColor}-100 text-{statusColor}-800">
-											{getStatusLabel(kunjungan.status_kunjungan)}
-										</span>
+										{#if kunjungan.status_kunjungan === 'DAFTAR'}
+											<span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+												{getStatusLabel(kunjungan.status_kunjungan)}
+											</span>
+										{:else if kunjungan.status_kunjungan === 'DILAYANI'}
+											<span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+												{getStatusLabel(kunjungan.status_kunjungan)}
+											</span>
+										{:else if kunjungan.status_kunjungan === 'SELESAI'}
+											<span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+												{getStatusLabel(kunjungan.status_kunjungan)}
+											</span>
+										{:else}
+											<span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+												{getStatusLabel(kunjungan.status_kunjungan)}
+											</span>
+										{/if}
 									</td>
 									<td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
 										{#if kunjungan.status_kunjungan === 'DAFTAR'}
