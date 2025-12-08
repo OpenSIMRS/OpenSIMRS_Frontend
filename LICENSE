@@ -1,21 +1,31 @@
-MIT License
+Lisensi Sumber Tersedia Komersial Terbatas OpenSIMRS (LSTKTO)
 
-Copyright (c) 2025 OpenSIMRS
+Hak Cipta (C) 2025, OpenSIMRS Project
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Dengan ini diberikan izin, tanpa biaya, kepada setiap orang yang memperoleh salinan perangkat lunak ini
+dan file dokumentasi terkait ("Perangkat Lunak"), untuk menangani Perangkat Lunak tanpa batasan, tunduk
+pada ketentuan berikut:
+I. Hak dan Izin
+    Penggunaan Internal: Anda diizinkan untuk menggunakan, menyalin, memodifikasi, dan menggabungkan 
+    Perangkat Lunak untuk kepentingan dan operasional bisnis internal Anda sendiri (misalnya, untuk 
+    digunakan dalam menjalankan Sistem Informasi Rumah Sakit atau klinik Anda).
+    Modifikasi: Anda memiliki hak untuk memodifikasi dan membuat karya turunan dari Perangkat Lunak. Anda
+    tidak diwajibkan untuk merilis atau memublikasikan kode sumber modifikasi tersebut.
+    Kontribusi: Anda didorong untuk berkontribusi kembali pada Perangkat Lunak ini.
+II. Pembatasan Distribusi Komersial
+    Larangan Penjualan Langsung: Anda DILARANG untuk mendistribusikan, menjual, atau menawarkan Perangkat 
+    Lunak ini atau versi modifikasinya kepada pihak ketiga, sebagai produk perangkat lunak yang berdiri 
+    sendiri, dengan imbalan biaya atau keuntungan finansial.
+    Layanan Dikecualikan: Pembatasan ini tidak melarang penggunaan Perangkat Lunak untuk menyediakan 
+    layanan (seperti hosting atau support) di mana Perangkat Lunak tersebut merupakan alat internal yang 
+    mendukung layanan tersebut.
+III. Kewajiban
+    Pemberitahuan Lisensi: Salinan pemberitahuan hak cipta di atas dan izin serta pembatasan ini harus 
+    disertakan dalam semua salinan atau bagian substansial dari Perangkat Lunak yang Anda distribusikan 
+    (jika distribusi diizinkan oleh klausul I).
+IV. Penafian Jaminan
+    PERANGKAT LUNAK INI DIBERIKAN "SEBAGAIMANA ADANYA", TANPA JAMINAN APA PUN, BAIK TERSURAT MAUPUN TERSIRAT, 
+    TERMASUK NAMUN TIDAK TERBATAS PADA JAMINAN DAPAT DIPERJUALBELIKAN, KESESUAIAN UNTUK TUJUAN TERTENTU, DAN 
+    NON-PELANGGARAN. DALAM KEADAAN APA PUN, PENULIS ATAU PEMEGANG HAK CIPTA TIDAK BERTANGGUNG JAWAB ATAS KLAIM,
+    KERUSAKAN, ATAU TANGGUNG JAWAB LAINNYA, BAIK DALAM TINDAKAN KONTRAK, HUKUMAN, ATAU LAINNYA, YANG TIMBUL DARI,
+    DARI ATAU SEHUBUNGAN DENGAN PERANGKAT LUNAK ATAU PENGGUNAAN ATAU PERDAGANGAN LAINNYA DALAM PERANGKAT LUNAK.
