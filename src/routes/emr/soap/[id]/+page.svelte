@@ -116,21 +116,26 @@
 	}
 
 	function updatePlanField() {
-		const procedureText = prosedurList.length > 0
-			? 'Prosedur/Tindakan:\n' + prosedurList.map((p, i) => 
+		// Simply prepend procedure section to plan
+		const procedureSection = prosedurList.length > 0
+			? '=== Prosedur/Tindakan ICD-9 ===\n' + prosedurList.map((p, i) => 
 				`${i + 1}. ${p.icd9_name} (${p.icd9_code})`
-			).join('\n')
+			).join('\n') + '\n\n=== Rencana Terapi ===\n'
 			: '';
 		
-		// Keep existing plan text that's not procedure-related
-		const existingPlan = formData.plan;
-		const planLines = existingPlan.split('\n');
-		const nonProcedureLines = planLines.filter(line => 
-			!line.includes('Prosedur/Tindakan:') && 
-			!line.match(/^\d+\.\s.*\([0-9.]+\)/)
-		);
+		// Extract existing plan content (remove old procedure section if exists)
+		let existingContent = formData.plan;
+		const procedureMarkerStart = '=== Prosedur/Tindakan ICD-9 ===';
+		const procedureMarkerEnd = '=== Rencana Terapi ===';
 		
-		formData.plan = procedureText + (procedureText && nonProcedureLines.length > 0 ? '\n\n' : '') + nonProcedureLines.join('\n');
+		if (existingContent.includes(procedureMarkerStart)) {
+			const endIndex = existingContent.indexOf(procedureMarkerEnd);
+			if (endIndex !== -1) {
+				existingContent = existingContent.substring(endIndex + procedureMarkerEnd.length).trim();
+			}
+		}
+		
+		formData.plan = procedureSection + existingContent;
 	}
 
 	async function handleSubmit(e: Event) {
@@ -442,14 +447,13 @@
 								Catatan Diagnosa & Penilaian
 							</label>
 							<textarea
-								class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none bg-gray-50"
+								class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
 								bind:value={formData.assessment}
 								rows="3"
-								placeholder="Catatan tambahan tentang diagnosa (opsional)"
-								readonly
+								placeholder="Catatan tambahan tentang diagnosa..."
 							></textarea>
 							<p class="text-xs text-gray-500 mt-1">
-								Field ini terisi otomatis dari diagnosa yang dipilih
+								Diagnosa dari daftar di atas akan ditambahkan otomatis. Anda bisa menambah catatan manual di sini.
 							</p>
 						</div>
 					</div>
