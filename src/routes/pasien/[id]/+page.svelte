@@ -7,8 +7,11 @@
 
 	let patientId = $state('');
 	let patient = $state<Patient | null>(null);
+	let editData = $state<Patient | null>(null);
 	let lookupData = $state<MasterLookup[]>([]);
 	let isLoading = $state(true);
+	let isEditing = $state(false);
+	let isSaving = $state(false);
 
 	onMount(async () => {
 		// Get patient ID from URL
@@ -39,6 +42,10 @@
 		return item?.value || '-';
 	}
 
+	function getLookupByCategory(category: string) {
+		return lookupData.filter(l => l.category === category);
+	}
+
 	function calculateAge(birthDate: string): number {
 		const today = new Date();
 		const birth = new Date(birthDate);
@@ -55,6 +62,36 @@
 			goto(`/kunjungan/register?pasien_id=${patient.id}`);
 		}
 	}
+
+	function startEdit() {
+		if (patient) {
+			editData = { ...patient };
+			isEditing = true;
+		}
+	}
+
+	function cancelEdit() {
+		isEditing = false;
+		editData = null;
+	}
+
+	async function saveEdit() {
+		if (!editData) return;
+		
+		isSaving = true;
+		try {
+			const updated = await patientService.updatePatient(editData.id, editData);
+			patient = updated;
+			isEditing = false;
+			editData = null;
+			alert('Data pasien berhasil diperbarui');
+		} catch (error) {
+			console.error('Error updating patient:', error);
+			alert('Gagal memperbarui data pasien');
+		} finally {
+			isSaving = false;
+		}
+	}
 </script>
 
 <div class="min-h-screen bg-gray-50">
@@ -65,6 +102,14 @@
 				<p class="text-gray-600">Detail informasi pasien</p>
 			</div>
 			<div class="flex gap-3">
+				{#if !isEditing}
+					<button
+						onclick={startEdit}
+						class="px-4 py-2 text-blue-600 bg-white border border-blue-600 rounded-md hover:bg-blue-50"
+					>
+						✏️ Edit Data
+					</button>
+				{/if}
 				<button
 					onclick={() => goto('/pasien/search')}
 					class="px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
@@ -80,6 +125,252 @@
 				<p class="mt-4 text-gray-600">Memuat data pasien...</p>
 			</div>
 		{:else if patient}
+			{#if isEditing && editData}
+				<!-- Edit Mode -->
+				<div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+					<p class="text-yellow-800 font-medium">⚠️ Mode Edit - Ubah data pasien sesuai kebutuhan</p>
+				</div>
+
+				<form onsubmit={(e) => { e.preventDefault(); saveEdit(); }}>
+					<!-- Data Identitas - Edit Mode -->
+					<div class="bg-white rounded-lg shadow-md p-6 mb-6">
+						<h3 class="text-xl font-semibold text-gray-900 mb-4">Data Identitas</h3>
+						<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+							<div>
+								<label class="block text-sm font-medium text-gray-700 mb-1">NIK *</label>
+								<input
+									type="text"
+									class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+									bind:value={editData.nik}
+									required
+									pattern="[0-9]{16}"
+									maxlength="16"
+								/>
+							</div>
+							<div>
+								<label class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap *</label>
+								<input
+									type="text"
+									class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+									bind:value={editData.nama_lengkap}
+									required
+								/>
+							</div>
+							<div>
+								<label class="block text-sm font-medium text-gray-700 mb-1">Tempat Lahir *</label>
+								<input
+									type="text"
+									class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+									bind:value={editData.tempat_lahir}
+									required
+								/>
+							</div>
+							<div>
+								<label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Lahir *</label>
+								<input
+									type="date"
+									class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+									bind:value={editData.tanggal_lahir}
+									required
+								/>
+							</div>
+							<div>
+								<label class="block text-sm font-medium text-gray-700 mb-1">Jenis Kelamin *</label>
+								<select
+									class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+									bind:value={editData.jenis_kelamin}
+									required
+								>
+									<option value="L">Laki-laki</option>
+									<option value="P">Perempuan</option>
+								</select>
+							</div>
+							<div>
+								<label class="block text-sm font-medium text-gray-700 mb-1">Golongan Darah</label>
+								<select
+									class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+									bind:value={editData.golongan_darah}
+								>
+									<option value="">Pilih Golongan Darah</option>
+									<option value="A">A</option>
+									<option value="B">B</option>
+									<option value="AB">AB</option>
+									<option value="O">O</option>
+									<option value="-">Tidak Tahu</option>
+								</select>
+							</div>
+							<div>
+								<label class="block text-sm font-medium text-gray-700 mb-1">Agama *</label>
+								<select
+									class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+									bind:value={editData.agama_id}
+									required
+								>
+									<option value="">Pilih Agama</option>
+									{#each getLookupByCategory('AGAMA') as agama}
+										<option value={agama.id}>{agama.value}</option>
+									{/each}
+								</select>
+							</div>
+							<div>
+								<label class="block text-sm font-medium text-gray-700 mb-1">Status Perkawinan *</label>
+								<select
+									class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+									bind:value={editData.status_perkawinan_id}
+									required
+								>
+									<option value="">Pilih Status</option>
+									{#each getLookupByCategory('STATUS_PERKAWINAN') as status}
+										<option value={status.id}>{status.value}</option>
+									{/each}
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<!-- Alamat & Kontak - Edit Mode -->
+					<div class="bg-white rounded-lg shadow-md p-6 mb-6">
+						<h3 class="text-xl font-semibold text-gray-900 mb-4">Alamat & Kontak</h3>
+						<div class="grid grid-cols-1 gap-4">
+							<div>
+								<label class="block text-sm font-medium text-gray-700 mb-1">Alamat Lengkap *</label>
+								<textarea
+									class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+									bind:value={editData.alamat}
+									required
+									rows="3"
+								></textarea>
+							</div>
+							<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+								<div>
+									<label class="block text-sm font-medium text-gray-700 mb-1">RT</label>
+									<input
+										type="text"
+										class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+										bind:value={editData.rt}
+										maxlength="3"
+									/>
+								</div>
+								<div>
+									<label class="block text-sm font-medium text-gray-700 mb-1">RW</label>
+									<input
+										type="text"
+										class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+										bind:value={editData.rw}
+										maxlength="3"
+									/>
+								</div>
+								<div>
+									<label class="block text-sm font-medium text-gray-700 mb-1">Kode Pos</label>
+									<input
+										type="text"
+										class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+										bind:value={editData.kode_pos}
+										maxlength="5"
+									/>
+								</div>
+							</div>
+							<div>
+								<label class="block text-sm font-medium text-gray-700 mb-1">Kode Wilayah *</label>
+								<input
+									type="text"
+									class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+									bind:value={editData.kode_wilayah}
+									required
+									placeholder="31.71.01.1001"
+								/>
+							</div>
+							<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+								<div>
+									<label class="block text-sm font-medium text-gray-700 mb-1">No. HP *</label>
+									<input
+										type="tel"
+										class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+										bind:value={editData.no_hp}
+										required
+									/>
+								</div>
+								<div>
+									<label class="block text-sm font-medium text-gray-700 mb-1">No. Telepon</label>
+									<input
+										type="tel"
+										class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+										bind:value={editData.no_telepon}
+									/>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Informasi Keluarga - Edit Mode -->
+					<div class="bg-white rounded-lg shadow-md p-6 mb-6">
+						<h3 class="text-xl font-semibold text-gray-900 mb-4">Informasi Keluarga</h3>
+						<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+							<div>
+								<label class="block text-sm font-medium text-gray-700 mb-1">Nama Ibu Kandung *</label>
+								<input
+									type="text"
+									class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+									bind:value={editData.nama_ibu}
+									required
+								/>
+							</div>
+							<div>
+								<label class="block text-sm font-medium text-gray-700 mb-1">Nama Ayah</label>
+								<input
+									type="text"
+									class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+									bind:value={editData.nama_ayah}
+								/>
+							</div>
+							<div>
+								<label class="block text-sm font-medium text-gray-700 mb-1">Pekerjaan</label>
+								<select
+									class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+									bind:value={editData.pekerjaan_id}
+								>
+									<option value="">Pilih Pekerjaan</option>
+									{#each getLookupByCategory('PEKERJAAN') as pekerjaan}
+										<option value={pekerjaan.id}>{pekerjaan.value}</option>
+									{/each}
+								</select>
+							</div>
+							<div>
+								<label class="block text-sm font-medium text-gray-700 mb-1">Pendidikan</label>
+								<select
+									class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 outline-none"
+									bind:value={editData.pendidikan_id}
+								>
+									<option value="">Pilih Pendidikan</option>
+									{#each getLookupByCategory('PENDIDIKAN') as pendidikan}
+										<option value={pendidikan.id}>{pendidikan.value}</option>
+									{/each}
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<!-- Action Buttons -->
+					<div class="flex gap-4 justify-end">
+						<button
+							type="button"
+							onclick={cancelEdit}
+							class="px-6 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50"
+							disabled={isSaving}
+						>
+							Batal
+						</button>
+						<button
+							type="submit"
+							class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md disabled:bg-gray-400"
+							disabled={isSaving}
+						>
+							{isSaving ? 'Menyimpan...' : 'Simpan Perubahan'}
+						</button>
+					</div>
+				</form>
+			{:else}
+			<!-- View Mode -->
 			<!-- Patient Header Card -->
 			<div class="bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg shadow-lg p-6 mb-6 text-white">
 				<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -242,6 +533,7 @@
 					</div>
 				</div>
 			</div>
+			{/if}
 		{:else}
 			<div class="bg-white rounded-lg shadow-md p-12 text-center">
 				<div class="text-6xl mb-4">❌</div>
