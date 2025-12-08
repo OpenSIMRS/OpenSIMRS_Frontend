@@ -8,7 +8,9 @@ import type {
   Penjamin,
   Kunjungan,
   AsesmenKeperawatan,
-  SOAP
+  SOAP,
+  ICD10,
+  ICD9
 } from '$lib/types';
 
 // Import JSON data
@@ -19,6 +21,8 @@ import ruanganData from './ruangan.json';
 import tindakanData from './tindakan.json';
 import penjaminData from './penjamin.json';
 import pasienData from './pasien.json';
+import icd10Data from './icd10.json';
+import icd9Data from './icd9.json';
 
 /**
  * Dummy API Service
@@ -478,5 +482,55 @@ export const emrService = {
     };
     
     return soapStore[index];
+  }
+};
+
+// ============================================
+// ICD SERVICES
+// ============================================
+
+export const icdService = {
+  // ICD-10
+  async searchICD10(query: string): Promise<ICD10[]> {
+    await delay();
+    const data = icd10Data as ICD10[];
+    if (!query) return data.filter(item => item.is_active).slice(0, 50);
+    
+    const lowerQuery = query.toLowerCase();
+    return data.filter(item => 
+      item.is_active && (
+        item.code.toLowerCase().includes(lowerQuery) ||
+        item.name.toLowerCase().includes(lowerQuery) ||
+        item.category?.toLowerCase().includes(lowerQuery)
+      )
+    ).slice(0, 50);
+  },
+
+  async getICD10ByCode(code: string): Promise<ICD10 | null> {
+    await delay();
+    const data = icd10Data as ICD10[];
+    return data.find(item => item.code === code) || null;
+  },
+
+  // ICD-9
+  async searchICD9(query: string): Promise<ICD9[]> {
+    await delay();
+    const data = icd9Data as ICD9[];
+    if (!query) return data.filter(item => item.is_active).slice(0, 50);
+    
+    const lowerQuery = query.toLowerCase();
+    return data.filter(item => 
+      item.is_active && (
+        item.code.toLowerCase().includes(lowerQuery) ||
+        item.name.toLowerCase().includes(lowerQuery) ||
+        item.category?.toLowerCase().includes(lowerQuery)
+      )
+    ).slice(0, 50);
+  },
+
+  async getICD9ByCode(code: string): Promise<ICD9 | null> {
+    await delay();
+    const data = icd9Data as ICD9[];
+    return data.find(item => item.code === code) || null;
   }
 };

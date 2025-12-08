@@ -1,0 +1,142 @@
+[
+  {
+    "id": "icd9-001",
+    "code": "00.01",
+    "name": "Tindakan anestesi umum terapeutik",
+    "category": "Anestesi",
+    "is_active": true
+  },
+  {
+    "id": "icd9-002",
+    "code": "01.21",
+    "name": "Insisi dan drainase abses kranial",
+    "category": "Bedah Saraf",
+    "is_active": true
+  },
+  {
+    "id": "icd9-003",
+    "code": "38.91",
+    "name": "Kateterisasi vena sentral",
+    "category": "Prosedur Vaskular",
+    "is_active": true
+  },
+  {
+    "id": "icd9-004",
+    "code": "39.90",
+    "name": "Insersi kateter vena sentral",
+    "category": "Prosedur Vaskular",
+    "is_active": true
+  },
+  {
+    "id": "icd9-005",
+    "code": "86.04",
+    "name": "Insisi dengan drainase kulit dan jaringan subkutan",
+    "category": "Bedah Kulit",
+    "is_active": true
+  },
+  {
+    "id": "icd9-006",
+    "code": "86.22",
+    "name": "Eksisi luka",
+    "category": "Bedah Kulit",
+    "is_active": true
+  },
+  {
+    "id": "icd9-007",
+    "code": "86.59",
+    "name": "Penutupan kulit dan jaringan subkutan lainnya",
+    "category": "Bedah Kulit",
+    "is_active": true
+  },
+  {
+    "id": "icd9-008",
+    "code": "87.44",
+    "name": "X-ray thorax rutin, tidak spesifik",
+    "category": "Radiologi",
+    "is_active": true
+  },
+  {
+    "id": "icd9-009",
+    "code": "88.01",
+    "name": "CT scan kepala",
+    "category": "Radiologi",
+    "is_active": true
+  },
+  {
+    "id": "icd9-010",
+    "code": "88.38",
+    "name": "CT scan toraks",
+    "category": "Radiologi",
+    "is_active": true
+  },
+  {
+    "id": "icd9-011",
+    "code": "88.72",
+    "name": "USG diagnostik abdomen",
+    "category": "Radiologi",
+    "is_active": true
+  },
+  {
+    "id": "icd9-012",
+    "code": "89.03",
+    "name": "Konsultasi pasien dan evaluasi",
+    "category": "Konsultasi",
+    "is_active": true
+  },
+  {
+    "id": "icd9-013",
+    "code": "93.39",
+    "name": "Terapi fisik lainnya",
+    "category": "Rehabilitasi",
+    "is_active": true
+  },
+  {
+    "id": "icd9-014",
+    "code": "96.04",
+    "name": "Insersi endotrakeal tube",
+    "category": "Prosedur Respirasi",
+    "is_active": true
+  },
+  {
+    "id": "icd9-015",
+    "code": "96.6",
+    "name": "Nebulizer",
+    "category": "Prosedur Respirasi",
+    "is_active": true
+  },
+  {
+    "id": "icd9-016",
+    "code": "96.71",
+    "name": "Ventilasi mekanis kontinyu kurang dari 96 jam berturut-turut",
+    "category": "Prosedur Respirasi",
+    "is_active": true
+  },
+  {
+    "id": "icd9-017",
+    "code": "99.04",
+    "name": "Transfusi darah lengkap",
+    "category": "Transfusi",
+    "is_active": true
+  },
+  {
+    "id": "icd9-018",
+    "code": "99.18",
+    "name": "Injeksi atau infusi elektrolit",
+    "category": "Infusi",
+    "is_active": true
+  },
+  {
+    "id": "icd9-019",
+    "code": "99.25",
+    "name": "Injeksi atau infusi terapi kanker",
+    "category": "Kemoterapi",
+    "is_active": true
+  },
+  {
+    "id": "icd9-020",
+    "code": "99.29",
+    "name": "Injeksi atau infusi zat terapeutik atau profilaktik lainnya",
+    "category": "Infusi",
+    "is_active": true
+  }
+]

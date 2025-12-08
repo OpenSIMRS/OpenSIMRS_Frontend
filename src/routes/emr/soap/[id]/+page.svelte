@@ -7,7 +7,8 @@
 		masterDataService,
 		emrService
 	} from '$lib/data/api-service';
-	import type { Kunjungan, Patient, AsesmenKeperawatan, SOAPFormInput } from '$lib/types';
+	import type { Kunjungan, Patient, AsesmenKeperawatan, SOAPFormInput, ICD10, ICD9 } from '$lib/types';
+	import ICDSearchModal from '$lib/components/ICDSearchModal.svelte';
 
 	let kunjunganId = $state('');
 	let kunjungan = $state<Kunjungan | null>(null);
@@ -15,6 +16,15 @@
 	let asesmen = $state<AsesmenKeperawatan | null>(null);
 	let isLoading = $state(false);
 	let isSaving = $state(false);
+
+	// Diagnosis state
+	let diagnosaList = $state<Array<{icd10_code: string; icd10_name: string; jenis: 'UTAMA' | 'SEKUNDER' | 'KOMPLIKASI'}>>([]);
+	let showICD10Modal = $state(false);
+	let selectedDiagnosisType: 'UTAMA' | 'SEKUNDER' | 'KOMPLIKASI' = $state('UTAMA');
+
+	// Procedure state
+	let prosedurList = $state<Array<{icd9_code: string; icd9_name: string}>>([]);
+	let showICD9Modal = $state(false);
 
 	let formData = $state<SOAPFormInput>({
 		kunjungan_id: '',
@@ -65,6 +75,62 @@
 		} finally {
 			isLoading = false;
 		}
+	}
+
+	function handleAddDiagnosis(type: 'UTAMA' | 'SEKUNDER' | 'KOMPLIKASI') {
+		selectedDiagnosisType = type;
+		showICD10Modal = true;
+	}
+
+	function handleSelectICD10(icd: ICD10) {
+		diagnosaList = [...diagnosaList, {
+			icd10_code: icd.code,
+			icd10_name: icd.name,
+			jenis: selectedDiagnosisType
+		}];
+		updateAssessmentField();
+	}
+
+	function handleRemoveDiagnosis(index: number) {
+		diagnosaList = diagnosaList.filter((_, i) => i !== index);
+		updateAssessmentField();
+	}
+
+	function handleSelectICD9(icd: ICD9) {
+		prosedurList = [...prosedurList, {
+			icd9_code: icd.code,
+			icd9_name: icd.name
+		}];
+		updatePlanField();
+	}
+
+	function handleRemoveProcedure(index: number) {
+		prosedurList = prosedurList.filter((_, i) => i !== index);
+		updatePlanField();
+	}
+
+	function updateAssessmentField() {
+		formData.assessment = diagnosaList.map((d, i) => 
+			`${i + 1}. ${d.icd10_name} (${d.icd10_code}) - ${d.jenis}`
+		).join('\n');
+	}
+
+	function updatePlanField() {
+		const procedureText = prosedurList.length > 0
+			? 'Prosedur/Tindakan:\n' + prosedurList.map((p, i) => 
+				`${i + 1}. ${p.icd9_name} (${p.icd9_code})`
+			).join('\n')
+			: '';
+		
+		// Keep existing plan text that's not procedure-related
+		const existingPlan = formData.plan;
+		const planLines = existingPlan.split('\n');
+		const nonProcedureLines = planLines.filter(line => 
+			!line.includes('Prosedur/Tindakan:') && 
+			!line.match(/^\d+\.\s.*\([0-9.]+\)/)
+		);
+		
+		formData.plan = procedureText + (procedureText && nonProcedureLines.length > 0 ? '\n\n' : '') + nonProcedureLines.join('\n');
 	}
 
 	async function handleSubmit(e: Event) {
@@ -306,19 +372,84 @@
 					<!-- Assessment -->
 					<div class="mb-6">
 						<h2 class="text-xl font-semibold text-gray-900 mb-4">A - Assessment (Diagnosa)</h2>
+						
+						<!-- Diagnosis List -->
+						<div class="mb-4">
+							<div class="flex justify-between items-center mb-2">
+								<label class="block text-sm font-medium text-gray-700">
+									Diagnosa ICD-10 <span class="text-red-500">*</span>
+								</label>
+								<div class="flex gap-2">
+									<button
+										type="button"
+										onclick={() => handleAddDiagnosis('UTAMA')}
+										class="px-3 py-1 text-xs bg-blue-600 hover:bg-blue-700 text-white rounded-md"
+									>
+										+ Diagnosa Utama
+									</button>
+									<button
+										type="button"
+										onclick={() => handleAddDiagnosis('SEKUNDER')}
+										class="px-3 py-1 text-xs bg-green-600 hover:bg-green-700 text-white rounded-md"
+									>
+										+ Diagnosa Sekunder
+									</button>
+								</div>
+							</div>
+
+							{#if diagnosaList.length > 0}
+								<div class="border border-gray-300 rounded-md divide-y">
+									{#each diagnosaList as diagnosis, index}
+										<div class="p-3 flex items-start justify-between hover:bg-gray-50">
+											<div class="flex-1">
+												<div class="flex items-center gap-2 mb-1">
+													<span class="px-2 py-0.5 bg-blue-100 text-blue-800 text-xs font-mono rounded">
+														{diagnosis.icd10_code}
+													</span>
+													<span class="px-2 py-0.5 rounded text-xs font-semibold
+														{diagnosis.jenis === 'UTAMA' ? 'bg-red-100 text-red-800' : 
+														 diagnosis.jenis === 'SEKUNDER' ? 'bg-green-100 text-green-800' : 
+														 'bg-yellow-100 text-yellow-800'}">
+														{diagnosis.jenis}
+													</span>
+												</div>
+												<p class="text-sm text-gray-900">{diagnosis.icd10_name}</p>
+											</div>
+											<button
+												type="button"
+												onclick={() => handleRemoveDiagnosis(index)}
+												class="ml-2 text-red-600 hover:text-red-800"
+												title="Hapus diagnosa"
+											>
+												<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+													<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+												</svg>
+											</button>
+										</div>
+									{/each}
+								</div>
+							{:else}
+								<div class="border-2 border-dashed border-gray-300 rounded-md p-6 text-center text-gray-500">
+									<p class="text-sm">Belum ada diagnosa dipilih</p>
+									<p class="text-xs mt-1">Klik tombol di atas untuk menambah diagnosa dengan kode ICD-10</p>
+								</div>
+							{/if}
+						</div>
+
+						<!-- Assessment Text (auto-filled from diagnosis list) -->
 						<div>
 							<label class="block text-sm font-medium text-gray-700 mb-1">
-								Diagnosa & Penilaian <span class="text-red-500">*</span>
+								Catatan Diagnosa & Penilaian
 							</label>
 							<textarea
-								class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+								class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none bg-gray-50"
 								bind:value={formData.assessment}
-								required
 								rows="3"
-								placeholder="Diagnosa utama dan diagnosa tambahan (jika ada), kode ICD-10..."
+								placeholder="Catatan tambahan tentang diagnosa (opsional)"
+								readonly
 							></textarea>
 							<p class="text-xs text-gray-500 mt-1">
-								Contoh: Hipertensi Grade 1 (I10) | Diabetes Mellitus Tipe 2 (E11)
+								Field ini terisi otomatis dari diagnosa yang dipilih
 							</p>
 						</div>
 					</div>
@@ -326,6 +457,49 @@
 					<!-- Plan -->
 					<div class="mb-6">
 						<h2 class="text-xl font-semibold text-gray-900 mb-4">P - Plan (Rencana Terapi)</h2>
+						
+						<!-- Procedures List -->
+						<div class="mb-4">
+							<div class="flex justify-between items-center mb-2">
+								<label class="block text-sm font-medium text-gray-700">
+									Prosedur/Tindakan ICD-9
+								</label>
+								<button
+									type="button"
+									onclick={() => showICD9Modal = true}
+									class="px-3 py-1 text-xs bg-purple-600 hover:bg-purple-700 text-white rounded-md"
+								>
+									+ Tambah Prosedur
+								</button>
+							</div>
+
+							{#if prosedurList.length > 0}
+								<div class="border border-gray-300 rounded-md divide-y mb-4">
+									{#each prosedurList as procedure, index}
+										<div class="p-3 flex items-start justify-between hover:bg-gray-50">
+											<div class="flex-1">
+												<span class="px-2 py-0.5 bg-purple-100 text-purple-800 text-xs font-mono rounded">
+													{procedure.icd9_code}
+												</span>
+												<p class="text-sm text-gray-900 mt-1">{procedure.icd9_name}</p>
+											</div>
+											<button
+												type="button"
+												onclick={() => handleRemoveProcedure(index)}
+												class="ml-2 text-red-600 hover:text-red-800"
+												title="Hapus prosedur"
+											>
+												<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+													<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+												</svg>
+											</button>
+										</div>
+									{/each}
+								</div>
+							{/if}
+						</div>
+
+						<!-- Plan Text -->
 						<div>
 							<label class="block text-sm font-medium text-gray-700 mb-1">
 								Rencana Terapi & Tindak Lanjut <span class="text-red-500">*</span>
@@ -335,8 +509,11 @@
 								bind:value={formData.plan}
 								required
 								rows="4"
-								placeholder="Rencana terapi, resep obat, tindakan, pemeriksaan penunjang, edukasi, kontrol ulang..."
+								placeholder="Rencana terapi, resep obat, pemeriksaan penunjang, edukasi, kontrol ulang..."
 							></textarea>
+							<p class="text-xs text-gray-500 mt-1">
+								Prosedur ICD-9 akan ditambahkan otomatis di bagian atas
+							</p>
 						</div>
 					</div>
 
@@ -363,6 +540,22 @@
 		{/if}
 	</div>
 </div>
+
+<!-- ICD-10 Search Modal -->
+<ICDSearchModal
+	bind:isOpen={showICD10Modal}
+	onClose={() => showICD10Modal = false}
+	onSelect={handleSelectICD10}
+	type="ICD10"
+/>
+
+<!-- ICD-9 Search Modal -->
+<ICDSearchModal
+	bind:isOpen={showICD9Modal}
+	onClose={() => showICD9Modal = false}
+	onSelect={handleSelectICD9}
+	type="ICD9"
+/>
 
 <style lang="postcss">
 	@reference "tailwindcss";

@@ -140,6 +140,24 @@ export type Penjamin = {
     updated_at: string;
 };
 
+// Master ICD-10 (International Classification of Diseases 10th Revision)
+export type ICD10 = {
+    id: string;
+    code: string;
+    name: string;
+    category?: string;
+    is_active: boolean;
+};
+
+// Master ICD-9-CM (Procedures)
+export type ICD9 = {
+    id: string;
+    code: string;
+    name: string;
+    category?: string;
+    is_active: boolean;
+};
+
 // ============================================
 // TRANSACTION TYPES
 // ============================================
@@ -220,6 +238,8 @@ export type Diagnosa = {
     kunjungan_id: string;
     icd10_code: string;
     icd10_name: string;
+    icd9_code?: string; // For procedures
+    icd9_name?: string;
     jenis_diagnosa: 'UTAMA' | 'SEKUNDER' | 'KOMPLIKASI';
     keterangan?: string;
     urutan: number;
