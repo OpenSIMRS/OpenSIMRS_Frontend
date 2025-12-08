@@ -59,13 +59,8 @@
 		}
 	}
 
-	function selectPatient(patient: Patient) {
-		// Navigate to visit registration with patient data
-		goto(`/kunjungan/register?pasien_id=${patient.id}`);
-	}
-
-	function viewPatientDetail(patient: Patient) {
-		// Navigate to patient detail page
+	function viewPatientProfile(patient: Patient) {
+		// Navigate to patient profile page
 		goto(`/pasien/${patient.id}`);
 	}
 </script>
@@ -145,20 +140,12 @@
 											{patient.alamat}
 										</td>
 										<td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-											<div class="flex gap-2">
-												<button 
-													onclick={() => selectPatient(patient)}
-													class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded"
-												>
-													Daftar Kunjungan
-												</button>
-												<button 
-													onclick={() => viewPatientDetail(patient)}
-													class="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs rounded"
-												>
-													Detail
-												</button>
-											</div>
+											<button 
+												onclick={() => viewPatientProfile(patient)}
+												class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded"
+											>
+												Lihat Profil
+											</button>
 										</td>
 									</tr>
 								{/each}

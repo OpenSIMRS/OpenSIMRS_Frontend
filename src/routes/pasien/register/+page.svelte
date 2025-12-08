@@ -45,7 +45,7 @@
 		try {
 			const patient = await patientService.createPatient(formData);
 			alert(`Pasien berhasil didaftarkan dengan No. RM: ${patient.no_rm}`);
-			goto(`/kunjungan/register?pasien_id=${patient.id}`);
+			goto(`/pasien/${patient.id}`);
 		} catch (error) {
 			console.error('Error creating patient:', error);
 			alert('Gagal mendaftarkan pasien. Silakan coba lagi.');
