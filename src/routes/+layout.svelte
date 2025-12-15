@@ -10,6 +10,7 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
+	<title>OpenSIMRS - Sistem Informasi Manajemen Rumah Sakit</title>
 </svelte:head>
 
 <!-- {#if publicPath.includes(window.location.pathname)}

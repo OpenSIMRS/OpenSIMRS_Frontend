@@ -1,0 +1,102 @@
+[
+  {
+    "id": "tindakan-1",
+    "kode": "TIN-001",
+    "nama": "Konsultasi Dokter Umum",
+    "kategori": "Konsultasi",
+    "tarif": 50000,
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "tindakan-2",
+    "kode": "TIN-002",
+    "nama": "Konsultasi Dokter Spesialis",
+    "kategori": "Konsultasi",
+    "tarif": 150000,
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "tindakan-3",
+    "kode": "TIN-003",
+    "nama": "Pemeriksaan Fisik Lengkap",
+    "kategori": "Pemeriksaan",
+    "tarif": 75000,
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "tindakan-4",
+    "kode": "TIN-004",
+    "nama": "Perawatan Luka Kecil",
+    "kategori": "Perawatan",
+    "tarif": 35000,
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "tindakan-5",
+    "kode": "TIN-005",
+    "nama": "Injeksi IM/IV",
+    "kategori": "Tindakan",
+    "tarif": 25000,
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "tindakan-6",
+    "kode": "TIN-006",
+    "nama": "Pasang Infus",
+    "kategori": "Tindakan",
+    "tarif": 50000,
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "tindakan-7",
+    "kode": "TIN-007",
+    "nama": "Nebulizer",
+    "kategori": "Tindakan",
+    "tarif": 40000,
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "tindakan-8",
+    "kode": "TIN-008",
+    "nama": "Pembersihan Karang Gigi (Scaling)",
+    "kategori": "Gigi",
+    "tarif": 200000,
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "tindakan-9",
+    "kode": "TIN-009",
+    "nama": "Cabut Gigi",
+    "kategori": "Gigi",
+    "tarif": 100000,
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  },
+  {
+    "id": "tindakan-10",
+    "kode": "TIN-010",
+    "nama": "Tambal Gigi",
+    "kategori": "Gigi",
+    "tarif": 150000,
+    "is_active": true,
+    "created_at": "2025-01-01T08:00:00Z",
+    "updated_at": "2025-01-01T08:00:00Z"
+  }
+]

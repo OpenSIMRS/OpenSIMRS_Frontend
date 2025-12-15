@@ -1,0 +1,177 @@
+[
+  {
+    "id": "icd10-001",
+    "code": "A00.0",
+    "name": "Kolera akibat Vibrio cholerae 01, biovar cholerae",
+    "category": "Penyakit Infeksi",
+    "is_active": true
+  },
+  {
+    "id": "icd10-002",
+    "code": "A00.1",
+    "name": "Kolera akibat Vibrio cholerae 01, biovar eltor",
+    "category": "Penyakit Infeksi",
+    "is_active": true
+  },
+  {
+    "id": "icd10-003",
+    "code": "A09",
+    "name": "Diare dan gastroenteritis yang diduga berasal dari infeksi",
+    "category": "Penyakit Pencernaan",
+    "is_active": true
+  },
+  {
+    "id": "icd10-004",
+    "code": "B34.9",
+    "name": "Infeksi virus, tidak spesifik",
+    "category": "Penyakit Infeksi",
+    "is_active": true
+  },
+  {
+    "id": "icd10-005",
+    "code": "E11.9",
+    "name": "Diabetes melitus tipe 2 tanpa komplikasi",
+    "category": "Penyakit Metabolik",
+    "is_active": true
+  },
+  {
+    "id": "icd10-006",
+    "code": "E11.0",
+    "name": "Diabetes melitus tipe 2 dengan koma",
+    "category": "Penyakit Metabolik",
+    "is_active": true
+  },
+  {
+    "id": "icd10-007",
+    "code": "E78.5",
+    "name": "Hiperlipidemia, tidak spesifik",
+    "category": "Penyakit Metabolik",
+    "is_active": true
+  },
+  {
+    "id": "icd10-008",
+    "code": "I10",
+    "name": "Hipertensi esensial (primer)",
+    "category": "Penyakit Kardiovaskular",
+    "is_active": true
+  },
+  {
+    "id": "icd10-009",
+    "code": "I11.9",
+    "name": "Penyakit jantung hipertensi tanpa gagal jantung kongestif",
+    "category": "Penyakit Kardiovaskular",
+    "is_active": true
+  },
+  {
+    "id": "icd10-010",
+    "code": "J00",
+    "name": "Nasofaringitis akut (common cold)",
+    "category": "Penyakit Pernapasan",
+    "is_active": true
+  },
+  {
+    "id": "icd10-011",
+    "code": "J06.9",
+    "name": "Infeksi saluran pernapasan atas akut, tidak spesifik",
+    "category": "Penyakit Pernapasan",
+    "is_active": true
+  },
+  {
+    "id": "icd10-012",
+    "code": "J18.9",
+    "name": "Pneumonia, tidak spesifik",
+    "category": "Penyakit Pernapasan",
+    "is_active": true
+  },
+  {
+    "id": "icd10-013",
+    "code": "J44.0",
+    "name": "Penyakit paru obstruktif kronik dengan infeksi saluran pernapasan akut bawah",
+    "category": "Penyakit Pernapasan",
+    "is_active": true
+  },
+  {
+    "id": "icd10-014",
+    "code": "J45.9",
+    "name": "Asma, tidak spesifik",
+    "category": "Penyakit Pernapasan",
+    "is_active": true
+  },
+  {
+    "id": "icd10-015",
+    "code": "K29.0",
+    "name": "Gastritis hemoragik akut",
+    "category": "Penyakit Pencernaan",
+    "is_active": true
+  },
+  {
+    "id": "icd10-016",
+    "code": "K30",
+    "name": "Dispepsia",
+    "category": "Penyakit Pencernaan",
+    "is_active": true
+  },
+  {
+    "id": "icd10-017",
+    "code": "M79.3",
+    "name": "Pannikulitis, tidak spesifik",
+    "category": "Penyakit Muskuloskeletal",
+    "is_active": true
+  },
+  {
+    "id": "icd10-018",
+    "code": "N39.0",
+    "name": "Infeksi saluran kemih, lokasi tidak spesifik",
+    "category": "Penyakit Saluran Kemih",
+    "is_active": true
+  },
+  {
+    "id": "icd10-019",
+    "code": "R50.9",
+    "name": "Demam, tidak spesifik",
+    "category": "Gejala Umum",
+    "is_active": true
+  },
+  {
+    "id": "icd10-020",
+    "code": "R51",
+    "name": "Nyeri kepala",
+    "category": "Gejala Umum",
+    "is_active": true
+  },
+  {
+    "id": "icd10-021",
+    "code": "R10.4",
+    "name": "Nyeri perut lainnya dan tidak spesifik",
+    "category": "Gejala Umum",
+    "is_active": true
+  },
+  {
+    "id": "icd10-022",
+    "code": "T78.4",
+    "name": "Alergi, tidak spesifik",
+    "category": "Alergi",
+    "is_active": true
+  },
+  {
+    "id": "icd10-023",
+    "code": "Z00.0",
+    "name": "Pemeriksaan medis umum",
+    "category": "Pemeriksaan Kesehatan",
+    "is_active": true
+  },
+  {
+    "id": "icd10-024",
+    "code": "Z71.3",
+    "name": "Konseling dan pengawasan diet",
+    "category": "Konseling",
+    "is_active": true
+  },
+  {
+    "id": "icd10-025",
+    "code": "Z76.0",
+    "name": "Penerbitan resep berulang",
+    "category": "Pelayanan Kesehatan",
+    "is_active": true
+  }
+]
